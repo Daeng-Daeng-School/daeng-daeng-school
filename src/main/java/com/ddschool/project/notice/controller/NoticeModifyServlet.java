@@ -1,4 +1,4 @@
-package com.ddschool.project.classbook.controller;
+package com.ddschool.project.notice.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,9 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class ClassbookSelectListServlet
+ * Servlet implementation class NoticeModifyServlet
  */
-public class ClassbookSelectListServlet extends HttpServlet {
+public class NoticeModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
