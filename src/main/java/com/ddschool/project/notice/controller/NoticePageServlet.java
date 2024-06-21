@@ -7,10 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet("/notice")
 public class NoticePageServlet extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/views/notice/noticePage.jsp").forward(request, response);
 	}
 
 }
