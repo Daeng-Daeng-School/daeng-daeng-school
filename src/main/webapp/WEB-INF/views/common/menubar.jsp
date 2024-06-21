@@ -20,8 +20,8 @@
 				</div>
 				<nav class="nav">
 					<a href="${pageContext.servletContext.contextPath}/notice">알림장</a>
-					<a href="#">출석부</a> <a href="#">반려견관리</a> <a href="#">이달의 반려견</a>
-					<a href="#">유치원관리</a>
+					<a href="#">출석부</a> <a href="#">반려견관리</a> <a href="#">이달의 반려견</a> <a
+						href="#">유치원관리</a>
 				</nav>
 			</div>
 
@@ -30,12 +30,28 @@
 				<div class="login-form">
 					<div class="btns">
 						<input type="submit" class="btn" value="로그인" id="login"> <input
-							type="button" class="btn" value="회원가입" id="regist">
+							type="button" class="btn" value="조회" id="regist">
+					</div>
+					<div class="search">
+						<form action="searchAction" method="get">
+							<input type="text" name="query" placeholder="검색...">
+							<button type="submit">
+								<img alt="검색" src="<%=request.getContextPath()%>/resources/image/serach.svg">
+							</button>
+						</form>
+					</div>
+					<div class="login">
+						<a href="<%=request.getContextPath()%>/member/login/login.jsp">
+							<img
+							src="<%=request.getContextPath()%>/resources/image/login.svg"
+							alt="로그인 아이콘">
+						</a>
 					</div>
 
 
 
-					<c:if test="${!empty sessionScope.loginMember}">
+
+<%-- 					<c:if test="${!empty sessionScope.loginMember}">
 						<h3>
 							<c:out value="${sessionScope.loginMember.nickname}" />
 							님, 환영합니다.
@@ -44,7 +60,7 @@
 							<input type="button" class="btn" value="정보수정" id="updateMember">
 							<input type="button" class="btn" value="로그아웃" id="logout">
 						</div>
-					</c:if>
+					</c:if> --%>
 				</div>
 			</div>
 		</div>

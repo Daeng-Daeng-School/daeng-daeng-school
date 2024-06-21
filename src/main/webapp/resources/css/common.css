@@ -1,16 +1,36 @@
 @charset "UTF-8";
 
+/* 웹폰트 설정 */
+/* 로고 웹폰트 */
+@font-face {
+	font-family: 'KimjungchulGothic-Bold';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+/* 전체 기본 폰트 */
+@font-face {
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
 /* 전체 문서의 기본 스타일 설정 */
 body {
 	margin: 0;
-	font-family: Arial, sans-serif;
+	font-family: 'SUIT-Regular';
 	background-color: #fff;
 	color: #000;
 }
 
 /* 링크 기본 스타일 설정 */
-a,
-a:visited {
+a, a:visited {
 	color: inherit;
 	text-decoration: none;
 }
@@ -58,13 +78,14 @@ a:active {
 /* 로고의 스타일 설정 */
 .logo {
 	font-size: 36px;
-	font-weight: bold;
+	font-weight: 700;
 	margin: 20px 50px;
+	font-family: 'KimjungchulGothic-Bold';
 }
 
 /* 네비게이션바 스타일 설정 */
 .nav {
-	padding-left: 100px;
+	padding-left: 10px;
 	display: flex;
 	gap: 50px;
 }
@@ -73,7 +94,8 @@ a:active {
 .nav a {
 	text-decoration: none;
 	color: #000;
-	font-size: 18px;
+	font-size: 20px;
+	font-weight: 600;
 }
 
 /* 아이콘 섹션 스타일 설정 */
@@ -112,9 +134,7 @@ a:active {
 }
 
 /* 로그인폼 스타일 설정 */
-.login-form,
-.login-form form,
-.login-form .btns {
+.login-form, .login-form form, .login-form .btns {
 	display: flex;
 	align-items: center;
 }
@@ -126,13 +146,15 @@ a:active {
 
 /* 로그인폼 버튼 스타일 설정 */
 .login-form .btn {
-	margin-left: 10px;
+	width: 30px;
+	height: auto;
+	margin-left : 10px;
 	padding: 5px 10px;
-	border-radius: 20px;
 	border: 1px solid #ccc;
 	background-color: #fff;
 	cursor: pointer;
 	font-size: 14px;
+	margin-left: 10px;
 }
 
 /* 로그인폼 버튼 호버 스타일 설정 */
