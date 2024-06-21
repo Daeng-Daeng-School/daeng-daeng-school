@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: Pull Request Template
 about: PR 컨벤션
 title: ''
 labels: ''
