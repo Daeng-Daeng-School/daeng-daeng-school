@@ -50,5 +50,6 @@
 			<a href="${pageContext.servletContext.contextPath}/notice">목 록</a>
 		</button>
 	</main>
+	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

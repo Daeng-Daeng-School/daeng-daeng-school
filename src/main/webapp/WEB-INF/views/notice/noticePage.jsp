@@ -88,13 +88,13 @@
 		</div>
 	</main>
 	<jsp:include page="../common/paging.jsp" />
-
+	<jsp:include page="../common/footer.jsp" />
 
 	<!-- 확인용 - 추후 삭제요망  -->
 	<jsp:include page="../notice/noticeDetail.jsp" />
 
 	<jsp:include page="../notice/noticeModify.jsp" />
-	
+
 
 </body>
 </html>

@@ -66,7 +66,7 @@
 			</div>
 		</div>
 	</main>
-	
+	<jsp:include page="../common/footer.jsp" />
 	<script>
 		// CKEditor 초기화
 		CKEDITOR.replace('editor');
