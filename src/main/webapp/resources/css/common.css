@@ -184,11 +184,67 @@ a:active {
 
 /* 푸터 스타일 설정 */
 .footer {
-	height: 100px;
-	background-color: rgb(236, 239, 241);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	color: rgb(153, 153, 153);
+   background-color: #f9f9f9;
+   padding: 50px 130px;
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start; /* Align items at the top */
+   font-family: Arial, sans-serif;
+   font-size: 14px;
+   color: grey;
+   min-width: 1683px;
+   
+}
+
+.footer-left, .footer-right {
+   flex: 1;
+}
+
+.footer-left {
+   text-align: left;
+}
+
+.footer-right {
+   text-align: right;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+}
+
+.footer-logo {
+   font-size: 1.5rem;
+   font-weight: bold;
+   margin-bottom: 10px;
+   color: #333;
+}
+
+.footer-left p, .footer-right p {
+   margin: 5px 0;
+}
+
+.footer-left .links, .footer-right .links {
+   display: flex;
+   gap: 15px;
+   margin-top: 10px;
+}
+
+.footer-right .icons {
+   display: flex;
+   gap: 10px;
+   margin-bottom: 10px;
+   justify-content: flex-end;
+   margin-right: 0;
+}
+
+.footer-right .icons img {
+   width: 24px;
+   height: 24px;
+}
+
+.footer-right .customer-service {
+   font-weight: bold;
+}
+
+.footer-right .contact {
+   color: #555;
 }
