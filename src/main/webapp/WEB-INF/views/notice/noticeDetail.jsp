@@ -41,14 +41,10 @@
 				<div class="content-box">
 					<c:out value="${notice.body}" />
 				</div>
-				<div class="comments-section">
-					<h3>댓글</h3>
-					<!-- Comments list here -->
-					<div class="comment-form">
-						<textarea placeholder="댓글을 작성하세요"></textarea>
-						<button class="btn">댓글 작성</button>
-					</div>
-				</div>
+				
+				<!-- 댓글 섹션 -->
+				<jsp:include page="../notice/comment.jsp" />
+
 				<button class="comment-btn">
 					<a href="${pageContext.servletContext.contextPath}/notice">목록으로</a>
 				</button>

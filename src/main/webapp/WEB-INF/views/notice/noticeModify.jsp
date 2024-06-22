@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시물 작성</title>
+<title>게시물 수정</title>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/notice.css">
 </head>
