@@ -57,6 +57,7 @@
 						</span>
 					</div>
 				</div>
+				
 				<!-- DB에서 게시글 불러와 반복출력 -->
 				<c:forEach var="notice" items="${requestScope.noticeList}">
 					<div class="post-card">
