@@ -20,7 +20,8 @@
 				<div class="search-section">
 					<div class="search-input-container">
 						<input type="text" id="searchInput" class="search-input"
-							placeholder="Search..."><a onclick="search()"
+							placeholder="Search...">
+							<a onclick="search()"
 							class="search-button">🔎</a>
 					</div>
 					<a href="${pageContext.servletContext.contextPath}/modify"
