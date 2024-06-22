@@ -11,11 +11,31 @@ body {
 
 
 .text-area{
-	
 	font-size:30px;
-	padding:275px 119px 20px;
+	margin:253px 119px 0px 119px;
+	height:86px;
 }
 
+.select-bar{
+	display:flex;
+	margin-top:40px;
+	gap:53px;
+}
 
+input[type='month']::before{
+	content: attr(data-placeholder);
+	width:100%;
+}
 
+input[type='month']:focus::before,
+input[type='month']:valid::before{
+	display: none;
+}
+
+.table-area{
+	width:1680px;
+	height:1311px;
+	border:1px solid #B6B6B6;
+	border-radius: 16px;
+}
 
