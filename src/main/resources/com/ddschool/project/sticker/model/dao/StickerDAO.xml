@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ddschool.project.sticker.model.dao.StickerDAO">
+
+   <insert id="insertSticker" parameterType="com.ddschool.project.sticker.model.dto.StickerDTO">
+   INSERT INTO 
+         TBL_STICKER(
+                  DOG_CODE
+                  , MEMBER_CODE
+                  , STIKER_NUM
+                  , COMMENT
+                  , REGIST_DATE
+                  )
+         VALUES (
+               #{ dogCode }
+               , #{ memerCode }
+               , #{ stickerNum }
+               , #{ comment }
+               , #{ registDate }               
+               
+               )
+   </insert>
+   
+    <update id="updateSticker" parameterType="com.ddschool.project.sticker.model.dto.StickerDTO">
+  	 UPDATE  TBL_STICKER
+  	 SET
+                  DOG_CODE = #{ dogCode }                  
+                  , MEMBER_CODE = #{ memerCode }
+                  , STIKER_NUM = #{ stickerNum }
+                  , COMMENT = #{ comment }
+                  , REGIST_DATE = #{ registDate }   
+     WHERE STICKER_CODE = #{ stickerCode }
+                                 
+         
+   </update>
+
+</mapper>
