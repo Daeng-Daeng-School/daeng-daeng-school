@@ -17,7 +17,7 @@
 .question-box {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 /* 검색 섹션 스타일 설정 */
@@ -39,7 +39,6 @@
     align-items: center;
     gap: 10px;
     flex: 1;
-    margin-top: 10px; /* Ensure some spacing from the title */
 }
 
 /* 검색 입력 필드 스타일 설정 */

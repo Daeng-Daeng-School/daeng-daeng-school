@@ -23,7 +23,7 @@
 		<!-- 숫자 버튼 -->
 		<c:forEach var="p" begin="${ requestScope.selectCriteria.startPage }" end="${ requestScope.selectCriteria.endPage }" step="1">
 			<c:if test="${ requestScope.selectCriteria.pageNo eq p }">
-				<button disabled><c:out value="${ p }"/></button>
+				<button class="selected" disabled><c:out value="${ p }"/></button>
 			</c:if>
 			<c:if test="${ requestScope.selectCriteria.pageNo ne p }">
 				<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>

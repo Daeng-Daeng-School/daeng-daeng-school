@@ -38,19 +38,39 @@
 						<option value="class3">종일반</option>
 					</select>
 					<!-- 해당반 반려견 리스트 선택 / 추후 DB 연결하여 활용 -->
-					<select id="searchDog"
-						class="search-select">
+					<select id="searchDog" class="search-select">
 						<option value="" disabled selected>반려견 선택</option>
 						<option value="">쿠키</option>
 						<option value="dog1">쿠키</option>
 						<option value="dog2">루키</option>
-					</select>
-					<a onclick="search()"
-						class="search-button">조회</a>
+					</select> <a onclick="search()" class="search-button">조회</a>
 				</div>
 				<!-- 검색 섹션 끝 -->
 			</div>
 			<div class="posts">
+				<div class="post-card">
+					<div class="post-thumbnail">
+						<a
+							href="${pageContext.servletContext.contextPath}/notice/detail?no=#">
+							<img src="${pageContext.request.contextPath}/resources/image/dogs.jpg" alt="Post Thumbnail 1"></a>
+					</div>
+					<div class="post-content">
+						<h2>
+							<a
+								href="${pageContext.servletContext.contextPath}/notice/detail?no=#">
+								<c:out value="샘플" />
+							</a>
+						</h2>
+						<span style="text-align: right">
+							<p>
+								<c:out value="샘플테스트" />
+							</p>
+							<p>
+								<c:out value="2000-00-00" />
+							</p>
+						</span>
+					</div>
+				</div>
 				<!-- DB에서 게시글 불러와 반복출력 -->
 				<c:forEach var="notice" items="${requestScope.noticeList}">
 					<div class="post-card">
@@ -68,10 +88,10 @@
 							</h2>
 							<span style="text-align: right">
 								<p>
-									<c:out value="${notice.createdDate}" />
-								</p>
-								<p>
 									<c:out value="${notice.writer.nickname}" />
+								</p>
+									<p>
+									<c:out value="${notice.createdDate}" />
 								</p>
 							</span>
 						</div>
