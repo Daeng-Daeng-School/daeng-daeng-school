@@ -8,58 +8,60 @@
 <title>게시물 수정</title>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/notice.css">
+<!-- CKEditor and CKFinder CDN -->
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script src="https://cdn.cksource.com/ckfinder/3.5.2/ckfinder.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp" />
 	<main class="main-content">
 		<div class="container">
 			<div class="question-box">
-				<p class="noticeTitle">
-					댕댕스쿨에서는<br> 무엇을 할까요?
-				</p>
-				<div class="search-section">
-					<div class="search-input-container">
-						<input type="text" id="searchInput" class="search-input"
-							placeholder="Search..."> <a onclick="search()"
-							class="search-button">🔎</a>
+				<div class="notice-header">
+					<p class="noticeTitle">
+						<span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
+					</p>
+					<div class="button-section">
+						<a href="${pageContext.servletContext.contextPath}/notice/modify"
+							id="write-post-button">수정하기</a>
 					</div>
-					<button id="write-button" class="submit-button"
-						onclick="submitForm()">등록하기</button>
 				</div>
+				<jsp:include page="../notice/selectDog.jsp" />
 			</div>
 			<div class="table-area">
 				<form id="postForm"
 					action="${pageContext.servletContext.contextPath}/notice/modify"
 					method="post">
-					<div class="outer-notice-insert">
-						<div class="author">
-							<u>작성자 : <c:out value="${sessionScope.loginMember.nickname}" /></u>
+					<div class="outer-notice-modify">
+						<div class="author" name="writerName">
+							<c:out value="${ noticeDetail.noticeWriter }" />
 						</div>
-						<div class="category">
-							<u>카테고리 : <select name="category">
-									<option value="1">공통</option>
-									<option value="2">운동</option>
-							</select>
-							</u>
+						<div class="createdDate" name="createdDate">
+							<c:out value="${noticeDetail.createdDate}" />
 						</div>
-						<h2 class="title">
-							제목 :<input type="text" name="title" placeholder="제목을 입력하세요.">
-						</h2>
-						<div class="content-box">
-							<textarea name="body" cols="60" rows="15"
-								placeholder="내용을 입력하세요."></textarea>
-						</div>
+					</div>
+
+					<h2 class="title">
+						제목 :<input type="text" name="title"
+							value="${ noticeDetail.noticeTitle }">
+					</h2>
+
+					<div class="content-box">
+						<textarea name="body" id="editor" cols="60" rows="15">${ boardDetail.boardBody }</textarea>
 					</div>
 				</form>
 			</div>
 		</div>
 	</main>
-
 	<script>
+		// CKEditor 초기화
+		CKEDITOR.replace('editor');
+
 		function submitForm() {
 			document.getElementById('postForm').submit();
 		}
 	</script>
+
 
 </body>
 </html>

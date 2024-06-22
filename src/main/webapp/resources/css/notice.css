@@ -2,7 +2,7 @@
 
 /* 메인 컨텐츠의 상단 여백 추가 */
 .main-content {
-	padding: 150px 50px 20px;
+	padding: 200px 50px 20px;
 	max-width: 1920px;
 	margin: 0 auto;
 	box-sizing: border-box;
@@ -28,7 +28,7 @@
 	margin-bottom: 20px;
 }
 
-.search-section {
+.button-section {
 	display: flex;
 	align-items: center;
 }
@@ -167,7 +167,7 @@
 }
 
 /* 게시물 작성 섹션 스타일 설정 */
-.outer-notice-insert {
+.outer-notice-insert, .outer-notice-detail, .outer-notice-modify {
 	margin-top: 20px;
 }
 
@@ -224,7 +224,7 @@
 
 /* 댓글 섹션 스타일 설정 */
 .comments-section{
-	margin: 0 50px 0 50px;
+	width: 100%;
 }
 
 .comments-section h3 {
@@ -333,4 +333,24 @@
 
 .comments-section .comment-form .btn:hover {
 	background-color: #555;
+}
+
+.goList-btn {
+	display: block;        /* Make the button a block element */
+	margin: 20px auto;     /* Center the button horizontally and add some vertical margin */
+	padding: 10px 20px;    /* Add padding for better appearance */
+	background-color: rgb(192, 192, 192);
+	color: white;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 16px;
+	text-align: center;
+	width: 25%;    /* Center the text inside the button */
+}
+
+.goList-btn a {
+	color: white;          /* Ensure the link text is white */
+	text-decoration: none; /* Remove underline from the link */
+	display: block;        /* Make the link a block element to fill the button */
 }

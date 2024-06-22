@@ -14,43 +14,41 @@
 	<main class="main-content">
 		<div class="container">
 			<div class="question-box">
-				<p class="noticeTitle">
-					<span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
-				</p>
-				<div class="search-section">
-					<div class="search-input-container">
-						<input type="text" id="searchInput" class="search-input"
-							placeholder="Search...">
-							<a onclick="search()"
-							class="search-button">🔎</a>
+				<div class="notice-header">
+					<p class="noticeTitle">
+						<span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
+					</p>
+					<div class="button-section">
+						<a href="${pageContext.servletContext.contextPath}/notice/delete"
+							id="write-post-button">삭제하기</a> <a
+							href="${pageContext.servletContext.contextPath}/notice/modify"
+							id="write-post-button">수정하기</a>
 					</div>
-					<a href="${pageContext.servletContext.contextPath}/modify"
-						id="write-post-button">수정하기</a>
 				</div>
 			</div>
-
 			<div class="outer-notice-detail">
-				<div class="author-date">
-					<div class="author">
-						<u>작성자 : <c:out value="${notice.writer.nickname}" /></u>
+				<div class="header-row">
+					<div class="author" name="writerName">
+						<c:out value="${notice.writer.nickname}" />
 					</div>
-					<div class="date">
-						<u><c:out value="${notice.createdDate}" /></u>
+					<div class="createdDate" name="createdDate">
+						<c:out value="${notice.createdDate}" />
 					</div>
 				</div>
-				<h2 class="title">제목 : ${notice.title}</h2>
+
+				<h2 class="title">제목 :${notice.title}</h2>
 				<div class="content-box">
 					<c:out value="${notice.body}" />
 				</div>
-				
-				<!-- 댓글 섹션 -->
-				<jsp:include page="../notice/comment.jsp" />
 
-				<button class="comment-btn">
-					<a href="${pageContext.servletContext.contextPath}/notice">목록으로</a>
-				</button>
 			</div>
 		</div>
+		<!-- 댓글 섹션 -->
+		<jsp:include page="../notice/comment.jsp" />
+
+		<button class="goList-btn">
+			<a href="${pageContext.servletContext.contextPath}/notice">목 록</a>
+		</button>
 	</main>
 </body>
 </html>

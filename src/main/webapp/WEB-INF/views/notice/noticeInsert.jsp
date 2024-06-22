@@ -21,7 +21,7 @@
 					<p class="noticeTitle">
 						<span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
 					</p>
-					<div class="search-section">
+					<div class="button-section">
 						<a href="${pageContext.servletContext.contextPath}/notice/insert"
 							id="write-post-button">작성하기</a>
 					</div>
