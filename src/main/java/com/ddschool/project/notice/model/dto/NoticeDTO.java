@@ -2,25 +2,26 @@ package com.ddschool.project.notice.model.dto;
 
 import java.sql.Date;
 
-import com.ddschool.project.member.dto.MemberDTO;
+//import com.ddschool.project.member.dto.MemberDTO;
 
 public class NoticeDTO {
 
-	private int noticeNo;
-	private int dogNo;
-	private MemberDTO noticeWriter;
-	private String noticeTitle;
-	private String noticeBody;
-	private Date createdDate;
-	private Date modifiedDate;
-	private String noticeStatus;
+    private int noticeNo;        // 알림장 번호
+    private int dogNo;           // 관련된 강아지 번호
+    //	DB연결시 MemberDTO 로 받아서 해당 회원코드를 가진 이름을 불러오도록 해야할 것 같음.
+    private int noticeWriter;    // 작성자 회원 번호
+    private String noticeTitle;  // 알림장 제목
+    private String noticeBody;   // 알림장 내용
+    private Date createdDate;    // 작성일
+    private Date modifiedDate;   // 수정일
+    private boolean noticeStatus;    // 알림장 상태 (활성화/비활성화 등)
 
 	public NoticeDTO() {
 		super();
 	}
 
-	public NoticeDTO(int noticeNo, int dogNo, MemberDTO noticeWriter, String noticeTitle, String noticeBody,
-			Date createdDate, Date modifiedDate, String noticeStatus) {
+	public NoticeDTO(int noticeNo, int dogNo, int noticeWriter, String noticeTitle, String noticeBody,
+			Date createdDate, Date modifiedDate, boolean noticeStatus) {
 		super();
 		this.noticeNo = noticeNo;
 		this.dogNo = dogNo;
@@ -48,11 +49,11 @@ public class NoticeDTO {
 		this.dogNo = dogNo;
 	}
 
-	public MemberDTO getNoticeWriter() {
+	public int getNoticeWriter() {
 		return noticeWriter;
 	}
 
-	public void setNoticeWriter(MemberDTO noticeWriter) {
+	public void setNoticeWriter(int noticeWriter) {
 		this.noticeWriter = noticeWriter;
 	}
 
@@ -88,11 +89,11 @@ public class NoticeDTO {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public String getNoticeStatus() {
+	public boolean getNoticeStatus() {
 		return noticeStatus;
 	}
 
-	public void setNoticeStatus(String noticeStatus) {
+	public void setNoticeStatus(boolean noticeStatus) {
 		this.noticeStatus = noticeStatus;
 	}
 

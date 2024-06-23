@@ -31,51 +31,23 @@
 				<jsp:include page="../notice/selectDog.jsp" />
 			</div>
 			<div class="posts">
-				<div class="post-card">
-					<div class="post-thumbnail">
-						<a
-							href="${pageContext.servletContext.contextPath}/notice/detail?no=#">
-							<img
-							src="${pageContext.request.contextPath}/resources/image/dogs.jpg"
-							alt="Post Thumbnail 1">
-						</a>
-					</div>
-					<div class="post-content">
-						<h2>
-							<a
-								href="${pageContext.servletContext.contextPath}/notice/detail?no=#">
-								<c:out value="샘플" />
-							</a>
-						</h2>
-						<span style="text-align: right">
-							<p>
-								<c:out value="김선생" />
-							</p>
-							<p>
-								<c:out value="2000-00-00" />
-							</p>
-						</span>
-					</div>
-				</div>
-				
 				<!-- DB에서 게시글 불러와 반복출력 -->
 				<c:forEach var="notice" items="${requestScope.noticeList}">
 					<div class="post-card">
 						<div class="post-thumbnail">
-							<a
-								href="${pageContext.servletContext.contextPath}/notice/detail?no=${notice.no}"><img
-								src="../resources/image/dogs.jpg" alt="Post Thumbnail 1"></a>
+							<%-- <a
+								href="${pageContext.servletContext.contextPath}/notice/detail?no=${notice.no}"> 
+								</a> --%>
+								<img
+								src="${pageContext.servletContext.contextPath}/resources/image/dogs.jpg" alt="Post Thumbnail 1">
 						</div>
 						<div class="post-content">
 							<h2>
-								<a
-									href="${pageContext.servletContext.contextPath}/notice/detail?no=${notice.no}">
-									<c:out value="${notice.title}" />
-								</a>
+									<c:out value="${notice.noticeTitle}" />
 							</h2>
 							<span style="text-align: right">
 								<p>
-									<c:out value="${notice.writer.nickname}" />
+									<c:out value="${notice.noticeWriter}" />
 								</p>
 								<p>
 									<c:out value="${notice.createdDate}" />

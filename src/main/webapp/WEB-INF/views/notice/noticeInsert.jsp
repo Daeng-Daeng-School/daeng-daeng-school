@@ -8,9 +8,10 @@
 <title>게시물 작성</title>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/notice.css">
-<!-- CKEditor and CKFinder CDN -->
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-<script src="https://cdn.cksource.com/ckfinder/3.5.2/ckfinder.js"></script>
+<!-- TinyMCE CDN -->
+<script
+	src="https://cdn.tiny.cloud/1/mzvas2qdd6hui8ybi2mm7apd9x54xg7n8922fz9yypn13yhv/tinymce/5/tinymce.min.js"
+	referrerpolicy="origin"></script>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp" />
@@ -22,36 +23,25 @@
 						<span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
 					</p>
 					<div class="button-section">
-						<a href="${pageContext.servletContext.contextPath}/notice/insert"
-							id="write-post-button">작성하기</a>
+						<button type="submit" form="postForm" id="write-post-button">작성하기</button>
 					</div>
 				</div>
-				<jsp:include page="../notice/selectDog.jsp" />
 			</div>
 			<div class="table-area">
 				<form id="postForm"
 					action="${pageContext.servletContext.contextPath}/notice/insert"
 					method="post">
+					<jsp:include page="../notice/selectDog.jsp" />
 					<div class="outer-notice-insert">
 						<div class="header-row">
-							<div class="author" name="writerName">
-								김선생
-								<c:out value="${sessionScope.loginMember.nickname}" />
+							<div class="author">
+								<input type="text" name="writerName" value="2">
 							</div>
-							<div class="createdDate" name="createdDate">
-								2000-00-00
-								<c:out value="${createdDate}" />
+							<div class="createdDate">
+								<input type="text" name="createdDate"
+									value="<%=new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())%>">
 							</div>
 						</div>
-
-						<!-- 카테고리 부분 주석처리 : 추후 공지사항 등 나눌 수 있을 때 활용 
-						<div class="category">
-							<u>카테고리 : <select name="category">
-									<option value="1">공통</option>
-									<option value="2">운동</option>
-							</select>
-							</u>
-						</div> -->
 
 						<h2 class="title">
 							제목 :<input type="text" name="title" placeholder="제목을 입력하세요.">
@@ -67,15 +57,29 @@
 		</div>
 	</main>
 	<jsp:include page="../common/footer.jsp" />
-	<script>
-		// CKEditor 초기화
-		CKEDITOR.replace('editor');
 
-		function submitForm() {
-			document.getElementById('postForm').submit();
-		}
+
+	<!-- TinyMCE 에디터를 초기화하고 <textarea>를 통해 편집기를 렌더링 -->
+	<script>
+	  tinymce.init({
+	    selector: 'textarea',
+	    height: 600,
+	    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+	    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+	    tinycomments_mode: 'embedded',
+	    tinycomments_author: '작성자 이름',
+	    mergetags_list: [
+	      { value: 'First.Name', title: '이름' },
+	      { value: 'Email', title: '이메일' },
+	    ],
+	    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("AI 어시스턴트 구현 방법은 문서를 참조하세요")),
+	  });
 	</script>
 
-
+	<script>
+        function submitForm() {
+            document.getElementById('postForm').submit();
+        }
+    </script>
 </body>
 </html>
