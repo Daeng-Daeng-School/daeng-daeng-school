@@ -22,6 +22,16 @@ body {
 	gap:53px;
 }
 
+input[type='month']{
+	font-size:16px;
+	font-weight: 600;
+	border:1px solid #DADADA;
+	border-radius: 8px;
+	width:245px;
+	height:48px;
+	text-align: center;
+}
+
 input[type='month']::before{
 	content: attr(data-placeholder);
 	width:100%;
@@ -32,10 +42,73 @@ input[type='month']:valid::before{
 	display: none;
 }
 
+/* input[type='month']::-webkit-datetime-edit-month-field{
+    -webkit-appearance: none;
+    display: none;
+}
+
+input[type='month']::-webkit-datetime-edit-year-field {
+    -webkit-appearance: none;
+    display: none;
+} */
+
+
+select{
+	font-size:16px;
+	font-weight: 600;
+	border:1px solid #DADADA;
+	border-radius: 8px;
+	width:245px;
+	height:48px;
+	text-align: center;
+}
+
+button{
+	border-radius: 100px;
+	font-size:16px;
+	font-weight: 600;
+	width:120px;
+	height:43px;	
+	text-align: center;
+}
+
+.btn-black{
+	background-color:black;
+	color:white;
+}
+
 .table-area{
 	width:1680px;
 	height:1311px;
 	border:1px solid #B6B6B6;
 	border-radius: 16px;
+	margin-top:40px;
+	font-size: 20px;
 }
 
+.table-con{
+	width:100%;
+}
+
+.table-con th{
+	height:60px;
+	padding-top:18px;
+	padding-bottom:18px;
+}
+
+hr{
+	border: none;
+	height: 1px;
+	background-color: #F2F2F2;
+	margin-top:0;
+	margin-bottom:0;
+}
+
+.hr-td{
+	border: none;
+	height: 1px;
+	background-color: #F2F2F2;
+	margin-top:50px;
+	margin-left:15px;
+	margin-right:15px;
+}

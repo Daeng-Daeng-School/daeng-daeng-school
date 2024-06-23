@@ -7,6 +7,7 @@
 <title>Eunah's Board</title>
 </head>
 <body>
-	<jsp:forward page="../common/menubar.jsp" />
+	<jsp:include page="../common/menubar.jsp" />
+	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
