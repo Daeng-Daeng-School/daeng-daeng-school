@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시물 수정</title>
+<title>알림장 수정</title>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/notice.css">
 <script
@@ -23,8 +23,7 @@
 						<span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
 					</p>
 					<div class="button-section">
-						<button onclick="updateNotice()"
-							id="write-post-button">수정완료</button>
+						<button onclick="updateNotice()" class="write-post-button">수정완료</button>
 					</div>
 				</div>
 				<jsp:include page="../notice/selectDog.jsp" />

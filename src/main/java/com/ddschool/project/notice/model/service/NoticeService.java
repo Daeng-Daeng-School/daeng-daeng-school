@@ -67,11 +67,11 @@ public class NoticeService {
 		SqlSession session = getSqlSession();
 		noticeDAO = session.getMapper(NoticeDAO.class);
 
-		int offset = PaginationUtil.calculateOffset(currentPage, limit); // 오프셋 계산
+		int offset = PaginationUtil.calculateOffset(currentPage, limit);
 		SelectCriteria selectCriteria = new SelectCriteria(currentPage, limit);
-		selectCriteria.calculateStartRow(); // 시작 행 계산
+		selectCriteria.calculateStartRow();
 
-		List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria); // DAO에서 알림장 목록 조회
+		List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria);
 
 		session.close();
 
@@ -88,9 +88,9 @@ public class NoticeService {
 		SqlSession session = getSqlSession();
 		noticeDAO = session.getMapper(NoticeDAO.class);
 
-		selectCriteria.setStartRow(selectCriteria.getStartRow() - 1); // MySQL의 LIMIT 절에 맞추기 위해 startRow 조정
+		selectCriteria.setStartRow(selectCriteria.getStartRow() - 1);
 
-		List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria); // DAO에서 알림장 목록 조회
+		List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria);
 
 		session.close();
 
@@ -106,7 +106,7 @@ public class NoticeService {
 		SqlSession session = getSqlSession();
 		noticeDAO = session.getMapper(NoticeDAO.class);
 
-		int totalCount = noticeDAO.selectTotalCount(); // DAO에서 전체 알림장 수 조회
+		int totalCount = noticeDAO.selectTotalCount();
 
 		session.close();
 
@@ -136,6 +136,25 @@ public class NoticeService {
 		SqlSession session = getSqlSession();
 		NoticeDAO noticeDAO = session.getMapper(NoticeDAO.class);
 		int result = noticeDAO.updateNotice(modifyNotice);
+		if(result > 0) {
+			session.commit();
+		}else {
+			session.rollback();
+		}
+		session.close();
+		return result;
+	}
+
+	/**
+	 * 알림장 삭제
+	 *
+	 * @param noticeNo 삭제할 알림장의 번호
+	 * @return 데이터베이스에서 삭제된 행 수
+	 */
+	public int deleteNotice(int noticeNo) {
+		SqlSession session = getSqlSession();
+		NoticeDAO noticeDAO = session.getMapper(NoticeDAO.class);
+		int result = noticeDAO.deleteNotice(noticeNo);
 		if(result > 0) {
 			session.commit();
 		}else {

@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>게시물 작성</title>
+    <title>알림장 작성</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/notice.css">
     <!-- TinyMCE CDN -->
     <script src="https://cdn.tiny.cloud/1/mzvas2qdd6hui8ybi2mm7apd9x54xg7n8922fz9yypn13yhv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -21,7 +21,7 @@
                         <span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
                     </p>
                     <div class="button-section">
-                        <button type="submit" form="postForm" id="write-post-button">작성하기</button>
+                        <button type="submit" form="postForm" class="write-post-button">작성하기</button>
                     </div>
                 </div>
             </div>

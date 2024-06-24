@@ -6,9 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>알림장 서비스</title>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/notice.css">
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/notice.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp" />
@@ -23,9 +25,9 @@
 					<div class="search-section">
 						<input type="text" id="searchInput" class="searchAllInput"
 							placeholder="Search All..."> <a onclick="search()"><span
-							class="searchIcon">🔎</span></a> <a
-							href="${pageContext.servletContext.contextPath}/notice/insert"
-							id="write-post-button">작성하기</a>
+							class="searchIcon">🔎</span></a>
+						<button class="write-post-button" onclick="writeNotice()">
+							작성하기</button>
 					</div>
 				</div>
 				<jsp:include page="../notice/selectDog.jsp" />
@@ -35,7 +37,7 @@
 				<c:forEach var="notice" items="${requestScope.noticeList}">
 					<div class="post-card" onclick="showDetail(${notice.noticeNo})">
 						<div class="post-thumbnail">
-								<img
+							<img
 								src="${pageContext.servletContext.contextPath}/resources/image/dogs.jpg"
 								alt="Post Thumbnail 1">
 						</div>
@@ -61,12 +63,8 @@
 	<jsp:include page="../common/paging.jsp" />
 	<jsp:include page="../common/footer.jsp" />
 
-	<script>
-		function showDetail(noticeNo) {
-			const contextPath = '${ pageContext.servletContext.contextPath }';
-			location.href = contextPath + "/notice/detail?noticeNo=" + noticeNo;
-		}
-	</script>
-
+	<!-- contextPath를 가져오는 숨겨진 입력 필드 추가 -->
+	<input type="hidden" id="contextPath"
+		value="${pageContext.servletContext.contextPath}" />
 </body>
 </html>
