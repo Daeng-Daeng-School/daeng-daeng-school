@@ -57,7 +57,7 @@ window.onload = function() {
 						</div>
 						<div class="btns">
 							<input type="button" class="btn" value="정보수정" id="updateMember">
-							<input type="button" class="btn" value="로그아웃" id="logout">
+							<button class="btn"><a href="${pageContext.servletContext.contextPath}/member/logout">로그아웃</a></button>
 						</div>
 					</c:if>
 				</div>
