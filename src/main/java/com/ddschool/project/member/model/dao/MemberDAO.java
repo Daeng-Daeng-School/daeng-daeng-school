@@ -6,4 +6,9 @@ public interface MemberDAO {
 
 	int insertMember(MemberDTO requestMember);
 
+	String selectEncryptedPwd(String memberId);
+
+	MemberDTO selectLoginMember(MemberDTO requestMember);
+	
+
 }

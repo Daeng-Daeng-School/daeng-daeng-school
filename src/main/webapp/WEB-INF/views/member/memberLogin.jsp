@@ -113,9 +113,9 @@
     <div class="login-container">
     <div class="container">
         <h1 class="custom-header"><span class="highlight">우리 아이들의 모습</span><span class="normal">을</span><br><span class="normal">좀 더 자세히 알고싶다면?</span></h1>
-        <form>
-            <input type="text" placeholder="아이디" class="input-box" required><br>
-            <input type="password" placeholder="비밀번호" class="input-box" required><br>
+        <form action="login" method="post">
+            <input type="text" id="memberId" name="memberId" placeholder="아이디" class="input-box" required><br>
+            <input type="password" id="memberPwd" name="memberPwd" placeholder="비밀번호" class="input-box" required><br>
             <div class="button-container">
                 <button type="submit" class="login-btn">로그인</button>
                 <div class="signup-btn-container">

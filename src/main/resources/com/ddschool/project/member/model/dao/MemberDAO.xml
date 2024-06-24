@@ -5,7 +5,7 @@
 <mapper namespace="com.ddschool.project.member.model.dao.MemberDAO">
 
 	<resultMap type="com.ddschool.project.member.model.dao.MemberDAO" id="memberResultMap">
-		<id property="memberNo" column="MEMBER_CODE"/>
+		<id property="memberCode" column="MEMBER_CODE"/>
 		<result property="classCode" column="CLASS_CODE"/>
 		<result property="roleCode" column="ROLE_CODE"/>
 		<result property="memberId" column="MEMBER_ID"/>
@@ -18,6 +18,13 @@
 		<result property="joinDate" column="JOIN_DATE"/>
 		<result property="withdrawDate" column="WITHDRAW_DATE"/>
 	</resultMap>
+	
+	<resultMap id="memberResultMap2" type="com.ddschool.project.member.model.dto.MemberDTO">
+        <id property="memberNo" column="MEMBER_NO"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="memberName" column="MEMBER_NAME"/>
+        <result property="memberRole" column="MEMBER_ROLE"/>
+    </resultMap>
 
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.ddschool.project.member.model.dto.MemberDTO">
@@ -45,15 +52,15 @@
 	<!-- memberId 로 비밀번호 조회 --> 
 	<select id="selectEncryptedPwd" resultType="java.lang.String">
 	SELECT MEMBER_PWD
-	  FROM TBL_MEMBER
-	 WHERE MEMBER_ID = #{ memberId }
+	FROM TBL_MEMBER
+	WHERE MEMBER_ID = #{ memberId }
 	</select>
 	
 	<!-- memberId 로 회원정보 조회 --> 
-	<select id="selectLoginMember" resultMap="memberResultMap">
-	SELECT MEMBER_NO, MEMBER_ID, NICKNAME, MEMBER_ROLE
+	<select id="selectLoginMember" resultMap="memberResultMap2">
+	SELECT MEMBER_CODE, MEMBER_ID, MEMBER_NAME, ROLE_CODE
 	FROM TBL_MEMBER
-	WHERE MEMBER_ID = #{ memberId }
+	WHERE MEMBER_ID = #{memberId}
 	</select>
 
 </mapper>

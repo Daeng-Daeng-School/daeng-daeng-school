@@ -43,16 +43,18 @@ window.onload = function() {
 
 			<div class="login-area">
 				<div class="login-form">
+				<c:if test="${empty sessionScope.loginMember}">
 					<div class="btns">
 					<button class="btn"><a href="${pageContext.servletContext.contextPath}/member/login">로그인</a></button>
 					<button class="btn"><a href="${pageContext.servletContext.contextPath}/member/regist">회원가입</a></button>
 					</div>
+				</c:if>
 
 					<c:if test="${!empty sessionScope.loginMember}">
-						<h3>
+						<div class="welcome-message">
 							<c:out value="${sessionScope.loginMember.memberName}" />
 							님, 환영합니다.
-						</h3>
+						</div>
 						<div class="btns">
 							<input type="button" class="btn" value="정보수정" id="updateMember">
 							<input type="button" class="btn" value="로그아웃" id="logout">

@@ -38,6 +38,7 @@ public class PasswordEncryptFilter extends HttpFilter implements Filter {
 			
 		// 회원가입 요청 경로가 아니라면 아무것도 하지않고 그냥 보낸다	
 		} else {
+			System.out.println("필터확인 : 회원가입 요청이 아니군! 패스~");
 			chain.doFilter(request, response);
 		}
 	}
