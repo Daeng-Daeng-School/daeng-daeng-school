@@ -78,7 +78,7 @@ public class NoticeRegistServlet extends HttpServlet {
             request.setAttribute("successCode", "insertNotice");
         } else {
             path = "/WEB-INF/views/common/failed.jsp"; 
-            request.setAttribute("message", "게시판 작성에 실패하셨습니다.");
+            request.setAttribute("message", "게시판 작성에 실패하였습니다.");
         }
 
         request.getRequestDispatcher(path).forward(request, response);

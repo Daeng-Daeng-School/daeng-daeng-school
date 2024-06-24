@@ -14,10 +14,12 @@
 			</dataSource>
 		</environment>
 	</environments>
-
+	
+	<!-- 사용할 매퍼 파일 경로 설정 -->
 	<mappers>
 		<mapper resource="com/ddschool/project/notice/model/dao/NoticeDAO.xml"/>
 		   <mapper resource="com/ddschool/project/member/model/dao/MemberDAO.xml"/>
+		<mapper resource="com/ddschool/project/notice/model/dao/CommentDAO.xml"/>
 	</mappers>
 
 </configuration>

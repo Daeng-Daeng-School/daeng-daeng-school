@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.ddschool.project.notice.model.dto.NoticeDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,9 @@
         </div>
         
         <!-- 댓글 섹션 -->
-        <jsp:include page="../notice/comment.jsp" />
+        <jsp:include page="../notice/comment.jsp">
+            <jsp:param name="noticeNo" value="${notice.noticeNo}" />
+        </jsp:include>
 
         <button class="goBackList">
             <a href="${pageContext.servletContext.contextPath}/notice">목 록</a>
