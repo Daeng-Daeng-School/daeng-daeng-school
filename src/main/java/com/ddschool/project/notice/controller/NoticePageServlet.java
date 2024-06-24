@@ -12,11 +12,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * 알림장 리스트 조회를 처리하는 서블릿
+ */
 @WebServlet("/notice")
 public class NoticePageServlet extends HttpServlet {
     private NoticeService noticeService;
 
-    @Override
     public void init() throws ServletException {
         super.init();
         noticeService = new NoticeService(); // NoticeService 객체 초기화
@@ -36,7 +38,7 @@ public class NoticePageServlet extends HttpServlet {
         }
 
         // NoticeService의 getNotices 메서드를 통해 공지사항 목록 조회
-        List<NoticeDTO> noticeList = noticeService.getNotices(currentPage, limit);
+        List<NoticeDTO> noticeList = noticeService.selectNotice(currentPage, limit);
 
         // 조회된 공지사항 목록을 JSP에 전달
         request.setAttribute("noticeList", noticeList);

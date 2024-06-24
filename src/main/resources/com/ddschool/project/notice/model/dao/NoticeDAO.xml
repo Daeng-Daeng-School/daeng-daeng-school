@@ -11,7 +11,7 @@
 		type="com.ddschool.project.notice.model.dto.NoticeDTO"
 		id="generalNoticeResultMap">
 		<id property="noticeNo" column="BOARD_CODE" /> <!-- Primary Key: 알림장 번호 -->
-		<result property="dogNo" column="DOG_CODE" /> <!-- 도그 번호 -->
+		<result property="dogNo" column="DOG_CODE" /> <!-- 반려견 번호 -->
 		<result property="noticeWriter" column="MEMBER_CODE" /> <!-- 작성자 번호 -->
 		<result property="noticeTitle" column="TITLE" /> <!-- 알림장 제목 -->
 		<result property="noticeBody" column="CONTENT" /> <!-- 알림장 내용 -->
@@ -50,18 +50,18 @@
 
 	<!-- 페이징 처리가 적용된 전체 알림장 목록 조회 쿼리 -->
 	<select id="selectAllNotice" resultMap="generalNoticeResultMap">
-		SELECT MEMBER_CODE, REGIST_DATE, TITLE
+		SELECT BOARD_CODE, MEMBER_CODE, REGIST_DATE, TITLE
 		FROM TBL_NOTICE
-		ORDER BY REGIST_DATE DESC
+		ORDER BY BOARD_CODE DESC
 		LIMIT #{startRow}, #{limit} <!-- 시작 행부터 지정된 개수의 데이터 조회 -->
 	</select>
 
 	<!-- 페이징 처리가 적용된 알림장 목록 조회 쿼리 -->
-	<select id="selectNotices" resultMap="generalNoticeResultMap"
+	<select id="selectNotice" resultMap="generalNoticeResultMap"
 		parameterType="java.util.Map">
-		SELECT MEMBER_CODE, REGIST_DATE, TITLE
+		SELECT BOARD_CODE, MEMBER_CODE, REGIST_DATE, TITLE
 		FROM TBL_NOTICE
-		ORDER BY REGIST_DATE DESC
+		ORDER BY BOARD_CODE DESC
 		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY <!-- 오프셋과 한 페이지에 보여줄 개수로 데이터 조회 -->
 	</select>
 
@@ -71,6 +71,18 @@
 		COUNT(*)
 		FROM TBL_NOTICE
 	</select>
+	
+	<select id="selectNoticeDetail" parameterType="_int" resultMap="generalNoticeResultMap">
+    SELECT
+		MEMBER_CODE, REGIST_DATE, TITLE, CONTENT
+    FROM
+        TBL_NOTICE
+    WHERE
+        BOARD_CODE = #{ noticeNo }
+</select>
+	
+	
+	
 
 	<!-- 알림장 테이블의 STATUS 칼럼 변경 쿼리 : 기본값 지정 -->
 	<!-- ALTER TABLE `DDSCHOOL`.`TBL_NOTICE` CHANGE COLUMN `STATUS` `STATUS` 

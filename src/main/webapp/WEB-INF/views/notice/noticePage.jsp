@@ -33,17 +33,15 @@
 			<div class="posts">
 				<!-- DB에서 게시글 불러와 반복출력 -->
 				<c:forEach var="notice" items="${requestScope.noticeList}">
-					<div class="post-card">
+					<div class="post-card" onclick="showDetail(${notice.noticeNo})">
 						<div class="post-thumbnail">
-							<%-- <a
-								href="${pageContext.servletContext.contextPath}/notice/detail?no=${notice.no}"> 
-								</a> --%>
 								<img
-								src="${pageContext.servletContext.contextPath}/resources/image/dogs.jpg" alt="Post Thumbnail 1">
+								src="${pageContext.servletContext.contextPath}/resources/image/dogs.jpg"
+								alt="Post Thumbnail 1">
 						</div>
 						<div class="post-content">
 							<h2>
-									<c:out value="${notice.noticeTitle}" />
+								<c:out value="${notice.noticeTitle}" />
 							</h2>
 							<span style="text-align: right">
 								<p>
@@ -68,6 +66,12 @@
 
 	<jsp:include page="../notice/noticeModify.jsp" />
 
+	<script>
+		function showDetail(noticeNo) {
+			const contextPath = '${ pageContext.servletContext.contextPath }';
+			location.href = contextPath + "/notice/detail?noticeNo=" + noticeNo;
+		}
+	</script>
 
 </body>
 </html>

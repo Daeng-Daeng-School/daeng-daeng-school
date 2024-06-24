@@ -28,17 +28,17 @@
 			</div>
 			<div class="outer-notice-detail">
 				<div class="header-row">
-					<div class="author" name="writerName">
-						<c:out value="${notice.writer.nickname}" />
+					<div class="author" name="noticeWriter">
+						<c:out value="${notice.noticeWriter}" />
 					</div>
 					<div class="createdDate" name="createdDate">
 						<c:out value="${notice.createdDate}" />
 					</div>
 				</div>
 
-				<h2 class="title">제목 :${notice.title}</h2>
+				<h2 class="title">제목 :${notice.noticeTitle}</h2>
 				<div class="content-box">
-					<c:out value="${notice.body}" />
+					<c:out value="${notice.noticeBody}" />
 				</div>
 
 			</div>

@@ -16,100 +16,114 @@ import java.util.List;
  */
 public class NoticeService {
 
-    private NoticeDAO noticeDAO;
+	private NoticeDAO noticeDAO;
 
-    /**
-     * 기본 생성자
-     */
-    public NoticeService() {
-        // 기본 동작을 위한 초기화 로직
-    }
+	/**
+	 * 기본 생성자
+	 */
+	public NoticeService() {
+		// 기본 동작을 위한 초기화 로직
+	}
 
-    /**
-     * API 키를 이용한 생성자
-     *
-     * @param apiKey 서비스 초기화를 위한 API 키
-     */
-    public NoticeService(String apiKey) {
-        // API 키를 이용한 초기화 로직 추가 가능
-    }
+	/**
+	 * API 키를 이용한 생성자
+	 *
+	 * @param apiKey 서비스 초기화를 위한 API 키
+	 */
+	public NoticeService(String apiKey) {
+		// API 키를 이용한 초기화 로직 추가 가능
+	}
 
-    /**
-     * 새로운 알림장을 데이터베이스에 추가
-     *
-     * @param newNotice 추가할 알림장 객체
-     * @return 데이터베이스에 추가된 행 수
-     */
-    public int insertNotice(NoticeDTO newNotice) {
-        SqlSession session = getSqlSession();
-        noticeDAO = session.getMapper(NoticeDAO.class);
+	/**
+	 * 새로운 알림장을 데이터베이스에 추가
+	 *
+	 * @param newNotice 추가할 알림장 객체
+	 * @return 데이터베이스에 추가된 행 수
+	 */
+	public int insertNotice(NoticeDTO newNotice) {
+		SqlSession session = getSqlSession();
+		noticeDAO = session.getMapper(NoticeDAO.class);
 
-        int result = noticeDAO.insertNotice(newNotice);
+		int result = noticeDAO.insertNotice(newNotice);
 
-        if (result > 0) {
-            session.commit();
-        } else {
-            session.rollback();
-        }
-        session.close();
+		if (result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
 
-        return result;
-    }
+		return result;
+	}
 
-    /**
-     * 지정된 페이지의 알림장 목록 조회
-     *
-     * @param currentPage 현재 페이지 번호
-     * @param limit       페이지당 표시할 알림장 수
-     * @return 현재 페이지의 알림장 목록
-     */
-    public List<NoticeDTO> getNotices(int currentPage, int limit) {
-        SqlSession session = getSqlSession();
-        noticeDAO = session.getMapper(NoticeDAO.class);
+	/**
+	 * 지정된 페이지의 알림장 목록 조회
+	 *
+	 * @param currentPage 현재 페이지 번호
+	 * @param limit       페이지당 표시할 알림장 수
+	 * @return 현재 페이지의 알림장 목록
+	 */
+	public List<NoticeDTO> selectNotice(int currentPage, int limit) {
+		SqlSession session = getSqlSession();
+		noticeDAO = session.getMapper(NoticeDAO.class);
 
-        int offset = PaginationUtil.calculateOffset(currentPage, limit); // 오프셋 계산
-        SelectCriteria selectCriteria = new SelectCriteria(currentPage, limit);
-        selectCriteria.calculateStartRow(); // 시작 행 계산
+		int offset = PaginationUtil.calculateOffset(currentPage, limit); // 오프셋 계산
+		SelectCriteria selectCriteria = new SelectCriteria(currentPage, limit);
+		selectCriteria.calculateStartRow(); // 시작 행 계산
 
-        List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria); // DAO에서 알림장 목록 조회
+		List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria); // DAO에서 알림장 목록 조회
 
-        session.close();
+		session.close();
 
-        return noticeList;
-    }
+		return noticeList;
+	}
 
-    /**
-     * 페이징 처리가 적용된 알림장 목록 조회
-     *
-     * @param selectCriteria 페이징 정보를 담고 있는 객체
-     * @return 페이징 처리된 알림장 목록
-     */
-    public List<NoticeDTO> selectAllNotice(SelectCriteria selectCriteria) {
-        SqlSession session = getSqlSession();
-        noticeDAO = session.getMapper(NoticeDAO.class);
+	/**
+	 * 페이징 처리가 적용된 알림장 목록 조회
+	 *
+	 * @param selectCriteria 페이징 정보를 담고 있는 객체
+	 * @return 페이징 처리된 알림장 목록
+	 */
+	public List<NoticeDTO> selectAllNotice(SelectCriteria selectCriteria) {
+		SqlSession session = getSqlSession();
+		noticeDAO = session.getMapper(NoticeDAO.class);
 
-        selectCriteria.setStartRow(selectCriteria.getStartRow() - 1); // MySQL의 LIMIT 절에 맞추기 위해 startRow 조정
+		selectCriteria.setStartRow(selectCriteria.getStartRow() - 1); // MySQL의 LIMIT 절에 맞추기 위해 startRow 조정
 
-        List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria); // DAO에서 알림장 목록 조회
+		List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria); // DAO에서 알림장 목록 조회
 
-        session.close();
+		session.close();
 
-        return noticeList;
-    }
+		return noticeList;
+	}
 
-    /**
-     * 전체 알림장 수 조회
-     *
-     * @return 전체 알림장 수
-     */
-    public int getTotalNoticeCount() {
-        SqlSession session = getSqlSession();
-        noticeDAO = session.getMapper(NoticeDAO.class);
+	/**
+	 * 전체 알림장 수 조회
+	 *
+	 * @return 전체 알림장 수
+	 */
+	public int getTotalNoticeCount() {
+		SqlSession session = getSqlSession();
+		noticeDAO = session.getMapper(NoticeDAO.class);
 
-        int totalCount = noticeDAO.selectTotalCount(); // DAO에서 전체 알림장 수 조회
+		int totalCount = noticeDAO.selectTotalCount(); // DAO에서 전체 알림장 수 조회
 
-        session.close();
+		session.close();
 
-        return totalCount;
-    }
+		return totalCount;
+	}
+
+	/**
+	 * 알림장 상세내용 조회
+	 *
+	 * @return NoticeDTO 타입의 알림장 상세내용
+	 */
+	public NoticeDTO selectNoticeDetail(int noticeNo) {
+		SqlSession session = getSqlSession();
+		NoticeDAO noticeDAO = session.getMapper(NoticeDAO.class);
+		System.out.println(noticeNo);
+		return noticeDAO.selectNoticeDetail(noticeNo);
+
+	}
+
 }

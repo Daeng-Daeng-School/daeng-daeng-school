@@ -38,7 +38,7 @@ public interface NoticeDAO {
      * @param params 페이지 처리를 위한 파라미터 (offset, limit)
      * @return 특정 페이지의 알림장 목록
      */
-    List<NoticeDTO> selectNotices(Map<String, Object> params);
+    List<NoticeDTO> selectNotice(Map<String, Object> params);
 
     /**
      * 페이지네이션 없이 전체 알림장 수 조회
@@ -46,4 +46,12 @@ public interface NoticeDAO {
      * @return 전체 알림장 수
      */
     int selectTotalCount();
+
+    /**
+     * 알림장 상세내용 조회 
+     * 
+     * @param 해당 알림장 넘버
+     * @return 알림장 상세 내용 
+     */
+	NoticeDTO selectNoticeDetail(int noticeNo);
 }
