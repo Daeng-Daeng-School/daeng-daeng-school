@@ -14,8 +14,12 @@
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="text-area">
 		<b>댕댕 유치원 출석부</b>를<br>이용해볼까요?
+
+		<!-- 마스터 화면 -->
 		<div class="select-bar">
-			<input type="month" id="selectedMonth" data-placeholder="연도-월 선택" required aria-required="true">
+		<form action="${pagecontext.servletContext.contextPath }/classbook" method="get">
+			<input type="month" id="selectedMonth" data-placeholder="연도-월 선택"
+				required aria-required="true">
 			<script>
 				const selectedMonthInput = document
 						.getElementById('selectedMonth');
@@ -84,7 +88,8 @@
 				<option value="class2">오후반</option>
 				<option value="class3">종일반</option>
 			</select>
-			<button class="btn-black">조회하기</button>
+			<button class="btn-black" type="submit">조회하기</button>
+			</form>
 		</div>
 		<div class="table-area">
 			<table align="center" id="listArea" class="table-con">
@@ -101,7 +106,7 @@
 					<th>강아지9</th>
 					<th>강아지10</th>
 				</tr>
-				
+
 				<%-- <c:forEach var="board" items="${ requestScope.boardList }">
 					<tr>
 						<td><c:out value="${ board.no }" /></td>
@@ -112,13 +117,28 @@
 						<td><c:out value="${ board.createdDate }" /></td>
 					</tr>
 				</c:forEach> --%>
+
+				<tr>
+					<td colspan="11"><hr></td>
+				</tr>
+				<tr id="openModalBtn">
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+					<td class="list-td"></td>
+				</tr>
+				<tr>
+					<td colspan="11"><hr class="hr-td"></td>
+				</tr>
+
 			</table>
-			<hr>
-			<hr class="hr-td">
-			<hr class="hr-td">
-			<hr class="hr-td">
-			<hr class="hr-td">
-			<hr class="hr-td">
 		</div>
 
 		<%-- 페이지 처리 --%>
@@ -149,13 +169,14 @@
 			</c:if>
 		</div> --%>
 	</div>
+
 	<!-- <script>
-		if (document.getElementsByTagName("td")) {
+		if (document.getElementsByTagName("tr")) {
 
-			const $tds = document.getElementsByTagName("td");
-			for (let i = 0; i < $tds.length; i++) {
+			const $trs = document.getElementsByTagName("tr");
+			for (let i = 0; i < $trs.length; i++) {
 
-				$tds[i].onmouseenter = function() {
+				/* $tds[i].onmouseenter = function() {
 					this.parentNode.style.backgroundColor = "orangered";
 					this.parentNode.style.cursor = "pointer";
 				}
@@ -163,8 +184,8 @@
 				$tds[i].onmouseout = function() {
 					this.parentNode.style.backgroundColor = "black";
 				}
-
-				$tds[i].onclick = function() {
+ */
+				$trs[i].onclick = function() {
 					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있습니다. */
 					alert(this.parentNode.children[0].innerText);
 				}
@@ -173,6 +194,71 @@
 
 		}
 	</script> -->
+
+
+
+	<div>
+
+		<!-- 모달 창 -->
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<div id="modalTable">
+					<table align="center" id="listArea" class="table-con">
+						<tr>
+							<th>출결</th>
+							<th>강아지1</th>
+							<th>강아지2</th>
+							<th>강아지3</th>
+							<th>강아지4</th>
+							<th>강아지5</th>
+							<th>강아지6</th>
+							<th>강아지7</th>
+							<th>강아지8</th>
+							<th>강아지9</th>
+							<th>강아지10</th>
+						</tr>
+						<tr>
+							<th>출석</th>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+						<tr>
+							<th>결석</th>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+					</table>
+				</div>
+
+				<div align="center">
+					<button class="btn-black">등록하기</button>
+				</div>
+			</div>
+		</div>
+
+		<script
+			src="${pageContext.servletContext.contextPath}/resources/js/classbook.js"></script>
+
+	</div>
+
+
 	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
