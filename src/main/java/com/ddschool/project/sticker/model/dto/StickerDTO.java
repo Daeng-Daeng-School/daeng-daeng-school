@@ -6,7 +6,7 @@ public class StickerDTO {
 
 	private int stickerCode;
 	private String dogCode;
-	private String memerCode;
+	private String memberCode;
 	private String stickerNum;
 	private String comment;
 	private String registDate;
@@ -15,10 +15,10 @@ public class StickerDTO {
 		super();
 	}
 
-	public StickerDTO(String memerCode, String stickerNum, String registDate, int stickerCode, String dogCode,
+	public StickerDTO(String memberCode, String stickerNum, String registDate, int stickerCode, String dogCode,
 			String comment) {
 		super();
-		this.memerCode = memerCode;
+		this.memberCode = memberCode;
 		this.stickerNum = stickerNum;
 		this.registDate = registDate;
 		this.stickerCode = stickerCode;
@@ -42,12 +42,12 @@ public class StickerDTO {
 		this.dogCode = dogCode;
 	}
 
-	public String getMemerCode() {
-		return memerCode;
+	public String getMemberCode() {
+		return memberCode;
 	}
 
-	public void setMemerCode(String memerCode) {
-		this.memerCode = memerCode;
+	public void setMemberCode(String memberCode) {
+		this.memberCode = memberCode;
 	}
 
 	public String getStickerNum() {
@@ -76,7 +76,7 @@ public class StickerDTO {
 
 	@Override
 	public String toString() {
-		return "StickerDTO [stickerCode=" + stickerCode + ", dogCode=" + dogCode + ", memerCode=" + memerCode
+		return "StickerDTO [stickerCode=" + stickerCode + ", dogCode=" + dogCode + ", memberCode=" + memberCode
 				+ ", stickerNum=" + stickerNum + ", comment=" + comment + ", registDate=" + registDate + "]";
 	}
 	

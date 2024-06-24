@@ -7,6 +7,8 @@ import com.ddschool.project.sticker.model.dto.StickerDTO;
 
 import static com.ddschool.project.common.mybatis.Template.getSqlSession;
 
+import java.util.List;
+
 public class StickerService {
 	
 	private StickerDAO stickerDAO;
@@ -46,7 +48,37 @@ public class StickerService {
 		session.close();
 		
 		return result;
-	} 
+	}
+
+	public int deleteSticker(StickerDTO requestSticker) {
+		SqlSession session = getSqlSession();
+		stickerDAO = session.getMapper(StickerDAO.class);
+		
+		int result = stickerDAO.deleteSticker(requestSticker);
+		
+		if(result>0) {
+			session.commit();
+		}else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+		
+	}
+
+	public List<StickerDTO> SelectListSticker(StickerDTO requestSticker) {
+		
+		SqlSession session = getSqlSession();
+		stickerDAO = session.getMapper(StickerDAO.class);
+		
+		List<StickerDTO> stickerList = stickerDAO.selectListSticker(requestSticker);
+		
+		session.close();
+		
+		return stickerList;
+	}
 	
 
 }
