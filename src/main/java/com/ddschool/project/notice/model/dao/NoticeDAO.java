@@ -54,4 +54,6 @@ public interface NoticeDAO {
      * @return 알림장 상세 내용 
      */
 	NoticeDTO selectNoticeDetail(int noticeNo);
+
+	int updateNotice(NoticeDTO modifyNotice);
 }

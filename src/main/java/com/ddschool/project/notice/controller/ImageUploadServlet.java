@@ -20,7 +20,6 @@ import jakarta.servlet.http.Part;
 @WebServlet("/upload_image")
 @MultipartConfig
 public class ImageUploadServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

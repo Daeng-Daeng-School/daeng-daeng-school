@@ -121,9 +121,28 @@ public class NoticeService {
 	public NoticeDTO selectNoticeDetail(int noticeNo) {
 		SqlSession session = getSqlSession();
 		NoticeDAO noticeDAO = session.getMapper(NoticeDAO.class);
-		System.out.println(noticeNo);
-		return noticeDAO.selectNoticeDetail(noticeNo);
+		NoticeDTO noticeDetail = noticeDAO.selectNoticeDetail(noticeNo);
+		session.close();
+		return noticeDetail;
+	}
 
+	/**
+	 * 알림장 내용 수정 
+	 *
+	 * @param modifyNotice 수정할 알림장 객체
+	 * @return 데이터베이스에 수정된 행 수
+	 */
+	public int updateNotice(NoticeDTO modifyNotice) {
+		SqlSession session = getSqlSession();
+		NoticeDAO noticeDAO = session.getMapper(NoticeDAO.class);
+		int result = noticeDAO.updateNotice(modifyNotice);
+		if(result > 0) {
+			session.commit();
+		}else {
+			session.rollback();
+		}
+		session.close();
+		return result;
 	}
 
 }

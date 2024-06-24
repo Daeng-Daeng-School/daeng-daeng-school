@@ -8,9 +8,10 @@
 <title>게시물 수정</title>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/notice.css">
-<!-- CKEditor and CKFinder CDN -->
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/notice.js"></script>
+<!-- CKEditor CDN -->
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-<script src="https://cdn.cksource.com/ckfinder/3.5.2/ckfinder.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp" />
@@ -22,8 +23,8 @@
 						<span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
 					</p>
 					<div class="button-section">
-						<a href="${pageContext.servletContext.contextPath}/notice/modify"
-							id="write-post-button">수정하기</a>
+						<button onclick="updateNotice()"
+							id="write-post-button">수정완료</button>
 					</div>
 				</div>
 				<jsp:include page="../notice/selectDog.jsp" />
@@ -33,36 +34,39 @@
 					action="${pageContext.servletContext.contextPath}/notice/modify"
 					method="post">
 					<div class="outer-notice-modify">
-						<div class="author" name="writerName">
-							<c:out value="${ noticeDetail.noticeWriter }" />
-						</div>
-						<div class="createdDate" name="createdDate">
-							<c:out value="${noticeDetail.createdDate}" />
+						<div class="header-row">
+							<input type="hidden" name="noticeNo"
+								value="${ noticeDetail.noticeNo }" />
+
+							<div class="author" name="noticeWriter">
+								<c:out value="${ noticeDetail.noticeWriter }" />
+							</div>
+							<div class="createdDate" name="createdDate">
+								<c:out value="${noticeDetail.createdDate}" />
+							</div>
 						</div>
 					</div>
 
 					<h2 class="title">
-						제목 :<input type="text" name="title"
+						제목 :<input type="text" name="noticeTitle"
 							value="${ noticeDetail.noticeTitle }">
 					</h2>
 
 					<div class="content-box">
-						<textarea name="body" id="editor" cols="60" rows="15">${ boardDetail.boardBody }</textarea>
+						<textarea name="noticeBody" id="editor" cols="60" rows="15">${ noticeDetail.noticeBody }</textarea>
 					</div>
 				</form>
 			</div>
 		</div>
 	</main>
 	<jsp:include page="../common/footer.jsp" />
+	<!-- contextPath를 동적으로 JavaScript에서 사용할 수 있도록 숨겨진 입력 필드에 저장 -->
+	<input type="hidden" id="contextPath"
+		value="${pageContext.servletContext.contextPath}" />
+
 	<script>
 		// CKEditor 초기화
 		CKEDITOR.replace('editor');
-
-		function submitForm() {
-			document.getElementById('postForm').submit();
-		}
 	</script>
-
-
 </body>
 </html>

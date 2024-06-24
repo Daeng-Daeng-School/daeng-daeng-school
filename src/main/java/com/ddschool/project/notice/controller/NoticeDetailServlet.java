@@ -20,7 +20,7 @@ public class NoticeDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String noticeNo = request.getParameter("noticeNo");
-		System.out.println(noticeNo);
+		System.out.println("detail.noticeNo=" + noticeNo);
 		if (noticeNo == null || noticeNo.isEmpty()) {
 			response.sendRedirect(request.getContextPath() + "/notice");
 		}
@@ -40,6 +40,5 @@ public class NoticeDetailServlet extends HttpServlet {
 		request.getRequestDispatcher(path).forward(request, response);
 
 	}
-
 
 }
