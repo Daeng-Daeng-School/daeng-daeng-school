@@ -1,4 +1,4 @@
-package com.ddschool.project.classbook.controller;
+package com.ddschool.project.member.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,12 +7,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ClassbookSelectListServlet extends HttpServlet {
+@WebServlet("/member/login")
+public class MemberLoginServlet extends HttpServlet {
+       
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	
 	}
 
 }

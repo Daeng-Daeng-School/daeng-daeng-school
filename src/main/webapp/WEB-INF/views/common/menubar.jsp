@@ -6,12 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>댕댕스쿨</title>
-<script
-	src="${pageContext.servletContext.contextPath}/resources/js/event.js"></script>
+
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/common.css">
 </head>
 <body>
+
+<script> // 회원가입 성공 시 띄울 alert
+// 페이지가 완전히 로드된 후 JavaScript 코드를 실행
+window.onload = function() {
+    const message = "<%= session.getAttribute("message") != null ? session.getAttribute("message") : "" %>";
+    if (message) {
+        alert(message);
+        session.removeAttribute("message");
+    } 
+}
+</script>
+
+<!-- header 영역 -->
 	<header class="header">
 		<div class="container header-content">
 			<div class="left-section">
@@ -19,25 +31,26 @@
 					<a href="${pageContext.servletContext.contextPath}">댕댕스쿨</a>
 				</div>
 				<nav class="nav">
-					<a href="${pageContext.servletContext.contextPath}/notice">알림장</a>
-					<a href="#">출석부</a> <a href="#">반려견관리</a> <a href="#">이달의 반려견</a>
+					<a href="${pageContext.servletContext.contextPath}">알림장</a>
+					<a href="#">출석부</a>
+					<a href="#">반려견관리</a>
+					<a href="#">이달의 반려견</a>
 					<a href="#">유치원관리</a>
 				</nav>
 			</div>
 
+<!-- 로그인 영역 -->
 
 			<div class="login-area">
 				<div class="login-form">
 					<div class="btns">
-						<input type="submit" class="btn" value="로그인" id="login"> <input
-							type="button" class="btn" value="회원가입" id="regist">
+					<button class="btn"><a href="${pageContext.servletContext.contextPath}/member/login">로그인</a></button>
+					<button class="btn"><a href="${pageContext.servletContext.contextPath}/member/regist">회원가입</a></button>
 					</div>
-
-
 
 					<c:if test="${!empty sessionScope.loginMember}">
 						<h3>
-							<c:out value="${sessionScope.loginMember.nickname}" />
+							<c:out value="${sessionScope.loginMember.memberName}" />
 							님, 환영합니다.
 						</h3>
 						<div class="btns">
@@ -57,5 +70,7 @@
 				운동종목 댓글로 남겨주시길 바랍니다.</span>
 		</div>
 	</div>
+	
+
 </body>
 </html>

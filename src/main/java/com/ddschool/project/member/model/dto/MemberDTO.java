@@ -1,4 +1,4 @@
-package com.ddschool.project.member.dto;
+package com.ddschool.project.member.model.dto;
 
 import java.util.Date;
 
@@ -20,6 +20,8 @@ public class MemberDTO {
 	
 	private String address;
 	
+	private String memberBirth;
+	
 	private boolean status;
 	
 	private Date joinDate;
@@ -31,7 +33,7 @@ public class MemberDTO {
 	}
 
 	public MemberDTO(int memberCode, int classCode, int roleCode, String memberId, String memberPwd, String memberName,
-			String phone, String address, boolean status, Date joinDate, Date withdrawDate) {
+			String phone, String address, String memberBirth, boolean status, Date joinDate, Date withdrawDate) {
 		super();
 		this.memberCode = memberCode;
 		this.classCode = classCode;
@@ -41,6 +43,7 @@ public class MemberDTO {
 		this.memberName = memberName;
 		this.phone = phone;
 		this.address = address;
+		this.memberBirth = memberBirth;
 		this.status = status;
 		this.joinDate = joinDate;
 		this.withdrawDate = withdrawDate;
@@ -108,6 +111,14 @@ public class MemberDTO {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getMemberBirth() {
+		return memberBirth;
+	}
+
+	public void setMemberBirth(String memberBirth) {
+		this.memberBirth = memberBirth;
 	}
 
 	public boolean isStatus() {
