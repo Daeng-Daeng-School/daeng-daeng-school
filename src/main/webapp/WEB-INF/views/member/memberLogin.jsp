@@ -107,6 +107,17 @@
 </head>
 <body>
 
+<script> // 로그인 실패 시 띄울 alert
+window.onload = function() {
+
+    const loginFailMessage = "<%= request.getAttribute("loginFailMessage") != null ? request.getAttribute("loginFailMessage") : "" %>";
+    if (loginFailMessage !== "") {
+        alert(loginFailMessage);
+        <% request.removeAttribute("loginFailMessage"); %>
+    }
+}
+</script>
+
 <jsp:include page="../common/menubar.jsp" />
 
 <script>
