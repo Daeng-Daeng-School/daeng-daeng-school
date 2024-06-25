@@ -3,20 +3,61 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.ddschool.project.classbook.model.dao.ClassbookDAO">
+  
   <resultMap type="com.ddschool.project.classbook.model.dto.ClassbookDTO" id="classbookResultMap">
   <id property="classbookNo" column="CLASSBOOK_CODE" />
-  <collection property="member" ofType="MemberDTO" resultMap="memberResultMap"/>
-  
-  
-  
-  
-  </resultMap>
-  <resultMap id="memberResultMap" type="MemberDTO">
-  
+  <result property="dog" column="DOG_CODE" />
+  <result property="checkDate" column="CHECK_DATE"/>
+  <result property="checkStatus" column="CHECK_STATUS"/>
+  <result property="modifyDate" column="MODIFY_DATE"/>
+  <collection property="member" ofType="com.ddschool.project.member.model.dto.MemberDTO" resultMap="memberResultMap"/>
   </resultMap>
   
+  <resultMap id="memberResultMap" type="com.ddschool.project.member.model.dto.MemberDTO">
+  <id property="memberCode" column="MEMBER_CODE"/>
+		<result property="classCode" column="CLASS_CODE"/>
+		<result property="roleCode" column="ROLE_CODE"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberName" column="MEMBER_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="memberBirth" column="MEMBER_BIRTH"/>
+		<result property="status" column="STATUS"/>
+		<result property="joinDate" column="JOIN_DATE"/>
+		<result property="withdrawDate" column="WITHDRAW_DATE"/>
+  </resultMap>
   
+  <resultMap type="com.ddschool.project.dog.model.dto.DogDTO" id="dogResultMap">
+		<id property="dogCode" column="DOG_CODE"/>
+		<result property="memberCode" column="MEMBER_CODE"/>
+		<result property="classCode" column="CLASS_CODE"/>
+		<result property="dogName" column="DOG_NAME"/>
+		<result property="gender" column="GENDER"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="dogBreed" column="DOG_BREED"/>
+		<result property="weight" column="WEIGHT"/>
+		<result property="chipNo" column="CHIP_NO"/>
+		<result property="joinDate" column="JOIN_DATE"/>
+		<result property="withdrawDate" column="WITHDRAW_DATE"/>
+	</resultMap>
+
+	<!-- 회원 출석부 반려견 리스트 -->
+	<select id="getDogNameList" resultMap="dogResultMap">
+		SELECT
+			d.DOG_NAME
+		FROM TBL_DOG d
+		JOIN TBL_MEMBER m ON d.MEMBER_CODE=m.MEMBER_CODE
+		WHERE m.MEMBER_CODE=1
+	</select>
   
+  	<!-- 마스터 출석부 반명 리스트 -->
+  	<select id="getClassName" resultType="java.lang.Integer">
+  		SELECT
+  			CLASS_CODE
+  		FROM TBL_MEMBER
+  		WHERE MEMBER_ID='teacher'
+  	</select>
   
   
   
