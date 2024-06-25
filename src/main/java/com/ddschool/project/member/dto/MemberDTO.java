@@ -1,6 +1,6 @@
 package com.ddschool.project.member.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class MemberDTO {
 	
