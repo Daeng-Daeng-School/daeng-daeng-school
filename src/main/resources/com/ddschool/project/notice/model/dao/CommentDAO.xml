@@ -1,14 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 댓글 정보를 매핑하는 resultMap 설정 -->
-<mapper
-	namespace="com.ddschool.project.notice.model.dao.CommentDAO">
-	<resultMap
-		type="com.ddschool.project.notice.model.dto.CommentDTO"
-		id="commentResultMap">
+<mapper namespace="com.ddschool.project.notice.model.dao.CommentDAO">
+
+	<resultMap type="com.ddschool.project.notice.model.dto.CommentDTO" id="commentResultMap">
 		<id property="commentCode" column="COMMENT_CODE" />
 		<result property="noticeNo" column="BOARD_CODE" />
 		<result property="memberCode" column="MEMBER_CODE" />
@@ -18,17 +15,27 @@
 		<result property="status" column="STATUS" />
 	</resultMap>
 
-	<select id="selectComment" resultMap="commentResultMap">
-		SELECT COMMENT_CODE, BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE
-		FROM TBL_COMMENT
-		WHERE BOARD_CODE = #{ noticeNo }
-		AND STATUS = 1
-		ORDER BY COMMENT_CODE DESC;
-	</select>
-
 	<insert id="insertComment">
-		INSERT INTO TBL_COMMENT (REGIST_DATE, BOARD_CODE, CONTENT, MEMBER_CODE,
-		STATUS)
-		VALUES (current_date, #{noticeNo}, #{content}, #{memberCode}, 1)
+		INSERT INTO TBL_COMMENT (BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE, STATUS)
+		VALUES (#{noticeNo}, #{memberCode}, #{content}, current_date, 1)
 	</insert>
+
+	<update id="updateComment" parameterType="com.ddschool.project.notice.model.dto.CommentDTO">
+		UPDATE TBL_COMMENT
+		SET CONTENT = #{content}, MODIFY_DATE = current_date
+		WHERE COMMENT_CODE = #{commentCode}
+	</update>
+
+	<update id="deleteComment" parameterType="_int">
+		UPDATE TBL_COMMENT
+		SET STATUS = 0
+		WHERE COMMENT_CODE = #{commentCode}
+	</update>
+
+	<select id="selectCommentsByNoticeNo" parameterType="_int" resultMap="commentResultMap">
+		SELECT COMMENT_CODE, BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE, MODIFY_DATE, STATUS
+		FROM TBL_COMMENT
+		WHERE BOARD_CODE = #{noticeNo}
+		ORDER BY REGIST_DATE DESC
+	</select>
 </mapper>

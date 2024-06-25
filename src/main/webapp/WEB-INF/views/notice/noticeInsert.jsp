@@ -46,11 +46,11 @@
 							</div>
 						</div>
 						<h2 class="title">
-							제목 :<input type="text" name="title" placeholder="제목을 입력하세요.">
+							제목 :<input type="text" name="title" placeholder="제목을 입력하세요." required>
 						</h2>
 						<div class="content-box">
 							<textarea name="body" id="editor" cols="60" rows="15"
-								placeholder="내용을 입력하세요."></textarea>
+								placeholder="내용을 입력하세요." required></textarea>
 						</div>
 					</div>
 				</form>

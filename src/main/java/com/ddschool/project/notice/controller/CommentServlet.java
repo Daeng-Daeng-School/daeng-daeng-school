@@ -1,10 +1,12 @@
 package com.ddschool.project.notice.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import com.ddschool.project.notice.model.dto.CommentDTO;
 import com.ddschool.project.notice.model.service.CommentService;
+import com.google.gson.Gson;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,39 +17,97 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/notice/comment")
 public class CommentServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-        CommentService commentService = new CommentService();
-        List<CommentDTO> comments = commentService.selectComment(noticeNo);
-        request.setAttribute("comments", comments);
-        request.setAttribute("commentCount", comments.size());
-        request.getRequestDispatcher("/path/to/jsp").forward(request, response); // JSP 파일 경로 지정
-    }
+	private CommentService commentService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	public void init() throws ServletException {
+		super.init();
+		commentService = new CommentService();
+	}
 
-        int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-        int memberCode = Integer.parseInt(request.getParameter("memberCode"));
-        String content = request.getParameter("content");
+	/**
+	 * GET 요청을 처리하여 해당 공지사항 번호에 대한 댓글 목록을 JSON 형식으로 반환
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 요청 파라미터에서 공지사항 번호를 가져옴
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		System.out.println("댓글 목록 조회 - 공지사항 번호: " + noticeNo);
 
-        // 현재 날짜로 설정
-        java.sql.Date createdDate = new java.sql.Date(new java.util.Date().getTime());
+		// 공지사항 번호에 해당하는 댓글 목록을 서비스에서 가져옴
+		List<CommentDTO> comments = commentService.getCommentsByNoticeNo(noticeNo);
 
-        CommentDTO newComment = new CommentDTO();
-        newComment.setnoticeNo(noticeNo);
-        newComment.setMemberCode(memberCode);
-        newComment.setContent(content);
-        newComment.setcreatedDate(createdDate);
+		// 댓글 데이터를 JSON 형식으로 변환하여 클라이언트에게 전달
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
 
-        CommentService commentService = new CommentService();
-        int result = commentService.insertComment(newComment);
+		// Gson 라이브러리를 사용하여 객체를 JSON 문자열로 변환
+		Gson gson = new Gson();
+		String jsonComments = gson.toJson(comments);
 
-        if(result < 0) {
-            request.setAttribute("message", "댓글 등록에 실패하였습니다.");
-        }
-        
-        doGet(request, response); // 등록 후 doGet 메소드 호출하여 목록을 다시 불러옴
-    }
+		out.print(jsonComments);
+		out.flush();
+	}
+
+	/**
+	 * POST 요청을 처리하여 새로운 댓글을 추가합니다.
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 요청 파라미터에서 공지사항 번호, 회원 코드, 댓글 내용을 가져옴
+		request.setCharacterEncoding("UTF-8");
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		int memberCode = Integer.parseInt(request.getParameter("memberCode"));
+		String content = request.getParameter("content");
+
+		// 댓글 객체를 생성하고 값 설정
+		CommentDTO comment = new CommentDTO();
+		comment.setNoticeNo(noticeNo);
+		comment.setMemberCode(memberCode);
+		comment.setContent(content);
+
+		// 서비스를 통해 댓글을 추가하고 결과를 JSON 형식으로 반환
+		int result = commentService.addComment(comment);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write("{\"result\":\"" + ((result > 0) ? "success" : "error") + "\"}");
+	}
+
+	/**
+	 * PUT 요청을 처리하여 댓글 수정
+	 */
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 요청 파라미터에서 댓글 코드, 수정할 내용을 가져옴
+		request.setCharacterEncoding("UTF-8");
+		int commentCode = Integer.parseInt(request.getParameter("commentCode"));
+		String content = request.getParameter("content");
+
+		// 댓글 객체를 생성하고 값 설정
+		CommentDTO comment = new CommentDTO();
+		comment.setCommentCode(commentCode);
+		comment.setContent(content);
+
+		// 서비스를 통해 댓글을 수정하고 결과를 JSON 형식으로 반환
+		int result = commentService.modifyComment(comment);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write("{\"result\":\"" + ((result > 0) ? "success" : "error") + "\"}");
+	}
+
+	/**
+	 * DELETE 요청을 처리하여 댓글 삭제
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 요청 파라미터에서 댓글 코드를 가져옴
+		request.setCharacterEncoding("UTF-8");
+		int commentCode = Integer.parseInt(request.getParameter("commentCode"));
+
+		// 서비스를 통해 댓글을 삭제하고 결과를 JSON 형식으로 반환
+		int result = commentService.deleteComment(commentCode);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write("{\"result\":\"" + ((result > 0) ? "success" : "error") + "\"}");
+	}
 }
