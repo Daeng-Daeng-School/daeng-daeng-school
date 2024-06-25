@@ -1,4 +1,4 @@
-package com.ddschool.project.member.dto;
+package com.ddschool.project.member.model.dto;
 
 import java.util.Date;
 

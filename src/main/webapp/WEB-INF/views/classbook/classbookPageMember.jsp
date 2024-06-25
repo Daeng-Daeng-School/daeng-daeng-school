@@ -1,4 +1,6 @@
-<%@page import="com.ddschool.project.classbook.model.service.ClassbookService" %>
+<%@page import="com.ddschool.project.classbook.model.service.ClassbookService"
+import="java.util.List"
+import="com.ddschool.project.dog.model.dto.DogDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,8 +18,9 @@
 	<div class="text-area">
 		<b>댕댕 유치원 출석부</b>를<br>이용해볼까요?
 
+		<!-- 마스터 화면 -->
 		<div class="select-bar">
-		<form action="${pagecontext.servletContext.contextPath }/classbook/admin" method="get">
+		<form action="${pagecontext.servletContext.contextPath }/classbook/member" method="get">
 			<input type="month" id="selectedMonth" data-placeholder="연도-월 선택"
 				required aria-required="true">
 			<script>
@@ -42,7 +45,6 @@
 				//const maxYearMonth = `${currentYear}-${currentMonth}`;
 				const maxYearMonth = getMaxYearMonth();
 
-				//document.write(minYearMonth+"/"+maxYearMonth);
 				//최대 연도와 월 설정
 				selectedMonthInput.setAttribute('max', maxYearMonth);
 
@@ -53,33 +55,20 @@
 
 
 
-			<%-- <c:if test="${ sessionScope.loginMember.roleCode=1}">
-			<select>
-				<option value="1">오전반</option>
-				<option value="2">오후반</option>
-				<option value="3">종일반</option>
-			</select>
-			</c:if> -->
-			<%-- <c:if test="${ sessionScope.loginMember.roleCode=2}"> --%>
 			<select>
 				<%
 				ClassbookService classbookService = new ClassbookService();
-				int classNo = (int)classbookService.getClassName();
-				switch(classNo){
-				case 1:
-					out.println("<option value='" + classNo +"'>"+"오전반"+"</option>"); break;
-				case 2:
-					out.println("<option value='" + classNo +"'>"+"오후반"+"</option>"); break;
-				case 3:
-					out.println("<option value='" + classNo +"'>"+"종일반"+"</option>"); break;
+				List<DogDTO> dogs = classbookService.getDogNameList();
+				for(DogDTO dog : dogs){
+					out.println("<option value='" + dog.getDogName()+"'>"+dog.getDogName()+"</option>");
 				}
 				%>
 			</select>
-			
-			<%-- </c:if> --%>
 			<button class="btn-black" type="submit">조회하기</button>
 			</form>
 		</div>
+		
+		
 		<div class="table-area">
 			<table align="center" id="listArea" class="table-con">
 				<tr>

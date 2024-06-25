@@ -30,6 +30,7 @@ input[type='month']{
 	width:245px;
 	height:48px;
 	text-align: center;
+	cursor:pointer;
 }
 
 input[type='month']::before{
@@ -61,6 +62,7 @@ select{
 	width:245px;
 	height:48px;
 	text-align: center;
+	cursor:pointer;
 }
 
 button{
@@ -70,6 +72,7 @@ button{
 	width:120px;
 	height:43px;	
 	text-align: center;
+	cursor:pointer;
 }
 
 .btn-black{
@@ -169,5 +172,6 @@ hr{
 
 input[type='checkbox']{
 	width:120px;
+	cursor:pointer;
 }
 
