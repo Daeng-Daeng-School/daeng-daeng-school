@@ -15,10 +15,10 @@
 <script> // 회원가입 성공 시 띄울 alert
 // 페이지가 완전히 로드된 후 JavaScript 코드를 실행
 window.onload = function() {
-    const message = "<%= session.getAttribute("message") != null ? session.getAttribute("message") : "" %>";
+    const message = "<%= session.getAttribute("registSuccessMessage") != null ? session.getAttribute("registSuccessMessage") : "" %>";
     if (message) {
         alert(message);
-        session.removeAttribute("message");
+        session.removeAttribute("registSuccessMessage");
     } 
 }
 </script>
@@ -56,13 +56,12 @@ window.onload = function() {
 							님, 환영합니다.
 						</div>
 						<div class="btns">
-							<input type="button" class="btn" value="정보수정" id="updateMember">
+							<button class="btn"><a href="${pageContext.servletContext.contextPath}/member/mypage">정보수정</a></button>
 							<button class="btn"><a href="${pageContext.servletContext.contextPath}/member/logout">로그아웃</a></button>
 						</div>
 					</c:if>
 				</div>
 			</div>
-		</div>
 
 
 	</header>

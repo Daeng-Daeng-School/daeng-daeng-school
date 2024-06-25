@@ -49,7 +49,7 @@ public class MemberLoginServlet extends HttpServlet {
 					response.sendRedirect(request.getContextPath());
 					
 				} else { // 로그인한 회원정보가 넘어오지 않았다면 로그인 페이지로
-					request.setAttribute("message", "로그인에 실패하셨습니다.");
+					request.setAttribute("loginFailMessage", "로그인에 실패하셨습니다.");
 					request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
 				}
 	

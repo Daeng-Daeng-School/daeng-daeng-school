@@ -48,7 +48,7 @@ public class MemberRegistServlet extends HttpServlet {
 		if(result > 0) {
 			System.out.println("가입 성공!");
 			// 성공 시 메인화면으로 리다이렉트 (성공 alert 출력)
-			request.getSession().setAttribute("message", "가입이 성공적으로 완료되었습니다. 로그인해 주세요.");
+			request.getSession().setAttribute("registSuccessMessage", "가입이 성공적으로 완료되었습니다. 로그인해 주세요.");
 			response.sendRedirect(request.getContextPath());
 		} else {
 			System.out.println("가입 실패!");

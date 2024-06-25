@@ -66,4 +66,27 @@ public class MemberService {
 
 	}
 
+	public int updateMember(int requestMemberCode, String changePhone, String changeAddress) {
+		
+		System.out.println("서비스에서 회원정보 수정 시작!");
+		
+		SqlSession session = getSqlSession();
+		memberDAO = session.getMapper(MemberDAO.class);
+		
+		int updateResult = memberDAO.updateMember(requestMemberCode, changePhone, changeAddress);
+		
+		if(updateResult > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		session.close();
+		
+		return updateResult;
+		
+	}
+
 }

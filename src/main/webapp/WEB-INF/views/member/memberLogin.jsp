@@ -13,7 +13,7 @@
 		margin: 0 auto; /* 가운데 정렬 */ 
         padding: 20px; /* 내부 여백 */
         position: absolute;
-        top: 200px; /* 원하는 위치로 이동 */
+        top: 200px; /* 원하는 위치로 이동 */                                                                                                                                                          
    		left: 50%;
     	transform: translateX(-50%); /* 가운데 정렬 */
     }
@@ -106,6 +106,17 @@
 </style>
 </head>
 <body>
+
+<script> // 로그인 실패 시 띄울 alert
+window.onload = function() {
+
+    const loginFailMessage = "<%= request.getAttribute("loginFailMessage") != null ? request.getAttribute("loginFailMessage") : "" %>";
+    if (loginFailMessage !== "") {
+        alert(loginFailMessage);
+        <% request.removeAttribute("loginFailMessage"); %>
+    }
+}
+</script>
 
 <jsp:include page="../common/menubar.jsp" />
 
