@@ -37,9 +37,19 @@
 				<c:forEach var="notice" items="${requestScope.noticeList}">
 					<div class="post-card" onclick="showDetail(${notice.noticeNo})">
 						<div class="post-thumbnail">
-							<img
-								src="${pageContext.servletContext.contextPath}/resources/image/dogs.jpg"
-								alt="Post Thumbnail 1">
+							<c:set var="imageUrl"
+								value="${notice.getFirstImageFromNoticeBody()}" />
+							<c:choose>
+								<c:when test="${not empty imageUrl}">
+									<img src="${imageUrl}"
+										alt="Post Thumbnail">
+								</c:when>
+								<c:otherwise>
+									<img
+										src="${pageContext.servletContext.contextPath}/resources/image/dogs.jpg"
+										alt="Default Image">
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="post-content">
 							<h2>
@@ -56,6 +66,7 @@
 						</div>
 					</div>
 				</c:forEach>
+
 			</div>
 			<br>
 		</div>

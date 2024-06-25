@@ -142,6 +142,7 @@
 .post-card {
 	width: calc(33.33% - 14px);
 	/* 너비 계산식 설정 */
+	height: 400px;
 	background-color: #f0f0f0;
 	border-radius: 15px;
 	overflow: hidden;
@@ -228,6 +229,16 @@
 	justify-content: center;
 	font-size: 16px;
 	padding: 10px;
+}
+
+.noneBorderInput{
+	align-items: center;
+	text-align: center;
+	outline: none; 
+	font-size: 1rem;
+	border: none; 
+	outline: none
+	
 }
 
 .header-row .author u,
