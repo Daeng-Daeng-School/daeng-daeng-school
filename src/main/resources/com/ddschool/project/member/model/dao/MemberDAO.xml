@@ -73,5 +73,12 @@
 	SET PHONE = #{ changePhone }, ADDRESS = #{ changeAddress }
 	WHERE MEMBER_CODE = #{ requestMemberCode }
 	</update>
+	
+	<!-- memberCode 로 회원의 status 수정 --> 
+	<update id="deleteMember">
+	UPDATE TBL_MEMBER
+	SET STATUS = #{ deleteMemberSatus }
+	WHERE MEMBER_CODE = #{ deleteMemberCode }
+	</update>
 
 </mapper>

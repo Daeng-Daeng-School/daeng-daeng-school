@@ -16,5 +16,11 @@ public interface MemberDAO {
 					@Param("requestMemberCode") int requestMemberCode, 
             		@Param("changePhone") String changePhone, 
             		@Param("changeAddress") String changeAddress);
+
+	int deleteMember(
+					@Param("deleteMemberCode") int deleteMemberCode,
+					@Param("deleteMemberSatus") boolean deleteMemberSatus);
+
+
 	
 }

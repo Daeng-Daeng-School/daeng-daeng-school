@@ -115,11 +115,31 @@
     .register-container .edit-btn {
         margin-top: 20px;
     }
+    
+    .register-container .withdraw-btn-container {
+        display: flex;
+        justify-content: flex-end; /* 회원가입 버튼을 오른쪽 정렬 */
+        width: 100%; /* 전체 너비로 설정 */
+        margin-top: 0px; /* 상단 간격 설정 */
+    }
+
+   .register-container .withdraw-btn {
+        margin-left: auto; /* 오른쪽 정렬 */
+        padding: 0; /* 내부 여백 */
+        font-size: 14px; /* 글자 크기 */
+        cursor: pointer; /* 마우스 포인터 */
+        background: none; /* 배경 제거 */
+        border: none; /* 테두리 제거 */
+    }
+
+    .register-container .withdraw-btn:hover {
+        color: #787878; /* 마우스를 올렸을 때 텍스트 색상 변경 */
+    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
-    // 페이지 로드 시 회원 정보를 로드합니다.
+    // 페이지 로드 시 회원 정보를 로드
     loadMemberInfo();
 
     function loadMemberInfo() {
@@ -136,7 +156,7 @@ $(document).ready(function() {
                 $("#edit-btn").show();
                 $("#update-btn").hide();
             }
-        });
+    	 });
     }
 
     // 수정하기 버튼 클릭 시
@@ -173,6 +193,13 @@ $(document).ready(function() {
                 }
             }
         });
+    });
+    
+    // 탈퇴하기 버튼 클릭 시
+    $(".withdraw-btn").click(function() {
+        if (confirm("정말 탈퇴하시겠습니까?")) {
+            window.location.href = '${pageContext.servletContext.contextPath}/member/delete';
+        }
     });
 });
 </script>
@@ -220,6 +247,9 @@ $(document).ready(function() {
                     <div class="button-container">
                         <button type="button" id="edit-btn" class="edit-btn">수정하기</button>
                         <button type="button" id="update-btn" class="register-btn" style="display:none;">수정 완료</button>
+                        <div class="withdraw-btn-container">
+                    		<button type="button" class="withdraw-btn">탈퇴하기</button>
+                		</div>
                     </div>
                 </form>
             </div>

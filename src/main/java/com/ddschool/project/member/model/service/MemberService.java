@@ -83,10 +83,28 @@ public class MemberService {
 		
 		session.close();
 		
-		session.close();
-		
 		return updateResult;
 		
+	}
+
+	public int deleteMember(int deleteMemberCode, boolean deleteMemberSatus) {
+		
+		System.out.println("서비스에서 회원탈퇴 시작!");
+		
+		SqlSession session = getSqlSession();
+		memberDAO = session.getMapper(MemberDAO.class);
+		
+		int deleteResult = memberDAO.deleteMember(deleteMemberCode, deleteMemberSatus);
+		
+		if(deleteResult > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return deleteResult;
 	}
 
 }

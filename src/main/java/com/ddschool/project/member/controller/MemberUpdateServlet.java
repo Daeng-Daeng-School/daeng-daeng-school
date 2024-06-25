@@ -16,8 +16,6 @@ import com.ddschool.project.member.model.service.MemberService;
 
 @WebServlet("/member/update")
 public class MemberUpdateServlet extends HttpServlet {
-	
-	MemberService meberService;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
