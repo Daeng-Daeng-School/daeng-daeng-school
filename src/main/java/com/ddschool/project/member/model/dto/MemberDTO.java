@@ -6,7 +6,7 @@ public class MemberDTO {
 	
 	private int memberCode;
 	
-	private int classCode;
+	private Integer classCode;
 	
 	private int roleCode;
 	
@@ -32,7 +32,7 @@ public class MemberDTO {
 		super();
 	}
 
-	public MemberDTO(int memberCode, int classCode, int roleCode, String memberId, String memberPwd, String memberName,
+	public MemberDTO(int memberCode, Integer classCode, int roleCode, String memberId, String memberPwd, String memberName,
 			String phone, String address, String memberBirth, boolean status, Date joinDate, Date withdrawDate) {
 		super();
 		this.memberCode = memberCode;
@@ -57,11 +57,11 @@ public class MemberDTO {
 		this.memberCode = memberCode;
 	}
 
-	public int getClassCode() {
+	public Integer getClassCode() {
 		return classCode;
 	}
 
-	public void setClassCode(int classCode) {
+	public void setClassCode(Integer classCode) {
 		this.classCode = classCode;
 	}
 

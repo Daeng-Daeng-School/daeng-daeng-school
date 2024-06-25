@@ -9,8 +9,12 @@
 <body>
 	<jsp:include page="../common/menubar.jsp" />
 	<script>
-		alert("${message}");
-		window.location.replace("${pageContext.servletContext.contextPath}");
+	const message = "<%= request.getAttribute("authFailMessage") != null ? request.getAttribute("authFailMessage") : "" %>";
+	if (message) {
+	    alert(message);
+	    request.removeAttribute("authFailMessage");
+	} 
+	window.location.replace("${pageContext.servletContext.contextPath}");
 	</script>
 </body>
 </html>

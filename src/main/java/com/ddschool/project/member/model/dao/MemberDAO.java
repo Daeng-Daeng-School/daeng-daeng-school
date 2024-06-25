@@ -1,5 +1,7 @@
 package com.ddschool.project.member.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.ddschool.project.member.model.dto.MemberDTO;
@@ -21,6 +23,6 @@ public interface MemberDAO {
 					@Param("deleteMemberCode") int deleteMemberCode,
 					@Param("deleteMemberSatus") boolean deleteMemberSatus);
 
+	List<MemberDTO> selectTeacherList();
 
-	
 }

@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ddschool.project.member.model.dao.MemberDAO">
 
-	<resultMap type="com.ddschool.project.member.model.dao.MemberDAO" id="memberResultMap">
+	<resultMap type="com.ddschool.project.member.model.dto.MemberDTO" id="memberResultMap">
 		<id property="memberCode" column="MEMBER_CODE"/>
 		<result property="classCode" column="CLASS_CODE"/>
 		<result property="roleCode" column="ROLE_CODE"/>
@@ -23,7 +23,7 @@
         <id property="memberCode" column="MEMBER_CODE"/>
         <result property="memberId" column="MEMBER_ID"/>
         <result property="memberName" column="MEMBER_NAME"/>
-        <result property="memberRole" column="MEMBER_ROLE"/>
+        <result property="roleCode" column="ROLE_CODE"/>
         <result property="memberBirth" column="MEMBER_BIRTH"/>
         <result property="address" column="ADDRESS"/>
         <result property="phone" column="PHONE"/>
@@ -41,6 +41,7 @@
 						, PHONE
 						, ADDRESS
 						, ROLE_CODE
+						, CLASS_CODE
 						)
 			VALUES (
 					#{ memberId }
@@ -49,7 +50,8 @@
 					, #{ memberName }
 					, #{ phone }
 					, #{ address }
-					, 3
+					, #{ roleCode }
+					, #{ classCode }
 					)
 	</insert>
 	
@@ -80,5 +82,12 @@
 	SET STATUS = #{ deleteMemberSatus }
 	WHERE MEMBER_CODE = #{ deleteMemberCode }
 	</update>
+	
+	<!-- 전체 선생님 목록 조회 -->
+	<select id="selectTeacherList" resultMap="memberResultMap">
+	SELECT *
+	FROM TBL_MEMBER
+	WHERE ROLE_CODE = 2
+	</select>
 
 </mapper>

@@ -32,7 +32,7 @@ public class PasswordEncryptFilter extends HttpFilter implements Filter {
 		System.out.println("[Filter] intent : " + intent);
 		
 		// 회원가입 요청 경로라면 암호화 래퍼로 보낸다
-		if("/regist".equals(intent)) {
+		if("/regist".equals(intent) || "/teacherRegist".equals(intent)) {
 			EncryptRequestWrapper wrapper = new EncryptRequestWrapper(hrequest);
 			chain.doFilter(wrapper, response);
 			

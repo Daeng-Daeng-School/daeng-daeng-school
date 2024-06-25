@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회원정보 관리</title>
+<title>댕댕스쿨</title>
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common.css">
 <style>
     .mypage-container .container {
@@ -194,13 +194,6 @@ $(document).ready(function() {
             }
         });
     });
-    
-    // 탈퇴하기 버튼 클릭 시
-    $(".withdraw-btn").click(function() {
-        if (confirm("정말 탈퇴하시겠습니까?")) {
-            window.location.href = '${pageContext.servletContext.contextPath}/member/delete';
-        }
-    });
 });
 </script>
 </head>
@@ -212,8 +205,8 @@ $(document).ready(function() {
     <div class="container">
         <div class="sidebar">
             <ul>
-                <li><a href="${pageContext.servletContext.contextPath}/member/mypage" class="current">회원정보 관리</a></li>
-                <li><a href="${pageContext.servletContext.contextPath}">반려견정보 관리</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/master/mypage" class="current">회원정보 관리</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/master/management">선생님 관리</a></li>
             </ul>
         </div>
         <div class="main-content">
@@ -247,9 +240,6 @@ $(document).ready(function() {
                     <div class="button-container">
                         <button type="button" id="edit-btn" class="edit-btn">수정하기</button>
                         <button type="button" id="update-btn" class="register-btn" style="display:none;">수정 완료</button>
-                        <div class="withdraw-btn-container">
-                    		<button type="button" class="withdraw-btn">탈퇴하기</button>
-                		</div>
                     </div>
                 </form>
             </div>

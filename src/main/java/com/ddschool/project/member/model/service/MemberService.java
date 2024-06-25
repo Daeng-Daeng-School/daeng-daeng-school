@@ -9,6 +9,8 @@ import com.ddschool.project.member.model.dto.MemberDTO;
 
 import static com.ddschool.project.common.mybatis.Template.getSqlSession;
 
+import java.util.List;
+
 public class MemberService {
 	
 	private MemberDAO memberDAO;
@@ -105,6 +107,19 @@ public class MemberService {
 		session.close();
 		
 		return deleteResult;
+	}
+
+	public List<MemberDTO> selectTeacherList() {
+		
+		System.out.println("서비스에서 선생님 목록조회 시작!");
+		
+		SqlSession session = getSqlSession();
+		memberDAO = session.getMapper(MemberDAO.class);
+		
+		List<MemberDTO> teacherList = memberDAO.selectTeacherList();
+		System.out.println("서비스에서 선생님 목록 출력: "+teacherList);
+		
+		return teacherList;
 	}
 
 }
