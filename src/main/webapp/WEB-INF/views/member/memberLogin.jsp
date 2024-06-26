@@ -109,31 +109,16 @@
 
 <jsp:include page="../common/menubar.jsp" />
 
-<script> // 로그인 실패 시 띄울 alert
+<script>
 window.onload = function() {
-
-    const loginFailMessage = "<%= request.getAttribute("loginFailMessage") != null ? request.getAttribute("loginFailMessage") : "" %>";
-    if (loginFailMessage !== "") {
-        alert(loginFailMessage);
-        <% request.removeAttribute("loginFailMessage"); %>
-    }
-}
-</script>
-
-<script> // 탈퇴한 회원의 로그인 실패 시 띄울 alert
-window.onload = function() {
-
+    // 탈퇴한 회원의 로그인 실패 시 띄울 alert
     const statusDisAvailableMessage = "<%= request.getAttribute("statusDisAvailableMessage") != null ? request.getAttribute("statusDisAvailableMessage") : "" %>";
     if (statusDisAvailableMessage !== "") {
         alert(statusDisAvailableMessage);
         <% request.removeAttribute("statusDisAvailableMessage"); %>
     }
-}
-</script>
 
-<script> // 존재하지 않는 회원의 로그인 실패 시 띄울 alert
-window.onload = function() {
-
+    // 존재하지 않는 회원의 로그인 실패 시 띄울 alert
     const notfoundMEmberMessage = "<%= request.getAttribute("notfoundMEmberMessage") != null ? request.getAttribute("notfoundMEmberMessage") : "" %>";
     if (notfoundMEmberMessage !== "") {
         alert(notfoundMEmberMessage);
