@@ -89,7 +89,10 @@
 }
 
 .searchIcon {
+	border: none;
 	margin-right: 10px;
+	cursor: pointer;
+	background-color: inherit;
 }
 
 /* 검색 버튼 스타일 설정 */
@@ -322,6 +325,11 @@
 	/* 폰트 두께 설정 */
 }
 
+.comments-section .comment .comment-info .original-date, .modify-date {
+	font-size: 12px;
+	color: rgb(128, 128, 128);
+}
+
 .comments-section .comment .comment-info .actions {
 	flex: 20%;
 	/* 20% 너비 설정 */
@@ -339,8 +347,8 @@
 	font-size: 10px;
 }
 
-.comments-section .comment .comment-content {
-	flex: 70%;
+.comments-section .comment .original-content, .edit-content {
+	flex: 50%;
 	/* 70% 너비 설정 */
 	text-align: left;
 	/* 텍스트를 왼쪽 정렬 */
@@ -350,7 +358,7 @@
 	margin: 10px;
 }
 
-.comments-section .comment-form {
+#commentForm {
 	display: flex;
 	flex-direction: row;
 	/* 수평으로 아이템 배치 */
@@ -362,7 +370,7 @@
 	justify-content: space-between;
 }
 
-.comments-section .comment-form textarea {
+.comments-section #commentForm textarea, .edit-content textarea {
 	flex: 1;
 	/* 1의 너비 차지 */
 	height: 100px;
@@ -375,7 +383,7 @@
 	font-size: 16px;
 }
 
-.comments-section .comment-form .btn {
+.comments-section #commentForm .btn {
 	padding: 8px 16px;
 	border: none;
 	border-radius: 16px;
@@ -387,7 +395,7 @@
 	margin-left: 10px;
 }
 
-.comments-section .comment-form .btn:hover {
+.comments-section #commentForm .btn:hover {
 	background-color: #555;
 }
 

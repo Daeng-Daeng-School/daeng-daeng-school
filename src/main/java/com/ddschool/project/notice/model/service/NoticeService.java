@@ -6,6 +6,7 @@ import com.ddschool.project.common.paging.PaginationUtil;
 import com.ddschool.project.common.paging.SelectCriteria;
 import com.ddschool.project.notice.model.dao.NoticeDAO;
 import com.ddschool.project.notice.model.dto.NoticeDTO;
+import com.mysql.cj.protocol.x.Notice;
 
 import static com.ddschool.project.common.mybatis.Template.getSqlSession;
 
@@ -162,6 +163,18 @@ public class NoticeService {
 		}
 		session.close();
 		return result;
+	}
+
+	public List<NoticeDTO> searchNotices(String keyword) {
+		SqlSession session = getSqlSession();
+		noticeDAO = session.getMapper(NoticeDAO.class);
+
+		List<NoticeDTO> searchList = noticeDAO.searchNotices(keyword);
+		System.out.println(searchList.toString());
+
+		session.close();
+
+		return searchList;
 	}
 
 }

@@ -70,4 +70,8 @@ public interface NoticeDAO {
      * @return DB에서 삭제된 행 수
      */
     int deleteNotice(int noticeNo);
+
+    
+    
+	List<NoticeDTO> searchNotices(String keyword);
 }

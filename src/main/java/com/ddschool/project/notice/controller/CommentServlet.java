@@ -29,14 +29,15 @@ public class CommentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 요청 파라미터에서 공지사항 번호를 가져옴
+		// 요청 파라미터에서 공지 번호를 가져옴
+		request.setCharacterEncoding("UTF-8");
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-		System.out.println("댓글 목록 조회 - 공지사항 번호: " + noticeNo);
+		System.out.println("댓글 목록 조회 - 공지 번호: " + noticeNo);
 
-		// 공지사항 번호에 해당하는 댓글 목록을 서비스에서 가져옴
+		// 서비스에서 공지 번호에 해당하는 댓글 목록을 가져옴
 		List<CommentDTO> comments = commentService.getCommentsByNoticeNo(noticeNo);
 
-		// 댓글 데이터를 JSON 형식으로 변환하여 클라이언트에게 전달
+		// 댓글 데이터를 JSON 형식으로 변환하여 클라이언트에 전달
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
@@ -46,11 +47,12 @@ public class CommentServlet extends HttpServlet {
 		String jsonComments = gson.toJson(comments);
 
 		out.print(jsonComments);
+		// flush()는 버퍼링된 데이터를 출력 스트림에서 클라이언트나 수신자에게 즉시 전송하여, 실시간 업데이트 및 효율적인 네트워크 통신에 중요한 기능
 		out.flush();
 	}
 
 	/**
-	 * POST 요청을 처리하여 새로운 댓글을 추가합니다.
+	 * POST 요청을 처리하여 새로운 댓글을 추가
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -78,19 +80,20 @@ public class CommentServlet extends HttpServlet {
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 요청 파라미터에서 댓글 코드, 수정할 내용을 가져옴
+		// 요청 파라미터에서 댓글 코드와 컨텐츠를 가져옴
 		request.setCharacterEncoding("UTF-8");
 		int commentCode = Integer.parseInt(request.getParameter("commentCode"));
 		String content = request.getParameter("content");
 
-		// 댓글 객체를 생성하고 값 설정
-		CommentDTO comment = new CommentDTO();
-		comment.setCommentCode(commentCode);
-		comment.setContent(content);
+		// 새로운 댓글 객체 생성
+		CommentDTO newComment = new CommentDTO();
+		newComment.setCommentCode(commentCode);
+		newComment.setContent(content);
 
-		// 서비스를 통해 댓글을 수정하고 결과를 JSON 형식으로 반환
-		int result = commentService.modifyComment(comment);
-		response.setContentType("application/json");
+		// 서비스에서 댓글 등록
+		int result = commentService.modifyComment(newComment);
+		// 성공 메시지 전송
+		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write("{\"result\":\"" + ((result > 0) ? "success" : "error") + "\"}");
 	}
@@ -103,9 +106,13 @@ public class CommentServlet extends HttpServlet {
 		// 요청 파라미터에서 댓글 코드를 가져옴
 		request.setCharacterEncoding("UTF-8");
 		int commentCode = Integer.parseInt(request.getParameter("commentCode"));
+		System.out.println("삭제 commentCode : " + commentCode);
 
-		// 서비스를 통해 댓글을 삭제하고 결과를 JSON 형식으로 반환
-		int result = commentService.deleteComment(commentCode);
+		// 논리적 삭제를 위해 댓글의 상태를 '0'으로 업데이트
+		int result = commentService.markCommentAsDeleted(commentCode);
+		System.out.println("삭제result : " + result);
+		
+		// 결과를 JSON 형식으로 반환
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write("{\"result\":\"" + ((result > 0) ? "success" : "error") + "\"}");

@@ -19,6 +19,9 @@ public class CommentService {
 
 	/**
 	 * 댓글 추가
+	 * 
+	 * @param comment 새로운 댓글 객체
+	 * @return 삽입 결과
 	 */
 	public int addComment(CommentDTO comment) {
 		SqlSession session = getSqlSession();
@@ -34,18 +37,31 @@ public class CommentService {
 	}
 
 	/**
-	 * 공지사항 번호에 해당하는 댓글 목록 가져옴
+	 * 댓글 조회
+	 * 
+	 * @param noticeNo 알림장 번호
+	 * @return 댓글 목록
 	 */
 	public List<CommentDTO> getCommentsByNoticeNo(int noticeNo) {
 		SqlSession session = getSqlSession();
-		commentDAO = session.getMapper(CommentDAO.class);
-		List<CommentDTO> comments = commentDAO.selectCommentsByNoticeNo(noticeNo);
-		session.close();
-		return comments;
+
+		try {
+			// CommentDAO의 매퍼를 얻음
+			commentDAO = session.getMapper(CommentDAO.class);
+			// 공지사항 번호에 해당하는 댓글 목록을 조회
+			List<CommentDTO> comments = commentDAO.selectCommentsByNoticeNo(noticeNo);
+			return comments;
+		} finally {
+			// 세션을 닫아 자원을 해제
+			session.close();
+		}
 	}
 
 	/**
 	 * 댓글 수정
+	 * 
+	 * @param comment 수정할 댓글 객체
+	 * @return 수정 결과
 	 */
 	public int modifyComment(CommentDTO comment) {
 		SqlSession session = getSqlSession();
@@ -62,11 +78,14 @@ public class CommentService {
 
 	/**
 	 * 댓글 삭제
+	 * 
+	 * @param commentCode 삭제할 댓글 코드
+	 * @return 삭제 결과
 	 */
-	public int deleteComment(int commentCode) {
+	public int markCommentAsDeleted(int commentCode) {
 		SqlSession session = getSqlSession();
 		commentDAO = session.getMapper(CommentDAO.class);
-		int result = commentDAO.deleteComment(commentCode);
+		int result = commentDAO.updateCommentStatusToDeleted(commentCode);
 		if (result > 0) {
 			session.commit();
 		} else {

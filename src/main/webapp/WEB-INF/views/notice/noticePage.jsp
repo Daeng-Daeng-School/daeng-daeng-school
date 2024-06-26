@@ -11,6 +11,14 @@
 	href="${pageContext.servletContext.contextPath}/resources/css/notice.css">
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/notice.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	var contextPath = "${pageContext.request.contextPath}"; // Store the context path in a JavaScript variable
+</script>
+<!-- Load TinyMCE script -->
+<script
+	src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+	referrerpolicy="origin"></script>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp" />
@@ -24,10 +32,9 @@
 					</p>
 					<div class="search-section">
 						<input type="text" id="searchInput" class="searchAllInput"
-							placeholder="Search All..."> <a onclick="search()"><span
-							class="searchIcon">🔎</span></a>
-						<button class="write-post-button" onclick="writeNotice()">
-							작성하기</button>
+							placeholder="Search All..." onkeypress="handleKeyPress(event)">
+						<button class="searchIcon" onclick="search()">🔎</button>
+						<button class="write-post-button" onclick="writeNotice()">작성하기</button>
 					</div>
 				</div>
 				<jsp:include page="../notice/selectDog.jsp" />
@@ -41,8 +48,7 @@
 								value="${notice.getFirstImageFromNoticeBody()}" />
 							<c:choose>
 								<c:when test="${not empty imageUrl}">
-									<img src="${imageUrl}"
-										alt="Post Thumbnail">
+									<img src="${imageUrl}" alt="Post Thumbnail">
 								</c:when>
 								<c:otherwise>
 									<img
@@ -66,7 +72,6 @@
 						</div>
 					</div>
 				</c:forEach>
-
 			</div>
 			<br>
 		</div>
@@ -77,5 +82,6 @@
 	<!-- contextPath를 가져오는 숨겨진 입력 필드 추가 -->
 	<input type="hidden" id="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
+
 </body>
 </html>

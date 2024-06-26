@@ -14,6 +14,14 @@
 		<result property="modifyDate" column="MODIFY_DATE" />
 		<result property="status" column="STATUS" />
 	</resultMap>
+	
+	<select id="selectCommentsByNoticeNo" parameterType="_int" resultMap="commentResultMap">
+		SELECT COMMENT_CODE, BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE, MODIFY_DATE, STATUS
+		FROM TBL_COMMENT
+		WHERE BOARD_CODE = #{noticeNo}
+		AND STATUS = 1
+		ORDER BY COMMENT_CODE DESC
+	</select>
 
 	<insert id="insertComment">
 		INSERT INTO TBL_COMMENT (BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE, STATUS)
@@ -26,16 +34,10 @@
 		WHERE COMMENT_CODE = #{commentCode}
 	</update>
 
-	<update id="deleteComment" parameterType="_int">
+	<update id="updateCommentStatusToDeleted" parameterType="_int">
 		UPDATE TBL_COMMENT
 		SET STATUS = 0
 		WHERE COMMENT_CODE = #{commentCode}
 	</update>
 
-	<select id="selectCommentsByNoticeNo" parameterType="_int" resultMap="commentResultMap">
-		SELECT COMMENT_CODE, BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE, MODIFY_DATE, STATUS
-		FROM TBL_COMMENT
-		WHERE BOARD_CODE = #{noticeNo}
-		ORDER BY REGIST_DATE DESC
-	</select>
 </mapper>

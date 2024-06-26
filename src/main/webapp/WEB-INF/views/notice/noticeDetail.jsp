@@ -29,7 +29,7 @@
 						<input type="hidden" name="noticeNo" value="${ notice.noticeNo }">
 					</form>
 					<div class="button-section">
-						<button onclick="doDelete(${notice.noticeNo})"
+						<button onclick="doDelete(${ notice.noticeNo })"
 							class="write-post-button" id="deleteBtn">삭제하기</button>
 						<button onclick="doModify(${notice.noticeNo})"
 							class="write-post-button" id="modifyBtn">수정하기</button>

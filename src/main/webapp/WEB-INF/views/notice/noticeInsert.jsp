@@ -37,7 +37,8 @@
 					<div class="outer-notice-insert">
 						<div class="header-row">
 							<div class="author">
-								<input type="text" name="writerName" value="2" class="noneBorderInput">
+								<input type="text" name="writerName" value="2"
+									class="noneBorderInput">
 							</div>
 							<div class="createdDate">
 								<input type="date" name="createdDate" class="noneBorderInput"
@@ -46,11 +47,12 @@
 							</div>
 						</div>
 						<h2 class="title">
-							제목 :<input type="text" name="title" placeholder="제목을 입력하세요." required>
+							제목 :<input type="text" name="title" placeholder="제목을 입력하세요."
+								required oninvalid="this.setCustomValidity('제목은 필수항목입니다.')">
 						</h2>
 						<div class="content-box">
 							<textarea name="body" id="editor" cols="60" rows="15"
-								placeholder="내용을 입력하세요." required></textarea>
+								placeholder="내용을 입력하세요."></textarea>
 						</div>
 					</div>
 				</form>
