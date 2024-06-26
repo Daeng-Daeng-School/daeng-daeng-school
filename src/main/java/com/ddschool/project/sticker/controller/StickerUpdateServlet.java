@@ -21,7 +21,7 @@ public class StickerUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int stickerCode = Integer.parseInt(request.getParameter("stickerCode"));
 		String dogCode = request.getParameter("dogCode");
-		String memerCode = request.getParameter("memerCode");
+		String memberCode = request.getParameter("memberCode");
 		String stickerNum = request.getParameter("stickerNum");
 		String comment = request.getParameter("comment");
 		String registDate = request.getParameter("registDate");
@@ -30,7 +30,7 @@ public class StickerUpdateServlet extends HttpServlet {
 		
 		requestSticker.setStickerCode(stickerCode);
 		requestSticker.setDogCode(dogCode);
-		requestSticker.setMemerCode(memerCode);
+		requestSticker.setMemberCode(memberCode);
 		requestSticker.setStickerNum(stickerNum);
 		requestSticker.setComment(comment);
 		requestSticker.setRegistDate(registDate);

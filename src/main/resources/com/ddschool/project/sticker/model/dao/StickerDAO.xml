@@ -23,7 +23,7 @@
          TBL_STICKER(
                   DOG_CODE
                   , MEMBER_CODE
-                  , STIKER_NUM
+                  , STICKER_NUM
                   , COMMENT
                   , REGIST_DATE
                   )
@@ -42,7 +42,7 @@
   	 SET
                   DOG_CODE = #{ dogCode }                  
                   , MEMBER_CODE = #{ memberCode }
-                  , STIKER_NUM = #{ stickerNum }
+                  , STICKER_NUM = #{ stickerNum }
                   , COMMENT = #{ comment }
                   , REGIST_DATE = #{ registDate }   
      WHERE STICKER_CODE = #{ stickerCode }
@@ -69,7 +69,7 @@
 		FROM TBL_STICKER A
 		JOIN TBL_DOG B ON (A.DOG_CODE = B.DOG_CODE)
 		JOIN TBL_MEMBER C ON (A.MEMBER_CODE = C.MEMBER_CODE)
-		WHERE DATE_FORMAT(A.REGIST_DATE, '%Y-%m')=#{registDate};
+		WHERE DATE_FORMAT(A.REGIST_DATE, '%Y%m')=#{registDate};
                                  
          
    </select>

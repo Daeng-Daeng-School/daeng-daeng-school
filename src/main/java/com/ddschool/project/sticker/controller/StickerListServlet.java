@@ -15,39 +15,38 @@ import com.ddschool.project.sticker.model.service.StickerService;
 public class StickerListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "/WEB-INF/views/sticker/adminPage.jsp";
-	    request.getRequestDispatcher(path).forward(request, response);
+		String registDate = request.getParameter("registDate");
+		
+		StickerDTO requestSticker = new StickerDTO();
+		
+		
+		requestSticker.setRegistDate(registDate);
+		
+		List<StickerDTO> stickerList = new StickerService().SelectListSticker(requestSticker);
+		
+		
+		System.out.println("stickerList : " + stickerList );
+		
+		String page = "";
+		
+		if(stickerList != null) {
+			page = "/WEB-INF/views/sticker/adminPage.jsp";
+			request.setAttribute("stickerList", stickerList);
+			
+		}else {
+			page = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("message", "조회가 실패하였습니다");
+			
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
+
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-				String registDate = request.getParameter("registDate");
 				
-				StickerDTO requestSticker = new StickerDTO();
-				
-				
-				requestSticker.setRegistDate(registDate);
-				
-				List<StickerDTO> stickerList = new StickerService().SelectListSticker(requestSticker);
-				
-				
-				System.out.println("stickerList : " + stickerList );
-				
-				String page = "";
-				
-				if(stickerList != null) {
-					page = "/WEB-INF/views/sticker/adminPage.jsp";
-					request.setAttribute("stickerList", stickerList);
-					
-				}else {
-					page = "/WEB-INF/views/common/failed.jsp";
-					request.setAttribute("message", "조회가 실패하였습니다");
-					
-				}
-				
-				request.getRequestDispatcher(page).forward(request, response);
-	
 	}
 
 }
