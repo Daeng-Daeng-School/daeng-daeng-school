@@ -20,9 +20,4 @@ public class MemberMypageServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	
-	}
-
 }

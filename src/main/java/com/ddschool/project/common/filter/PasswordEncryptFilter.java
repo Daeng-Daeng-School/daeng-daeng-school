@@ -14,7 +14,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
-@WebFilter("/member/*")
+@WebFilter(urlPatterns = {"/member/*", "/master/*"})
 public class PasswordEncryptFilter extends HttpFilter implements Filter {
        
 	public void destroy() {

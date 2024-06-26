@@ -59,6 +59,7 @@ public class MemberLoginServlet extends HttpServlet {
 			} 
 		
 		} catch (NullPointerException e) {
+			System.out.println("nullpointexception 발생!");
 			request.setAttribute("notfoundMEmberMessage", "존재하지 않는 회원입니다.");
 			request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
 		}

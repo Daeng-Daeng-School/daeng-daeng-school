@@ -7,13 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/master/mypage")
-public class MasterMypageServlet extends HttpServlet {
-       
+@WebServlet("/teacher/mypage")
+public class TeacherMypageServlet extends HttpServlet {
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		request.getRequestDispatcher("/WEB-INF/views/member/masterMypage.jsp").forward(request, response);
-	
+		request.getRequestDispatcher("/WEB-INF/views/member/teacherMypage.jsp").forward(request, response);
 	}
 
 }

@@ -45,7 +45,17 @@
 							님, 환영합니다.
 						</div>
 						<div class="btns">
+						<c:choose>
+						<c:when test="${ sessionScope.loginMember.roleCode == 1}">
+							<button class="btn"><a href="${pageContext.servletContext.contextPath}/master/mypage">정보수정</a></button>
+						</c:when>
+						<c:when test="${ sessionScope.loginMember.roleCode == 2}">
+							<button class="btn"><a href="${pageContext.servletContext.contextPath}/teacher/mypage">정보수정</a></button>
+						</c:when>
+						<c:when test="${ sessionScope.loginMember.roleCode == 3}">
 							<button class="btn"><a href="${pageContext.servletContext.contextPath}/member/mypage">정보수정</a></button>
+						</c:when>
+						</c:choose>
 							<button class="btn"><a href="${pageContext.servletContext.contextPath}/member/logout">로그아웃</a></button>
 						</div>
 					</c:if>

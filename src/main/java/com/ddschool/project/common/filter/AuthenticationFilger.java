@@ -39,10 +39,17 @@ public class AuthenticationFilger implements Filter {
 		masterPermitList.add("/member/mypage");
 		masterPermitList.add("/member/delete");
 		masterPermitList.add("/member/update");
+		masterPermitList.add("/member/getMemberInfo");
 		
 		memberPermitList.add("/member/mypage");
 		memberPermitList.add("/member/delete");
 		memberPermitList.add("/member/update");
+		memberPermitList.add("/member/getMemberInfo");
+		
+		teacherPermitList.add("/teacher/mypage");
+		teacherPermitList.add("/member/delete");
+		teacherPermitList.add("/member/update");
+		teacherPermitList.add("/member/getMemberInfo");
 		
 		allPermitList.add("/member/regist");
 		allPermitList.add("/member/login");
@@ -95,7 +102,6 @@ public class AuthenticationFilger implements Filter {
 			if(isAuthorized) {
 				chain.doFilter(hrequest, response);
 			} else {
-//				((HttpServletResponse) response).sendError(403);
 				request.setAttribute("accessDeniedMessage", "접근 가능한 권한이 아닙니다.");
 				request.getRequestDispatcher("/WEB-INF/views/common/error403.jsp").forward(request, response);
 			}
