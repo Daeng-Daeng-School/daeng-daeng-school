@@ -107,6 +107,8 @@
 </head>
 <body>
 
+<jsp:include page="../common/menubar.jsp" />
+
 <script> // 로그인 실패 시 띄울 alert
 window.onload = function() {
 
@@ -118,7 +120,27 @@ window.onload = function() {
 }
 </script>
 
-<jsp:include page="../common/menubar.jsp" />
+<script> // 탈퇴한 회원의 로그인 실패 시 띄울 alert
+window.onload = function() {
+
+    const statusDisAvailableMessage = "<%= request.getAttribute("statusDisAvailableMessage") != null ? request.getAttribute("statusDisAvailableMessage") : "" %>";
+    if (statusDisAvailableMessage !== "") {
+        alert(statusDisAvailableMessage);
+        <% request.removeAttribute("statusDisAvailableMessage"); %>
+    }
+}
+</script>
+
+<script> // 존재하지 않는 회원의 로그인 실패 시 띄울 alert
+window.onload = function() {
+
+    const notfoundMEmberMessage = "<%= request.getAttribute("notfoundMEmberMessage") != null ? request.getAttribute("notfoundMEmberMessage") : "" %>";
+    if (notfoundMEmberMessage !== "") {
+        alert(notfoundMEmberMessage);
+        <% request.removeAttribute("notfoundMEmberMessage"); %>
+    }
+}
+</script>
 
 <script>
 window.onload = function() {
