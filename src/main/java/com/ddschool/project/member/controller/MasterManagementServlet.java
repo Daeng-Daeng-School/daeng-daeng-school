@@ -31,6 +31,15 @@ public class MasterManagementServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		// 이곳에서 선생님 목록을 조회하여 화면으로 전달
+		List<MemberDTO> teacherList = new MemberService().selectTeacherList();
+		System.out.println("서블릿에서 선생님 목록 출력: " + teacherList);
+		
+		// request 에 선생님 리스트 담기
+		request.setAttribute("teacherList", teacherList);
+		
+		// masterAdminManagement.jsp 로 포워드
+		request.getRequestDispatcher("/WEB-INF/views/member/masterAdminManagement.jsp").forward(request, response);
 	
 	}
 

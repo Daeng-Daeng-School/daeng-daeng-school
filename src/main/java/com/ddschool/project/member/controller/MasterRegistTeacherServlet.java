@@ -62,7 +62,7 @@ public class MasterRegistTeacherServlet extends HttpServlet {
 		if(result > 0) {
 			System.out.println("등록 성공!");
 			request.getSession().setAttribute("registTeacherSuccessMessage", "등록이 성공적으로 완료되었습니다.");
-			request.getRequestDispatcher("/WEB-INF/views/member/masterAdminManagement.jsp").forward(request, response);
+			request.getRequestDispatcher("/master/management").forward(request, response);
 		} else {
 			System.out.println("등록 실패!");
 			request.setAttribute("errorMessage", "등록에 실패했습니다. 다시 시도해 주세요.");

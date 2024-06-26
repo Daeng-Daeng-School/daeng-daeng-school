@@ -164,7 +164,72 @@
     .register-container .line-spacing {
         line-height: 4.5; /* 줄 간격 설정 */
     }
+    
+    /* 아이디 중복 체크 버튼 스타일 */
+    .register-container .input-group .check-btn {
+        position: absolute;
+        right: 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .register-container .input-group .check-btn:hover {
+        background-color: #f0f0f0;
+    }
 </style>
+<!-- 아이디 중복체크 ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+	
+	var isIdChecked = false;
+	
+    $('#checkIdBtn').click(function() {
+        var memberId = $('#memberId').val();
+        if (memberId === "") {
+            alert("아이디를 입력해 주세요.");
+            return;
+        }
+
+        $.ajax({
+            url: '${pageContext.servletContext.contextPath}/checkId',
+            type: 'POST',
+            data: { memberId: memberId },
+            success: function(response) {
+                if (response.exists) {
+                    alert("이미 사용 중인 아이디입니다.");
+                    isIdChecked = false;
+                    
+                } else {
+                    alert("사용 가능한 아이디입니다.");
+                    isIdChecked = true;
+                }
+            },
+            error: function() {
+                alert("아이디 중복 체크 중 오류가 발생했습니다.");
+                isIdChecked = false;
+            }
+        });
+    });
+    
+    $("form").submit(function(event) {
+        if (!isIdChecked) {
+            alert("아이디 중복체크를 해주세요.");
+            event.preventDefault();
+        }
+    });
+    
+ 	// 아이디 입력 값 변경 시 isIdChecked를 false로 설정
+    $("#memberId").on("input", function() {
+        isIdChecked = false;
+    });
+});
+</script>
 </head>
 <body>
 
@@ -184,6 +249,7 @@
                     <form action="${pageContext.servletContext.contextPath}/master/teacherRegist" method="post">
                         <h1 class="custom-header">신규 선생님을 등록하세요.</h1>
                         <div class="input-group">
+                        	<button type="button" id="checkIdBtn" class="check-btn">아이디 중복체크</button>
                             <input type="text" id="memberId" name="memberId" class="input-box auth-input" placeholder="아이디" required>
                             <input type="password" id="memberPwd" name="memberPwd" class="input-box auth-input" placeholder="비밀번호" required>
                         </div>
