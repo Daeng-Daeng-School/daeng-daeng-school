@@ -238,6 +238,8 @@ $(document).ready(function() {
         if (!isIdChecked) {
             alert("아이디 중복체크를 해주세요.");
             event.preventDefault();
+        } else {
+        	alert("가입이 완료되었습니다! 로그인해 주세요:)")
         }
     });
     

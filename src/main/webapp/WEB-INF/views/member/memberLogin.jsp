@@ -137,7 +137,7 @@ window.onload = function() {
             <div class="button-container">
                 <button type="submit" class="login-btn">로그인</button>
                 <div class="signup-btn-container">
-                    <button type="button" class="signup-btn">회원가입</button>
+                    <button class="signup-btn"><a href="${pageContext.servletContext.contextPath}/member/regist">회원가입</a></button>
                 </div>
             </div>
         </form>

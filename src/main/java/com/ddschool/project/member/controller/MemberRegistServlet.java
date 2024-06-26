@@ -41,15 +41,13 @@ public class MemberRegistServlet extends HttpServlet {
 		registMember.setPhone(phone);
 		registMember.setAddress(address);
 		registMember.setRoleCode(3);
-		System.out.println(registMember);
 				
 		// MemberService 호출해 db 저장하여 가입 처리 후 성공여부 반환
 		int result = new MemberService().registMember(registMember);
 				
 		if(result > 0) {
 			System.out.println("가입 성공!");
-			// 성공 시 메인화면으로 리다이렉트 (성공 alert 출력)
-			request.getSession().setAttribute("registSuccessMessage", "가입이 성공적으로 완료되었습니다. 로그인해 주세요.");
+			// 성공 시 메인화면으로 리다이렉트
 			response.sendRedirect(request.getContextPath());
 		} else {
 			System.out.println("가입 실패!");

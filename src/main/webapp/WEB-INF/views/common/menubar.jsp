@@ -12,17 +12,6 @@
 </head>
 <body>
 
-<%-- <script> // 회원가입 성공 시 띄울 alert
-// 페이지가 완전히 로드된 후 JavaScript 코드를 실행
-window.onload = function() {
-    const message = "<%= session.getAttribute("registSuccessMessage") != null ? session.getAttribute("registSuccessMessage") : "" %>";
-    if (message) {
-        alert(message);
-        session.removeAttribute("registSuccessMessage");
-    } 
-}
-</script> --%>
-
 <!-- header 영역 -->
 	<header class="header">
 		<div class="container header-content">
