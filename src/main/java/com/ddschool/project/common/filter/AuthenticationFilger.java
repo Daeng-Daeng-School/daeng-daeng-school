@@ -97,6 +97,7 @@ public class AuthenticationFilger implements Filter {
 			} else {
 				((HttpServletResponse) response).sendError(403);
 			}
+			
 		} else {
 			
 			if(permitURIList.get("allPermitList").contains(intent)) {
