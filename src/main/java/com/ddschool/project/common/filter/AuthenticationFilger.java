@@ -52,7 +52,6 @@ public class AuthenticationFilger implements Filter {
 		permitURIList.put("memberPermitList", memberPermitList);
 		permitURIList.put("teacherPermitList", teacherPermitList);
 		permitURIList.put("allPermitList", allPermitList);
-		
 	}
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
