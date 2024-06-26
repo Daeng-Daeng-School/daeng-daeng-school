@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ddschool.project.dog.model.dao.DogDAO">
+
+	<!-- DogDTO resultMap -->
+	<resultMap id="DogResultMap"
+		type="com.ddschool.project.dog.model.dto.DogDTO">
+		<id property="dogCode" column="dog_code" />
+		<result property="memberCode" column="member_code" />
+		<result property="classCode" column="class_code" />
+		<result property="dogName" column="dog_name" />
+		<result property="gender" column="gender" />
+		<result property="birth" column="birth" />
+		<result property="dogBreed" column="dog_breed" />
+		<result property="weight" column="weight" />
+		<result property="chipNo" column="chip_no" />
+		<result property="notes" column="notes" />
+		<result property="joinDate" column="join_date" />
+		<result property="withdrawDate" column="withdraw_date" />
+		<result property="status" column="status" />
+
+		<!-- 이미지 정보 포함 -->
+<!-- 		<collection property="images"
+			ofType="com.ddschool.project.dog.model.dto.ImageDTO"
+			column="dog_code" select="selectImagesByDogCode" /> -->
+	</resultMap>
+
+	<!-- ImageDTO resultMap -->
+<!-- 	<resultMap id="ImageResultMap"
+		type="com.ddschool.project.dog.model.dto.ImageDTO">
+		<id property="imageCode" column="image_code" />
+		<result property="dogCode" column="dog_code" />
+		<result property="imageUrl" column="image_url" />
+		<result property="status" column="status" />
+	</resultMap> -->
+
+	<!-- 강아지 정보 등록 -->
+	<insert id="insertDog"
+		parameterType="com.ddschool.project.dog.model.dto.DogDTO">
+		INSERT INTO dogs (
+			dog_code
+			, member_code
+			, class_code
+			, dog_name
+			, gender
+			, birth
+			, dog_breed
+			, weight
+			, chip_no
+			, notes
+			, join_date
+			, withdraw_date
+			, status
+			)
+		VALUES (
+			#{dogCode}
+			, #{memberCode}
+			, #{classCode}
+			, #{dogName}
+			, #{gender}
+			, #{birth}
+			, #{dogBreed}
+			, #{weight}
+			, #{chipNo}
+			, #{notes}
+			, #{joinDate}
+			, #{withdrawDate}
+			, #{status}
+			)
+	</insert>
+
+	<!-- 강아지 프로필 이미지 등록 -->
+<!-- 	<insert id="insertDogImage"
+		parameterType="com.ddschool.project.dog.model.dto.ImageDTO">
+		INSERT INTO images (
+			image_code
+			, dog_code
+			, image_url
+			, status
+			)
+		VALUES (
+			#{imageCode}
+			, #{dogCode}
+			, #{imageUrl}
+			, #{status}
+			)
+	</insert> -->
+
+	<!-- 강아지 정보 조회를 dogCode -->
+	<select id="selectDog" parameterType="int"
+		resultMap="DogResultMap">
+		SELECT * 
+		FROM dogs
+		WHERE dog_code = #{dogCode}
+	</select>
+
+	<!-- 모든 강아지 정보 조회 -->
+	<select id="selectAllDogs" resultMap="DogResultMap">
+		SELECT * FROM dogs
+	</select>
+
+	<!-- 특정 강아지의 이미지 정보 조회 -->
+<!-- 	<select id="selectImagesByDogCode" parameterType="int"
+		resultMap="ImageResultMap">
+		SELECT * 
+		FROM images 
+		WHERE dog_code = #{dogCode} 
+		AND status = 'Y'
+	</select> -->
+
+	<!-- 강아지 정보 수정 -->
+	<update id="updateDog"
+		parameterType="com.ddschool.project.dog.model.dto.DogDTO">
+		UPDATE dogs
+		SET member_code = #{memberCode}
+			, class_code = #{classCode}
+			, dog_name = #{dogName}
+			, gender = #{gender}
+			, birth = #{birth}
+			, dog_breed = #{dogBreed}
+			, weight = #{weight}
+			, chip_no =	#{chipNo}
+			, notes = #{notes}
+			, join_date = #{joinDate}
+			, withdraw_date = #{withdrawDate}
+			, status = #{status}
+		WHERE dog_code = #{dogCode}
+	</update>
+
+	<!-- 강아지 프로필 이미지 수정 -->
+<!-- 	<update id="updateDogImage"
+		parameterType="com.ddschool.project.dog.model.dto.ImageDTO">
+		UPDATE images
+		SET dog_code = #{dogCode}
+			, image_url = #{imageUrl}
+			, status = #{status}
+		WHERE image_code = #{imageCode}
+	</update> -->
+
+	<!-- 강아지 정보 삭제(가짜삭제) -->
+	<update id="deleteDog" parameterType="int">
+		UPDATE dogs
+		SET status = 'N'
+		WHERE dog_code = #{dogCode}
+	</update>
+
+	<!-- 강아지 프로필 이미지 삭제(가짜삭제) -->
+<!-- 	<update id="deleteDogImage" parameterType="int">
+		UPDATE images
+		SET status = 'N'
+		WHERE dog_code = #{dogCode}
+	</update> -->
+
+</mapper>

@@ -4,7 +4,7 @@ public class ImageDTO {
 	private int imageCode;
 	private int dogCode;
 	private String imageUrl;
-	private boolean status;
+	private boolean status; /*y or n 표시하기*/
 	
 	public ImageDTO() {
 		super();

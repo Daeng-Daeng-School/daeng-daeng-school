@@ -16,7 +16,7 @@ public class DogDTO {
 	private String notes;
 	private Date joinDate;
 	private Date withdrawDate;
-	private boolean status;
+	private boolean status;	/*y or n 으로 표시하기*/
 
 	public DogDTO() {
 		super();
@@ -38,7 +38,7 @@ public class DogDTO {
 		this.notes = notes;
 		this.joinDate = joinDate;
 		this.withdrawDate = withdrawDate;
-		this.status = status;
+		this.status = status; 
 	}
 
 	public int getDogCode() {
