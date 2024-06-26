@@ -66,7 +66,6 @@ public class MemberLoginServlet extends HttpServlet {
 					request.setAttribute("notfoundMEmberMessage", "존재하지 않는 회원입니다.");
 					request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
 				}
-	
 	}
 
 }
