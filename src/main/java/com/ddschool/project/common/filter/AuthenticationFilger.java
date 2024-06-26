@@ -95,7 +95,9 @@ public class AuthenticationFilger implements Filter {
 			if(isAuthorized) {
 				chain.doFilter(hrequest, response);
 			} else {
-				((HttpServletResponse) response).sendError(403);
+//				((HttpServletResponse) response).sendError(403);
+				request.setAttribute("accessDeniedMessage", "접근 가능한 권한이 아닙니다.");
+				request.getRequestDispatcher("/WEB-INF/views/common/error403.jsp").forward(request, response);
 			}
 			
 		} else {

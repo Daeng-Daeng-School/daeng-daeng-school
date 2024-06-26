@@ -27,7 +27,7 @@
         <result property="memberBirth" column="MEMBER_BIRTH"/>
         <result property="address" column="ADDRESS"/>
         <result property="phone" column="PHONE"/>
-        
+        <result property="status" column="STATUS"/>
     </resultMap>
 
 	<!-- 회원가입 -->
@@ -64,7 +64,7 @@
 	
 	<!-- memberId 로 회원정보 조회 --> 
 	<select id="selectLoginMember" resultMap="memberResultMap2">
-	SELECT MEMBER_CODE, MEMBER_ID, MEMBER_NAME, ROLE_CODE, MEMBER_BIRTH, ADDRESS, PHONE
+	SELECT MEMBER_CODE, MEMBER_ID, MEMBER_NAME, ROLE_CODE, MEMBER_BIRTH, ADDRESS, PHONE, STATUS
 	FROM TBL_MEMBER
 	WHERE MEMBER_ID = #{memberId}
 	</select>

@@ -36,20 +36,34 @@ public class MemberLoginServlet extends HttpServlet {
 				requestMember.setMemberId(memberId);
 				requestMember.setMemberPwd(memberPwd);
 				
-				// 로그인 요청 정보로 service 의 loginCheck 메서드를 통해 일치여부 확인
-				MemberDTO loginMember = new MemberService().loginCheck(requestMember);
-				System.out.println("[MemberLoginServlet] loginMember : " + loginMember);
+				try {
+					
+					// 로그인 요청 정보로 service 의 loginCheck 메서드를 통해 일치여부 확인
+					MemberDTO loginMember = new MemberService().loginCheck(requestMember);
+					System.out.println("[MemberLoginServlet] loginMember : " + loginMember);
+					
+					// 로그인한 회원정보가 넘어왔고 활성상태라면 세션에담고
+					if(loginMember != null && loginMember.isStatus() == true) {
+						System.out.println("1번 if");
+						HttpSession session = request.getSession();
+						session.setAttribute("loginMember", loginMember);
+						
+						// 메인페이지로 리다이렉트
+						response.sendRedirect(request.getContextPath());
+							
+					} else if(loginMember.isStatus() == false) { // 탈퇴한 회원이라면
+						System.out.println("2번 if");
+						request.setAttribute("statusDisAvailableMessage", "탈퇴한 회원입니다.");
+						request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
+						
+					} else { // 로그인한 회원정보가 넘어오지 않았다면 로그인 페이지로
+						System.out.println("3번 if");
+						request.setAttribute("loginFailMessage", "로그인에 실패하셨습니다.");
+						request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
+					}
 				
-				// 로그인한 회원정보가 넘어왔다면 성공한거니까 세션에담고
-				if(loginMember != null) {
-					HttpSession session = request.getSession();
-					session.setAttribute("loginMember", loginMember);
-					
-					// 메인페이지로 리다이렉트
-					response.sendRedirect(request.getContextPath());
-					
-				} else { // 로그인한 회원정보가 넘어오지 않았다면 로그인 페이지로
-					request.setAttribute("loginFailMessage", "로그인에 실패하셨습니다.");
+				} catch (NullPointerException e) {
+					request.setAttribute("notfoundMEmberMessage", "존재하지 않는 회원입니다.");
 					request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
 				}
 	
