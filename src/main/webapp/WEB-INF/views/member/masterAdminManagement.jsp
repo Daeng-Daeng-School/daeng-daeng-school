@@ -140,12 +140,11 @@ window.onload = function() {
     	</div>
     	<div class="main-content">
             <div class="main-content-header">
-                <h1>우리 유치원 선생님</h1>
+                <h1>댕댕 스쿨 선생님들</h1>
                 <form action="${pageContext.servletContext.contextPath}/master/teacherRegist" method="get" style="margin: 0;">
                     <button type="submit" class="teacher-regist-btn">신규 선생님 등록하기</button>
                 </form>
             </div>
-            <p>여기에 전체 선생님 목록이 조회됩니다.</p>
             <div class="teacher-list">
                 <table>
                     <thead>
@@ -159,10 +158,23 @@ window.onload = function() {
                     <tbody>
                         <c:forEach items="${requestScope.teacherList}" var="teacher">
                             <tr>
-                                <td><c:out value="${teacher.memberName}" /></td>
+                            	<td>
+                            		<a href="${pageContext.servletContext.contextPath}/master/teacherInfo?memberId=${teacher.memberId}">
+                                	<c:out value="${teacher.memberName}" />
+                                	</a>
+                                </td>
                                 <td><c:out value="${teacher.classCode}" /></td>
                                 <td><c:out value="${teacher.phone}" /></td>
-                                <td><c:out value="${teacher.status}" /></td>
+                                <td>
+                                <c:choose>
+                                <c:when test="${teacher.status == true}">
+                                활성
+                                </c:when>
+                                <c:otherwise>
+                                비활성
+                                </c:otherwise>
+                                </c:choose>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>

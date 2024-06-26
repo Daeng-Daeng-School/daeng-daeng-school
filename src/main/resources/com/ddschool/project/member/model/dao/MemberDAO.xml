@@ -29,6 +29,18 @@
         <result property="phone" column="PHONE"/>
         <result property="status" column="STATUS"/>
     </resultMap>
+    
+    <resultMap id="memberResultMap3" type="com.ddschool.project.member.model.dto.MemberDTO">
+        <id property="memberCode" column="MEMBER_CODE"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="memberName" column="MEMBER_NAME"/>
+        <result property="roleCode" column="ROLE_CODE"/>
+        <result property="memberBirth" column="MEMBER_BIRTH"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="phone" column="PHONE"/>
+        <result property="status" column="STATUS"/>
+        <result property="classCode" column="CLASS_CODE"/>
+    </resultMap>
 
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.ddschool.project.member.model.dto.MemberDTO">
@@ -62,7 +74,7 @@
 	WHERE MEMBER_ID = #{ memberId }
 	</select>
 	
-	<!-- memberId 로 회원정보 조회 --> 
+	<!-- memberId 로 로그인 회원정보 조회 --> 
 	<select id="selectLoginMember" resultMap="memberResultMap2">
 	SELECT MEMBER_CODE, MEMBER_ID, MEMBER_NAME, ROLE_CODE, MEMBER_BIRTH, ADDRESS, PHONE, STATUS
 	FROM TBL_MEMBER
@@ -72,7 +84,7 @@
 	<!-- memberCode 로 회원의 phone, address 수정 --> 
 	<update id="updateMember">
 	UPDATE TBL_MEMBER
-	SET PHONE = #{ changePhone }, ADDRESS = #{ changeAddress }
+	SET PHONE = #{ changePhone }, ADDRESS = #{ changeAddress }, CLASS_CODE = #{ changeClassCode }
 	WHERE MEMBER_CODE = #{ requestMemberCode }
 	</update>
 	
@@ -93,6 +105,13 @@
 	<!-- 아이디 중복체크 -->
 	<select id="isMemberIdExists" parameterType="String" resultType="boolean">
 	SELECT COUNT(*) > 0
+	FROM TBL_MEMBER
+	WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<!-- memberId 로 선생님 정보 조회 --> 
+	<select id="selectTeacherInfo" resultMap="memberResultMap">
+	SELECT *
 	FROM TBL_MEMBER
 	WHERE MEMBER_ID = #{memberId}
 	</select>

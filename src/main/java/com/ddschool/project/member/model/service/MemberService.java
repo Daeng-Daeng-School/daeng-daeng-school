@@ -68,14 +68,14 @@ public class MemberService {
 
 	}
 
-	public int updateMember(int requestMemberCode, String changePhone, String changeAddress) {
+	public int updateMember(int requestMemberCode, String changePhone, String changeAddress, Integer changeClassCode) {
 		
 		System.out.println("서비스에서 회원정보 수정 시작!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
 		
-		int updateResult = memberDAO.updateMember(requestMemberCode, changePhone, changeAddress);
+		int updateResult = memberDAO.updateMember(requestMemberCode, changePhone, changeAddress, changeClassCode);
 		
 		if(updateResult > 0) {
 			session.commit();
@@ -134,6 +134,22 @@ public class MemberService {
 		session.close();
 		
 		return exists;
+	}
+
+	public MemberDTO selectTeacherInfo(String memberId) {
+		
+		System.out.println("서비스에서 선생님 정보 조회!");
+		
+		SqlSession session = getSqlSession();
+		memberDAO = session.getMapper(MemberDAO.class);
+		
+		MemberDTO teacherInfo = memberDAO.selectTeacherInfo(memberId);
+		System.out.println(teacherInfo);
+		
+		session.close();
+		
+		
+		return teacherInfo;
 	}
 
 }

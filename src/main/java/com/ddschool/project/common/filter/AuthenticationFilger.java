@@ -40,6 +40,7 @@ public class AuthenticationFilger implements Filter {
 		masterPermitList.add("/member/delete");
 		masterPermitList.add("/member/update");
 		masterPermitList.add("/member/getMemberInfo");
+		masterPermitList.add("/master/teacherInfo");
 		
 		memberPermitList.add("/member/mypage");
 		memberPermitList.add("/member/delete");
