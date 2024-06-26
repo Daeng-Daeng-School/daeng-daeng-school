@@ -25,4 +25,6 @@ public interface MemberDAO {
 
 	List<MemberDTO> selectTeacherList();
 
+	boolean isMemberIdExists(String memberId);
+
 }

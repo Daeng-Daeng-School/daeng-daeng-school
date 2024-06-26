@@ -122,4 +122,18 @@ public class MemberService {
 		return teacherList;
 	}
 
+	public boolean isMemberIdExists(String memberId) {
+		
+		System.out.println("서비스에서 아이디 중복체크 조회!");
+		
+		SqlSession session = getSqlSession();
+		memberDAO = session.getMapper(MemberDAO.class);
+		
+		boolean exists = memberDAO.isMemberIdExists(memberId);
+		
+		session.close();
+		
+		return exists;
+	}
+
 }

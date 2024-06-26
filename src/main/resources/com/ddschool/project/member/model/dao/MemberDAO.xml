@@ -89,5 +89,12 @@
 	FROM TBL_MEMBER
 	WHERE ROLE_CODE = 2
 	</select>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="isMemberIdExists" parameterType="String" resultType="boolean">
+	SELECT COUNT(*) > 0
+	FROM TBL_MEMBER
+	WHERE MEMBER_ID = #{memberId}
+	</select>
 
 </mapper>
