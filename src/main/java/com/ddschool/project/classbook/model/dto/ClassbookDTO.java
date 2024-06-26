@@ -3,7 +3,7 @@ package com.ddschool.project.classbook.model.dto;
 import java.sql.Date;
 import java.util.List;
 
-import com.ddschool.project.member.dto.MemberDTO;
+import com.ddschool.project.member.model.dto.MemberDTO;
 
 public class ClassbookDTO {
 	
