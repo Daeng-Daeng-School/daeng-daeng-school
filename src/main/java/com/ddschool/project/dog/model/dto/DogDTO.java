@@ -13,6 +13,7 @@ public class DogDTO {
 	private String dogBreed;
 	private double weight;
 	private String chipNo;
+	private String notes;
 	private Date joinDate;
 	private Date withdrawDate;
 	private boolean status;
@@ -22,7 +23,8 @@ public class DogDTO {
 	}
 
 	public DogDTO(int dogCode, int memberCode, int classCode, String dogName, String gender, String birth,
-			String dogBreed, double weight, String chipNo, Date joinDate, Date withdrawDate, boolean status) {
+			String dogBreed, double weight, String chipNo, String notes, Date joinDate, Date withdrawDate,
+			boolean status) {
 		super();
 		this.dogCode = dogCode;
 		this.memberCode = memberCode;
@@ -33,6 +35,7 @@ public class DogDTO {
 		this.dogBreed = dogBreed;
 		this.weight = weight;
 		this.chipNo = chipNo;
+		this.notes = notes;
 		this.joinDate = joinDate;
 		this.withdrawDate = withdrawDate;
 		this.status = status;
@@ -110,6 +113,14 @@ public class DogDTO {
 		this.chipNo = chipNo;
 	}
 
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
 	public Date getJoinDate() {
 		return joinDate;
 	}
@@ -138,8 +149,8 @@ public class DogDTO {
 	public String toString() {
 		return "DogDTO [dogCode=" + dogCode + ", memberCode=" + memberCode + ", classCode=" + classCode + ", dogName="
 				+ dogName + ", gender=" + gender + ", birth=" + birth + ", dogBreed=" + dogBreed + ", weight=" + weight
-				+ ", chipNo=" + chipNo + ", joinDate=" + joinDate + ", withdrawDate=" + withdrawDate + ", status="
-				+ status + "]";
+				+ ", chipNo=" + chipNo + ", notes=" + notes + ", joinDate=" + joinDate + ", withdrawDate="
+				+ withdrawDate + ", status=" + status + "]";
 	}
 
 	
