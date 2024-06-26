@@ -12,19 +12,36 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/classbook.css">
+
+<script src="${pageContext.request.contextPath }/resources/js/classbook.js"></script>
+<!-- <script>
+	$(document).ready(function(){
+		firstClassbook();
+	});
+</script> -->
+
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="text-area">
 		<b>댕댕 유치원 출석부</b>를<br>이용해볼까요?
 
-		<!-- 마스터 화면 -->
 		<div class="select-bar">
-		<form action="${pagecontext.servletContext.contextPath }/classbook/member" method="get">
+		<form id="memberForm">
 			<input type="month" id="selectedMonth" data-placeholder="연도-월 선택"
 				required aria-required="true">
 			<script>
-				const selectedMonthInput = document
+			/* document.getElementById('memberForm').addEventListener('submit', function(event) {
+		        event.preventDefault(); // 폼 기본 동작인 페이지 리로드를 막습니다.
+
+		        var selectedMonth = document.getElementById('selectedMonth').value;
+		        console.log('선택된 월:', selectedMonth);
+
+		        // AJAX 요청 등으로 서버에 데이터를 전송하도록 구현합니다.
+		        // 예시: $.ajax({ url: 'your_url', data: { month: selectedMonth }, ... });
+		    });  */
+
+		    const selectedMonthInput = document
 						.getElementById('selectedMonth');
 
 				//최소 연도와 월 설정
@@ -50,26 +67,67 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 
 				//초기 값 설정 (현재 연도와 월을 기준으로 설정)
 				selectedMonthInput.value = maxYearMonth;
-
+				console.log('선택: ', maxYearMonth);
+				console.log('선태기 ', selectedMonthInput.value);
 			</script>
 
 
 
-			<select>
-				<%
-				ClassbookService classbookService = new ClassbookService();
-				List<DogDTO> dogs = classbookService.getDogNameList();
-				for(DogDTO dog : dogs){
-					out.println("<option value='" + dog.getDogName()+"'>"+dog.getDogName()+"</option>");
-				}
-				%>
+			<select disabled>
+				<option>반 선택</option>
 			</select>
-			<button class="btn-black" type="submit">조회하기</button>
+			<button type="submit" class="btn-black" id="getDogMember">조회하기</button>
 			</form>
 		</div>
 		
+		<%
+			int day=1;
+			for(int i=1; i<=2; i++){
+		%>
+		<div class="table-area-member">
+			<table align="center" id="listArea" class="table-con">
+			<tr class="head-tr">
+					<th>반려견/날짜</th>
+		<%
+				for(int j=1; j<=16; j++){
+					
+					if(day==32){
+						break;
+					}else{
+					out.println("<th>" + day+"일"+"</th>");
+					++day;
+					}
+				}
+		%>
+			</tr>
+	
+			</table>
+			<div id="dogClassbookMember">
+				<!-- 비동기 조회 출력 -->
+				비동기출력창입니다
+			</div>
+			</div>
+		<%
+			}
+		%>
 		
-		<div class="table-area">
+		
+		<% for (Map<String, Object> dogClassbook : (List<Map<String, Object>>) request.getAttribute("dogClassbookList")) { %>
+                <tr>
+                    <td><%= dogClassbook.get("DOG_NAME") %></td>
+                    <td><%= dogClassbook.get("1일") %></td>
+                    <td><%= dogClassbook.get("2일") %></td>
+                    <td><%= dogClassbook.get("3일") %></td>
+                    <!-- 필요한 만큼 일자 추가 -->
+                    <td><%= dogClassbook.get("31일") %></td>
+                </tr>
+            <% } %>
+		
+		
+		
+		
+		
+		<!-- <div class="table-area">
 			<table align="center" id="listArea" class="table-con">
 				<tr>
 					<th>날짜</th>
@@ -83,7 +141,7 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 					<th>강아지8</th>
 					<th>강아지9</th>
 					<th>강아지10</th>
-				</tr>
+				</tr> -->
 
 				<%-- <c:forEach var="board" items="${ requestScope.boardList }">
 					<tr>
@@ -96,7 +154,7 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 					</tr>
 				</c:forEach> --%>
 
-				<tr>
+				<!-- <tr>
 					<td colspan="11"><hr></td>
 				</tr>
 				<tr id="openModalBtn">
@@ -116,7 +174,7 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 					<td colspan="11"><hr class="hr-td"></td>
 				</tr>
 
-			</table>
+			</table> -->
 		</div>
 
 		<%-- 페이지 처리 --%>
