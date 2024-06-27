@@ -98,7 +98,7 @@
 	<!-- memberCode 로 회원의 status 수정 --> 
 	<update id="deleteMember">
 	UPDATE TBL_MEMBER
-	SET STATUS = #{ deleteMemberSatus }
+	SET STATUS = #{ deleteMemberSatus }, WITHDRAW_DATE = NOW()
 	WHERE MEMBER_CODE = #{ deleteMemberCode }
 	</update>
 	
