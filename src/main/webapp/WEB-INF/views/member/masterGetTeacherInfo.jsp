@@ -126,7 +126,7 @@
         margin-top: 0px; /* 상단 간격 설정 */
     }
 
-   .register-container .withdraw-btn {
+   .register-container .withdraw-btn, .register-container .rejoin-btn {
         margin-left: auto; /* 오른쪽 정렬 */
         padding: 0; /* 내부 여백 */
         font-size: 14px; /* 글자 크기 */
@@ -135,7 +135,7 @@
         border: none; /* 테두리 제거 */
     }
 
-    .register-container .withdraw-btn:hover {
+    .register-container .withdraw-btn:hover, .register-container .rejoin-btn {
         color: #787878; /* 마우스를 올렸을 때 텍스트 색상 변경 */
     }
         
@@ -143,6 +143,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
+	
+	// 선생님 활성화 결과 처리 : URL 쿼리 파라미터에서 status 값을 읽어옴
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+
+    if (status === "success") {
+        alert("회원 정보가 활성화되었습니다.");
+    } else if (status === "fail") {
+        alert("회원 정보 활성화에 실패했습니다.");
+    }
+	
 	var memberId = '${teacherInfo.memberId}';
 
     // 수정하기 버튼 클릭 시
@@ -154,10 +165,18 @@ $(document).ready(function() {
 
     // 수정 완료 버튼 클릭 시
     $("#update-btn").click(function() {
+    	
+    	var classCode = $("#classCode").val();
+    	
+    	if (!classCode) {
+    		alert("반 입력은 필수로 입력해주세요.");
+    		return;
+    	}
+    	
         var updatedData = {
             memberId: $("#memberId").val(),
             memberName: $("#memberName").val(),
-            classCode: $("#classCode").val(),
+            classCode: classCode,
             phone: $("#phone").val(),
             memberBirth: $("#memberBirth").val(),
             address: $("#address").val(),
@@ -172,6 +191,10 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.status == 'success') {
                     alert("회원 정보가 수정되었습니다.");
+                    
+                	// DOM 업데이트
+                    $("#classCode").val(updatedData.classCode);
+                    
                     $("#classCode, #status").prop('disabled', true);
                     $("#update-btn").hide();
                     $("#edit-btn").show();
@@ -183,12 +206,21 @@ $(document).ready(function() {
         });
     });
     
-    // 탈퇴하기 버튼 클릭 시
+    // 비활성화 버튼 클릭 시
     $(".withdraw-btn").click(function() {
         if (confirm("정말 비활성화 하시겠습니까?")) {
             window.location.href = '${pageContext.servletContext.contextPath}/member/delete?memberId=' + memberId;
         }
     });
+    
+ 	// 활성화 버튼 클릭 시
+    $(".rejoin-btn").click(function() {
+        if (confirm("정말 활성화 하시겠습니까?")) {
+            window.location.href = '${pageContext.servletContext.contextPath}/member/rejoin?memberId=' + memberId;
+        }
+    });
+    
+    
 });
 </script>
 </head>
@@ -240,7 +272,14 @@ $(document).ready(function() {
                         <button type="button" id="edit-btn" class="edit-btn">수정하기</button>
                         <button type="button" id="update-btn" class="register-btn" style="display:none;">수정 완료</button>
                         <div class="withdraw-btn-container">
+                        <c:choose>
+                        <c:when test="${teacherInfo.status == true }">
                     		<button type="button" class="withdraw-btn">비활성화하기</button>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<button type="button" class="rejoin-btn">활성화하기</button>
+                    	</c:otherwise>
+                    	</c:choose>
                 		</div>
                     </div>
                 </form>

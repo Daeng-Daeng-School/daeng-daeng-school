@@ -140,7 +140,7 @@ window.onload = function() {
     	</div>
     	<div class="main-content">
             <div class="main-content-header">
-                <h1>댕댕 스쿨 선생님들</h1>
+                <h1>댕댕스쿨 선생님들</h1>
                 <form action="${pageContext.servletContext.contextPath}/master/teacherRegist" method="get" style="margin: 0;">
                     <button type="submit" class="teacher-regist-btn">신규 선생님 등록하기</button>
                 </form>
