@@ -72,7 +72,8 @@
 		WHERE m.MEMBER_CODE=1 AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m')=#{month}
 		GROUP BY d.DOG_NAME
   	</select> -->
-  <SELECT id="getDogClassbookList" parameterType="map" resultType="hashMap">
+  <select id="getDogClassbookList" parameterType="map" resultType="java.util.LinkedHashMap">
+			SELECT
 			d.DOG_NAME,
 	MAX(CASE WHEN DAY(CHECK_DATE) = 1 THEN c.CHECK_STATUS ELSE ' ' END) AS '1일',
     MAX(CASE WHEN DAY(CHECK_DATE) = 2 THEN c.CHECK_STATUS ELSE ' ' END) AS '2일',
@@ -103,13 +104,28 @@
     MAX(CASE WHEN DAY(CHECK_DATE) = 27 THEN c.CHECK_STATUS ELSE ' ' END) AS '27일',
     MAX(CASE WHEN DAY(CHECK_DATE) = 28 THEN c.CHECK_STATUS ELSE ' ' END) AS '28일',
     MAX(CASE WHEN DAY(CHECK_DATE) = 29 THEN c.CHECK_STATUS ELSE ' ' END) AS '29일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 30 THEN c.CHECK_STATUS ELSE ' ' END) AS '39일',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 30 THEN c.CHECK_STATUS ELSE ' ' END) AS '30일',
     MAX(CASE WHEN DAY(CHECK_DATE) = 31 THEN c.CHECK_STATUS ELSE ' ' END) AS '31일'
 		FROM TBL_CLASSBOOK c
-		JOIN TBL_DOG d ON d.DOG_CODE=c.DOG_CODE
-		JOIN TBL_MEMBER m ON c.MEMBER_CODE=m.MEMBER_CODE
-		WHERE m.MEMBER_CODE=#{memberCode} AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m')=#{month}
-        GROUP BY d.DOG_NAME
-  </SELECT>
+    JOIN TBL_DOG d ON d.DOG_CODE = c.DOG_CODE
+    JOIN TBL_MEMBER m ON m.MEMBER_CODE = c.MEMBER_CODE
+    WHERE m.MEMBER_CODE = 1
+        AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m') = #{month}
+    GROUP BY d.DOG_NAME
+    ORDER BY d.DOG_NAME
+  </select>
+
+<!-- <select id="getDogClassbookList" parameterType="map" resultType="java.util.LinkedHashMap">
+    SELECT
+        d.DOG_NAME,
+        GROUP_CONCAT(CASE WHEN DAY(c.CHECK_DATE) = #{day} THEN c.CHECK_STATUS ELSE NULL END ORDER BY c.CHECK_DATE SEPARATOR ',') AS attendance
+    FROM TBL_CLASSBOOK c
+    JOIN TBL_DOG d ON d.DOG_CODE = c.DOG_CODE
+    JOIN TBL_MEMBER m ON m.MEMBER_CODE = c.MEMBER_CODE
+    WHERE m.MEMBER_CODE = 1
+        AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m') = #{month}
+    GROUP BY d.DOG_NAME
+</select> -->
+
   
   </mapper>
