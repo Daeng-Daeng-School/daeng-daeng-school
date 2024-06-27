@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.ddschool.project.dog.model.dto.DogDTO;
 import com.ddschool.project.dog.model.dto.ImageDTO;
 
-public interface dogDAO {
+public interface DogDAO {
 
 	/* 강아지 정보 등록 :insertDog */
 	int insertDog(DogDTO dog);

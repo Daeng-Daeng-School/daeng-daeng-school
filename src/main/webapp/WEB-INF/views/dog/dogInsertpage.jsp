@@ -16,7 +16,7 @@
 
     function addProfileForm() {
         const formTemplate = `
-            <form action="${pageContext.servletContext.contextPath}/dog/insert" method="post" enctype="multipart/form-data" id="profileForm${formCounter}" class="profileForm">
+            <form action="${pageContext.servletContext.contextPath}/dog/insert" method="post" id="profileForm${formCounter}" class="profileForm">
                 <div class="input_box">
                     <label for="name${formCounter}"></label>
                     <input type="text" id="name${formCounter}" name="name" class="input_box_radius" placeholder="이름">
@@ -24,9 +24,9 @@
                 <div class="selectBox">
                     <label for="dog_class${formCounter}" style="padding-left: 20px;">강아지반</label>
                     <select name="dog_class" id="dog_class${formCounter}" class="dog_class">
-                        <option value="Class1">오전반</option>
-                        <option value="Class2">오후반</option>
-                        <option value="Class3">종일반</option>
+                        <option value="1">오전반</option>
+                        <option value="2">오후반</option>
+                        <option value="3">종일반</option>
                     </select>
                 </div>
                 <div class="checkBox">
@@ -64,7 +64,7 @@
         formCounter++;
     }
 
-    $(document).on('submit', 'form', function(event) {
+/*     $(document).on('submit', 'form', function(event) {
         event.preventDefault();
         var form = $(this)[0];
         var formData = new FormData(form);
@@ -84,7 +84,7 @@
             }
         });
     });
-
+ */
     window.onload = function() {
         addProfileForm();
     };

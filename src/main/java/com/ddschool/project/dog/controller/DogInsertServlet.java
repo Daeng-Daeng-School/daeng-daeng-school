@@ -27,49 +27,53 @@ public class DogInsertServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
 		// 폼에서 입력된 데이터 받기
-		String dogBreed = request.getParameter("dog_breed");
-		String dogClass = request.getParameter("dog_class");
-		String dogGender = request.getParameter("dog_gender");
 		String dogName = request.getParameter("name");
-		String birthdate = request.getParameter("birthdate");
-		String regNumber = request.getParameter("regNumber");
-		String weight = request.getParameter("weight");
+		String dogBreed = request.getParameter("dog_breed");
+		int dogClass = Integer.parseInt(request.getParameter("dog_class"));
+		String dogGender = request.getParameter("dog_gender");
+		String birth = request.getParameter("birthdate");
+		String chipNo = request.getParameter("regNumber");
+		double weight = Double.parseDouble(request.getParameter("weight"));
 		String notes = request.getParameter("notes");
 
-		// 현재 로그인한 회원 정보 가져오기
+		// 현재 로그인한 회원 정보 가져오기 멤버디티오에서 가져오기
 		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
-		int writerMemberNo = loginMember.getNo();
+//        int writerMemberCode = loginMember.getMemberCode();
+		int writerMemberCode = 1; // 예시로 1234를 임의의 회원 코드로 설정
 
 		// 강아지 정보 DTO 생성
 		DogDTO dogDTO = new DogDTO();
-		dogDTO.setDogBreed(dogBreed);
-		dogDTO.setDogClass(dogClass);
-		dogDTO.setDogGender(dogGender);
 		dogDTO.setDogName(dogName);
-		dogDTO.setBirthdate(birthdate);
-		dogDTO.setRegNumber(regNumber);
+		dogDTO.setDogBreed(dogBreed);
+		dogDTO.setClassCode(dogClass);
+		dogDTO.setGender(dogGender);
+		dogDTO.setBirth(birth);
+		dogDTO.setChipNo(chipNo);
 		dogDTO.setWeight(weight);
 		dogDTO.setNotes(notes);
-		dogDTO.setWriterMemberNo(writerMemberNo);
+//        멤버디티오에서 가져온거 도그디티오와 연결
+		dogDTO.setMemberCode(writerMemberCode);
 
 		// 강아지 서비스 호출하여 등록 처리
-		DogService dogService = new DogService();
-		int result = dogService.insertDog(dogDTO);
+		dogService DogService = new dogService();
+		int result = DogService.insertDog(dogDTO);
 
 		// 등록 결과에 따라 페이지 이동 처리
 		String path = "";
 		if (result > 0) {
 			path = "/WEB-INF/views/common/success.jsp";
-			request.setAttribute("successCode", "insertDog");
+			request.setAttribute("successMessage", "등록성공했습니다");
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("message", "강아지 등록 실패했습니다!");
+			request.setAttribute("errorMessage", "강아지 등록 실패했습니다!");
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
 	// 이미지 업로드는 추후에
-
 }
