@@ -7,9 +7,6 @@
 <title>ddschool</title>
 </head>
 <body>
-
 	<jsp:forward page="../common/menubar.jsp" />
-	
-
 </body>
 </html>
