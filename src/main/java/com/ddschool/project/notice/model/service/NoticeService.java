@@ -156,16 +156,30 @@ public class NoticeService {
 	 * @param keyword 검색 키워드
 	 * @return 검색된 알림장 목록
 	 */
-	public List<NoticeDTO> searchNotices(String keyword) {
+	public List<NoticeDTO> searchNotices(String keyword, int offset, int limit) {
 		SqlSession session = getSqlSession();
 		noticeDAO = session.getMapper(NoticeDAO.class);
 
-		// NoticeDAO를 통해 키워드로 알림장 검색
-		List<NoticeDTO> searchList = noticeDAO.searchNotices(keyword);
-		System.out.println("sadasd" + searchList.toString());
+		Map<String, Object> params = new HashMap<>();
+		params.put("keyword", keyword);
+		params.put("offset", offset);
+		params.put("limit", limit);
+
+		List<NoticeDTO> searchList = noticeDAO.searchNotices(params);
 
 		session.close();
 
 		return searchList;
+	}
+
+	public int getSearchNoticeCount(String keyword) {
+		SqlSession session = getSqlSession();
+		noticeDAO = session.getMapper(NoticeDAO.class);
+
+		int count = noticeDAO.getSearchNoticeCount(keyword);
+
+		session.close();
+
+		return count;
 	}
 }

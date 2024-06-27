@@ -149,7 +149,7 @@ a:active {
 }
 
 /* 각 페이지의 페이지네이션 스타일 설정 */
-.pagingArea {
+#pagination {
 	padding: 10px;
 	display: flex;
 	justify-content: center;
@@ -158,7 +158,7 @@ a:active {
 	border: none;
 }
 
-.pagingArea button {
+#pagination button {
 	border-radius: 5px;
 	border: 1px solid black;
 	background-color: white;
@@ -167,14 +167,14 @@ a:active {
 	cursor: pointer;
 }
 
-.pagingArea button[disabled] {
+#pagination button[disabled] {
 	border-radius: 5px;
 	border: 1px solid black;
 	background-color: #333;
 	color: white;
 }
 
-.pagingArea button.selected {
+#pagination button.selected {
 	border-radius: 5px;
 	border: 1px solid black;
 	background-color: #333;

@@ -24,7 +24,7 @@ public interface NoticeDAO {
      * @param searchMap 검색 조건을 담고 있는 맵
      * @return 전체 알림장 수
      */
-    int selectTotalCount(Map<String, String> searchMap);
+    int selectTotalCount();
 
     /**
      * 특정 페이지의 알림장 목록 조회
@@ -35,13 +35,6 @@ public interface NoticeDAO {
      */
     List<NoticeDTO> selectNotice(Map<String, Integer> params);
     
-
-    /**
-     * 페이징 없이 전체 알림장 수 조회
-     * 
-     * @return 전체 알림장 수
-     */
-    int selectTotalCount();
 
     /**
      * 알림장 상세 정보 조회
@@ -73,6 +66,9 @@ public interface NoticeDAO {
      * @param keyword 검색 키워드
      * @return 검색된 알림장 목록
      */
-    List<NoticeDTO> searchNotices(String keyword);
+
+	int getSearchNoticeCount(String keyword);
+
+	List<NoticeDTO> searchNotices(Map<String, Object> params);
 
 }

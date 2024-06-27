@@ -52,30 +52,30 @@
 		#{offset}, #{limit}
 	</select>
 
+	<select id="getSearchNoticeCount" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_NOTICE
+		WHERE STATUS = 1
+		AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
+		OR MEMBER_CODE LIKE CONCAT('%', #{keyword}, '%')
+		OR CONTENT LIKE CONCAT('%', #{keyword}, '%')
+		OR REGIST_DATE LIKE CONCAT('%', #{keyword}, '%'))
+	</select>
+
 
 	<!-- 검색 조건에 따른 알림장 조회 쿼리 -->
-	<select id="searchNotices" parameterType="java.util.Map"
+	<select id="searchNotices" parameterType="map"
 		resultMap="generalNoticeResultMap">
-		SELECT
-		BOARD_CODE,
-		MEMBER_CODE,
-		REGIST_DATE,
-		TITLE,
-		CONTENT
-		FROM
-		TBL_NOTICE
-		WHERE
-		STATUS = 1
-		AND (
-		TITLE LIKE CONCAT('%', #{keyword}, '%')
+		SELECT *
+		FROM TBL_NOTICE
+		WHERE STATUS = 1
+		AND (TITLE LIKE CONCAT('%', #{keyword}, '%')
 		OR MEMBER_CODE LIKE CONCAT('%', #{keyword}, '%')
-		OR CONTENT LIKE
-		CONCAT('%', #{keyword}, '%')
-		OR REGIST_DATE LIKE CONCAT('%',
-		#{keyword}, '%')
-		)
-		ORDER BY
-		BOARD_CODE DESC
+		OR CONTENT LIKE CONCAT('%', #{keyword}, '%')
+		OR REGIST_DATE LIKE CONCAT('%', #{keyword}, '%'))
+		ORDER BY BOARD_CODE DESC
+		LIMIT #{offset}, #{limit}
 	</select>
 
 	<!-- 알림장 상세내용 조회 쿼리 -->
