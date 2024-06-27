@@ -1,6 +1,8 @@
-<%@page import="com.ddschool.project.classbook.model.service.ClassbookService"
-import="java.util.List"
-import="com.ddschool.project.dog.model.dto.DogDTO" %>
+<%@page
+	import="com.ddschool.project.classbook.model.service.ClassbookService"
+	import="java.util.List"
+	import="com.ddschool.project.dog.model.dto.DogDTO"
+	import="java.util.Map" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,12 +15,11 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/classbook.css">
 
-<script src="${pageContext.request.contextPath }/resources/js/classbook.js"></script>
-<!-- <script>
-	$(document).ready(function(){
-		firstClassbook();
-	});
-</script> -->
+<script
+	src="${pageContext.request.contextPath }/resources/js/classbook.js"></script>
+<script>
+	var contextPath = '${pageContext.servletContext.contextPath}';
+</script>
 
 </head>
 <body>
@@ -27,92 +28,266 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 		<b>댕댕 유치원 출석부</b>를<br>이용해볼까요?
 
 		<div class="select-bar">
-		<form id="memberForm">
-			<input type="month" id="selectedMonth" data-placeholder="연도-월 선택"
-				required aria-required="true">
-			<script>
-			/* document.getElementById('memberForm').addEventListener('submit', function(event) {
-		        event.preventDefault(); // 폼 기본 동작인 페이지 리로드를 막습니다.
+			<form>
+				<!-- 연도-월 선택 input -->
+				<input type="month" id="selectedMonth" data-placeholder="연도-월 선택"
+					required aria-required="true">
 
-		        var selectedMonth = document.getElementById('selectedMonth').value;
-		        console.log('선택된 월:', selectedMonth);
+				<!-- 반 선택 select (disabled) -->
+				<select disabled>
+					<option>반 선택</option>
+				</select>
 
-		        // AJAX 요청 등으로 서버에 데이터를 전송하도록 구현합니다.
-		        // 예시: $.ajax({ url: 'your_url', data: { month: selectedMonth }, ... });
-		    });  */
-
-		    const selectedMonthInput = document
-						.getElementById('selectedMonth');
-
-				//최소 연도와 월 설정
-				const minYearMonth = '2020-01'; // 최소 연도와 월
-				selectedMonthInput.setAttribute('min', minYearMonth);
-
-				function getMaxYearMonth() {
-					//현재 연도와 월 구하기
-					const currentDate = new Date();
-					const currentYear = currentDate.getFullYear();
-					let currentMonth = currentDate.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더해줍니다.
-					if (currentMonth < 10) {
-						currentMonth = '0' + currentMonth; // 한 자리 숫자일 경우 앞에 0을 추가하여 두 자리로 만듭니다.
-					}
-					return currentYear + "-" + currentMonth;
-				}
-
-				//const maxYearMonth = `${currentYear}-${currentMonth}`;
-				const maxYearMonth = getMaxYearMonth();
-
-				//최대 연도와 월 설정
-				selectedMonthInput.setAttribute('max', maxYearMonth);
-
-				//초기 값 설정 (현재 연도와 월을 기준으로 설정)
-				selectedMonthInput.value = maxYearMonth;
-				console.log('선택: ', maxYearMonth);
-				console.log('선태기 ', selectedMonthInput.value);
-			</script>
-
-
-
-			<select disabled>
-				<option>반 선택</option>
-			</select>
-			<button type="submit" class="btn-black" id="getDogMember">조회하기</button>
+				<!-- 조회하기 버튼 -->
+				<button type="submit" class="btn-black" id="getDogMember">조회하기</button>
 			</form>
 		</div>
-		
+
+
+		<%-- 반복 테이블 영역 --%>
+		<div class="table-area-member">
+			<table align="center" id="listArea" class="table-con">
+				<tr class="head-tr">
+					<th>반려견/날짜</th>
+					<%
+					// 일자 반복
+					for (int i = 1; i <= 15; i++) {
+						out.println("<th>" + i + "일" + "</th>");
+					}
+					%>
+				</tr>
+				
+				<%-- <% 
+				// 데이터를 LinkedHashMap 타입으로 받음
+				List<Map<String, Object>> dogs = (List<Map<String, Object>>) request.getAttribute("dogs");
+				
+        // 각각의 강아지 데이터를 반복적으로 출력
+        for (Map<String, Object> dog : dogs) {
+        %>
+        <tr>
+            <td><%= dog.get("DOG_NAME") %></td>
+            <% 
+            // 각각의 날짜에 대해 출석 상태를 확인하여 출력
+            for (int i = 1; i <= 15; i++) {
+                String status = (String) dog.get(String.valueOf(i) + "일");
+                out.println("<td>" + status + "</td>");
+            }
+            %>
+        </tr>
+        <% } %> --%>
+				
+				
+			<%-- 데이터 출력 --%>
+            <%
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> dataList = (List<Map<String, Object>>) request.getAttribute("dogClassbookList");
+            out.println(dataList);
+            if (dataList != null && !dataList.isEmpty()) {
+                for (Map<String, Object> dogData : dataList) {
+                    String dogName = (String) dogData.get("DOG_NAME");
+            %>
+            <tr>
+                <td><%= dogName %></td>
+                <%-- 1일부터 15일까지의 데이터 출력 --%>
+                <% for (int i = 1; i <= 15; i++) { %>
+                    <% String dayKey = i + "일"; %>
+                    <td><%= dogData.get(dayKey) %></td>
+                <% } %>
+            </tr>
+            <% 
+                } // end for
+            } // end if
+            %>	
+				
+				
+				
+				
+				
+				
+				
+				
+				<%--
+				<!-- 비동기 조회 출력 -->
+				여기서 서블릿에서 전달받은 데이터를 사용하여 초기 데이터를 출력할 수 있음
+				예시로 초기 데이터를 출력
+				
+				<%
+					// 데이터를 LinkedHashMap 타입으로 받음
+					List<Map<String, Object>> dogs1 = (List<Map<String, Object>>) request.getAttribute("dogs");
+
+				// 각각의 LinkedHashMap 데이터에 대해 처리
+					for (Map<String, Object> dog : dogs1) {
+				
+						out.println("<tr>");
+						
+					// DOG_NAME 출력
+					out.println("<td>" + dog.get("DOG_NAME") + "</td>");
+
+					// 1일부터 15일까지의 데이터 출력
+
+					for (int j = 1; j <= 15; j++) {
+
+					String status = (String) dog.get(String.valueOf(j));
+					out.println("<td>" + status + "</td>");
+					}
+					
+				out.println("</tr>");
+
+				}
+				%> --%>
+</table>
+</div>
+
+<div class="table-area-member">
+			<table align="center" id="listArea" class="table-con">
+				<tr class="head-tr">
+					<th>반려견/날짜</th>
+					<%
+					// 일자 반복
+					for (int i = 16; i <= 31; i++) {
+						out.println("<th>" + i + "일" + "</th>");
+					}
+					%>
+				</tr>
+				<%--
+				<!-- 비동기 조회 출력 -->
+				여기서 서블릿에서 전달받은 데이터를 사용하여 초기 데이터를 출력할 수 있음
+				예시로 초기 데이터를 출력
+				
+				<%
+					// 데이터를 LinkedHashMap 타입으로 받음
+					List<Map<String, Object>> dogs2 = (List<Map<String, Object>>) request.getAttribute("dogs");
+
+				// 각각의 LinkedHashMap 데이터에 대해 처리
+					for (Map<String, Object> dog : dogs2) {
+				
+						out.println("<tr>");
+						
+					// DOG_NAME 출력
+					out.println("<td>" + dog.get("DOG_NAME") + "</td>");
+
+					// 1일부터 15일까지의 데이터 출력
+
+					for (int j = 16; j <= 31; j++) {
+
+					String status = (String) dog.get(String.valueOf(j));
+					out.println("<td>" + status + "</td>");
+					}
+					
+				out.println("</tr>");
+
+				}
+				%>--%>
+</table>
+</div> 
+
+
+
+
+<%-- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		반복 테이블 영역
 		<%
-			int day=1;
-			for(int i=1; i<=2; i++){
+		int day = 1;
+		for (int i = 1; i <= 2; i++) {
 		%>
 		<div class="table-area-member">
 			<table align="center" id="listArea" class="table-con">
-			<tr class="head-tr">
+				<tr class="head-tr">
 					<th>반려견/날짜</th>
-		<%
-				for(int j=1; j<=16; j++){
-					
-					if(day==32){
-						break;
-					}else{
-					out.println("<th>" + day+"일"+"</th>");
-					++day;
+					<%
+					// 일자 반복
+					for (int j = 1; j <= 15; j++) {
+
+						out.println("<th>" + day + "일" + "</th>");
+						++day;
+
 					}
-				}
-		%>
-			</tr>
-	
-			</table>
-			<div id="dogClassbookMember">
+					if (day == 31) {
+						out.println("<th>" + day + "일" + "</th>");
+					}
+					%>
+				</tr>
+
+
+
+
+
+
+
+
+</table>
+
+<div id="dogClassbookMember">
 				<!-- 비동기 조회 출력 -->
+				여기서 서블릿에서 전달받은 데이터를 사용하여 초기 데이터를 출력할 수 있음
+				예시로 초기 데이터를 출력
 				비동기출력창입니다
+				<tr>
+					<%
+					int index = 1;
+					// 데이터를 LinkedHashMap 타입으로 받음
+					List<Map<String, Object>> dogs = (List<Map<String, Object>>) request.getAttribute("dogs");
+
+					// 각각의 LinkedHashMap 데이터에 대해 처리
+					for (Map<String, Object> dog : dogs) {
+						// DOG_NAME 출력
+
+						out.println("<td>" + dog.get("DOG_NAME") + "</td>");
+
+						// 1일부터 15일까지의 데이터 출력
+
+						for (int j = 1; j <= 15; j++) {
+
+							String status = (String) dog.get(String.valueOf(index));
+							out.println("<td>" + status + "</td>");
+							++index;
+						}
+
+						out.println("</tr>");
+					}
+					%>
+
+
+					<c:forEach var="dogInfo" items="${dogClassbookList}">
+				<div>${dogInfo.dogName}</div>
+				<c:forEach var="checkStatus" items="${dogInfo.checkStatusList}">
+					<div>${checkStatus}</div>
+				</c:forEach>
+			</c:forEach>
 			</div>
-			</div>
+
+
+
+		</div>
 		<%
-			}
+		}
 		%>
-		
-		
-		<% for (Map<String, Object> dogClassbook : (List<Map<String, Object>>) request.getAttribute("dogClassbookList")) { %>
+
+ --%>
+
+
+
+		<%-- <% for (Map<String, Object> dogClassbook : (List<Map<String, Object>>) request.getAttribute("dogClassbookList")) { %>
                 <tr>
                     <td><%= dogClassbook.get("DOG_NAME") %></td>
                     <td><%= dogClassbook.get("1일") %></td>
@@ -121,12 +296,9 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
                     <!-- 필요한 만큼 일자 추가 -->
                     <td><%= dogClassbook.get("31일") %></td>
                 </tr>
-            <% } %>
-		
-		
-		
-		
-		
+            <% } %> --%>
+
+
 		<!-- <div class="table-area">
 			<table align="center" id="listArea" class="table-con">
 				<tr>
@@ -143,7 +315,7 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 					<th>강아지10</th>
 				</tr> -->
 
-				<%-- <c:forEach var="board" items="${ requestScope.boardList }">
+		<%-- <c:forEach var="board" items="${ requestScope.boardList }">
 					<tr>
 						<td><c:out value="${ board.no }" /></td>
 						<td><c:out value="${ board.category.name }" /></td>
@@ -154,28 +326,29 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 					</tr>
 				</c:forEach> --%>
 
-				<!-- <tr>
+		<!-- <tr>
 					<td colspan="11"><hr></td>
 				</tr>
 				<tr id="openModalBtn">
-					<td class="list-td"></td>
-					<td class="list-td"></td>
-					<td class="list-td"></td>
-					<td class="list-td"></td>
-					<td class="list-td"></td>
-					<td class="list-td"></td>
-					<td class="list-td"></td>
-					<td class="list-td"></td>
-					<td class="list-td"></td>
-					<td class="list-td"></td>
-					<td class="list-td"></td>
+					<td class="list-td">왜</td>
+					<td class="list-td">안되고</td>
+					<td class="list-td">그러니</td>
+					<td class="list-td">제발</td>
+					<td class="list-td">되려무나</td>
+					<td class="list-td">헬프미</td>
+					<td class="list-td">우와</td>
+					<td class="list-td">머지</td>
+					<td class="list-td">좋겠다</td>
+					<td class="list-td">에휴</td>
+					<td class="list-td">모달안돼</td>
 				</tr>
 				<tr>
 					<td colspan="11"><hr class="hr-td"></td>
 				</tr>
 
-			</table> -->
-		</div>
+			</table> 
+	</div>  -->
+
 
 		<%-- 페이지 처리 --%>
 		<%-- <jsp:include page="../common/paging.jsp" />
@@ -203,10 +376,11 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 			<c:if test="${ !empty sessionScope.loginMember }">
 				<button id="writeBoard">작성하기</button>
 			</c:if>
-		</div> --%>
-	</div>
+		</div> 
+	</div> --%>
 
-	<!-- <script>
+
+		<!-- <script>
 		if (document.getElementsByTagName("tr")) {
 
 			const $trs = document.getElementsByTagName("tr");
@@ -233,68 +407,58 @@ import="com.ddschool.project.dog.model.dto.DogDTO" %>
 
 
 
-	<div>
 
-		<!-- 모달 창 -->
-		<div id="myModal" class="modal">
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<div id="modalTable">
-					<table align="center" id="listArea" class="table-con">
-						<tr>
-							<th>출결</th>
-							<th>강아지1</th>
-							<th>강아지2</th>
-							<th>강아지3</th>
-							<th>강아지4</th>
-							<th>강아지5</th>
-							<th>강아지6</th>
-							<th>강아지7</th>
-							<th>강아지8</th>
-							<th>강아지9</th>
-							<th>강아지10</th>
-						</tr>
-						<tr>
-							<th>출석</th>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-						</tr>
-						<tr>
-							<th>결석</th>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
-						</tr>
-					</table>
-				</div>
+		<div>
 
-				<div align="center">
-					<button class="btn-black">등록하기</button>
+			<%-- 모달 창 --%>
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<div id="modalTable">
+						<table align="center" id="listArea" class="table-con">
+							<tr>
+								<th>출결</th>
+								<%
+								// 강아지 반복
+								for (int i = 1; i <= 10; i++) {
+									out.println("<th>강아지" + i + "</th>");
+								}
+								%>
+							</tr>
+							<tr>
+								<th>출석</th>
+								<%
+								// 출석 여부 체크박스
+								for (int i = 1; i <= 10; i++) {
+									out.println("<td><input type='checkbox'></td>");
+								}
+								%>
+							</tr>
+							<tr>
+								<th>결석</th>
+								<%
+								// 결석 여부 체크박스
+								for (int i = 1; i <= 10; i++) {
+									out.println("<td><input type='checkbox'></td>");
+								}
+								%>
+							</tr>
+						</table>
+					</div>
+					<div align="center">
+						<button class="btn-black" id="submitClassbookBtn">등록하기</button>
+					</div>
 				</div>
 			</div>
+
 		</div>
 
-		<script
-			src="${pageContext.servletContext.contextPath}/resources/js/classbook.js"></script>
+		<%-- 	<script
+			src="${pageContext.servletContext.contextPath}/resources/js/classbook.js"></script> --%>
 
 	</div>
 
-
+	<%-- 푸터 --%>
 	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

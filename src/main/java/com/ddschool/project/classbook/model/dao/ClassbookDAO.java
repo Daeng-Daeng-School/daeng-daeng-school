@@ -13,6 +13,6 @@ public interface ClassbookDAO {
 
 	int getClassName();
 	
-	List<Map<String, Object>> getDogClassbookList(Map<String, Object> paramMap);
+	List<Map<String, Object>> getDogClassbookList(String month);
 
 }
