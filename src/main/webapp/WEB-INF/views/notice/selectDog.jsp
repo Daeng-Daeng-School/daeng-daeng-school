@@ -22,7 +22,7 @@
 		<select id="searchDog" class="search-select" name="dog">
 			<!-- <option value="" disabled selected>반려견 선택</option> -->
 			<!-- 추후 DB연결하여 뿌려주기 필요 -->
-			<option value="1">쿠키</option>
+			<option value="2">쿠키</option>
 		</select> <a onclick="select()" class="select-button">선택</a>
 	</div>
 	<!-- 검색 섹션 끝 -->

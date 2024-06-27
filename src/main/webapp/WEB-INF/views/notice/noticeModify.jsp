@@ -40,7 +40,7 @@
                         value="${ noticeDetail.noticeNo }" />
 
                      <div class="author" name="noticeWriter">
-                        <c:out value="${ noticeDetail.noticeWriter }" />
+                        <c:out value="${ noticeDetail.noticeWriter.memberName }" />
                      </div>
                      <div class="createdDate" name="createdDate">
                         <c:out value="${noticeDetail.createdDate}" />

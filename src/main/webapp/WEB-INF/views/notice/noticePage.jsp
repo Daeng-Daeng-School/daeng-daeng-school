@@ -29,10 +29,11 @@
                         <span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
                     </p>
                     <div class="search-section">
-                        <input type="text" id="searchInput" class="searchAllInput" placeholder="Search All..." onkeypress="handleKeyPress(event)">
-                        <button class="searchIcon" onclick="search()">🔎</button>
-                        <button class="write-post-button" onclick="writeNotice()">작성하기</button>
-                    </div>
+						<input type="text" id="searchInput" class="searchAllInput"
+							placeholder="Search All..." onkeypress="handleKeyPress(event)">
+						<button class="searchIcon" onclick="search()">🔎</button>
+						<button class="write-post-button" onclick="writeNotice()">작성하기</button>
+					</div>
                 </div>
                 <jsp:include page="../notice/selectDog.jsp" />
             </div>
@@ -54,7 +55,7 @@
                         <div class="post-content">
                             <h2><c:out value="${notice.noticeTitle}" /></h2>
                             <span style="text-align: right">
-                                <p><c:out value="${notice.noticeWriter}" /></p>
+                                <p><c:out value="${notice.noticeWriter.memberName}" /></p>
                                 <p><c:out value="${notice.createdDate}" /></p>
                             </span>
                         </div>

@@ -39,7 +39,7 @@
 			<div class="outer-notice-detail">
 				<div class="header-row">
 					<div class="author" name="noticeWriter">
-						<c:out value="${notice.noticeWriter}" />
+						<c:out value="${notice.noticeWriter.memberName}" />
 					</div>
 					<div class="createdDate" name="createdDate">
 						<c:out value="${notice.createdDate}" />

@@ -37,8 +37,9 @@
 					<div class="outer-notice-insert">
 						<div class="header-row">
 							<div class="author">
-								<input type="text" name="writerName" value="2"
+								<input type="text" name="writerName" value="${ sessionScope.loginMember.memberName }"
 									class="noneBorderInput">
+									<input type="hidden" name="noticeWriterCode" value="${sessionScope.loginMember.memberCode}">
 							</div>
 							<div class="createdDate">
 								<input type="date" name="createdDate" class="noneBorderInput"

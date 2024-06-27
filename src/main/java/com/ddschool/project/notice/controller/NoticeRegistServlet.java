@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
 
+import com.ddschool.project.member.model.dto.MemberDTO;
 import com.ddschool.project.notice.model.dto.NoticeDTO;
 import com.ddschool.project.notice.model.service.NoticeService;
 
@@ -48,7 +49,9 @@ public class NoticeRegistServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int dog = Integer.parseInt(request.getParameter("dog")); // 반려견 번호
-        int writerName = Integer.parseInt(request.getParameter("writerName")); // 작성자 번호 
+        System.out.println(dog);
+        int noticeWriterCode  = Integer.parseInt(request.getParameter("noticeWriterCode")); // 작성자 정보 
+        System.out.println(noticeWriterCode);
         Date createdDate = null;
         try {
             createdDate = new java.sql.Date(
@@ -66,7 +69,7 @@ public class NoticeRegistServlet extends HttpServlet {
         newNotice.setDogNo(dog);
         newNotice.setNoticeBody(body);
         newNotice.setNoticeTitle(title);
-        newNotice.setNoticeWriter(writerName);
+        newNotice.setNoticeWriterCode(noticeWriterCode);
         
         NoticeService noticeService = new NoticeService(editorApiKey);
         // 알림장 등록 서비스 호출

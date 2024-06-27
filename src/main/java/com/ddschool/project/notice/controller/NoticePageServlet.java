@@ -59,6 +59,8 @@ public class NoticePageServlet extends HttpServlet {
         request.setAttribute("noticeList", noticeList);
         request.setAttribute("pagination", pagination);
         request.setAttribute("keyword", keyword);
+        
+        System.out.println(noticeList);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticePage.jsp");
         dispatcher.forward(request, response);

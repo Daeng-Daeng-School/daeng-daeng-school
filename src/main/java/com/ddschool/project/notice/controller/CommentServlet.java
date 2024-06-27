@@ -32,6 +32,8 @@ public class CommentServlet extends HttpServlet {
 		// 요청 파라미터에서 공지 번호를 가져옴
 		request.setCharacterEncoding("UTF-8");
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		
+		
 		System.out.println("댓글 목록 조회 - 공지 번호: " + noticeNo);
 
 		// 서비스에서 공지 번호에 해당하는 댓글 목록을 가져옴

@@ -2,11 +2,14 @@ package com.ddschool.project.notice.model.dto;
 
 import java.sql.Date;
 
+import com.ddschool.project.member.model.dto.MemberDTO;
+
 public class NoticeDTO {
 
     private int noticeNo;        // 알림장 번호
     private int dogNo;           // 반려견 번호
-    private int noticeWriter;    // 작성자 회원 번호
+    private int noticeWriterCode;    // 작성자 회원 번호
+    private MemberDTO noticeWriter;    // 작성자 회원 번호
     private String noticeTitle;  // 알림장 제목
     private String noticeBody;   // 알림장 내용
     private Date createdDate;    // 작성일
@@ -17,84 +20,80 @@ public class NoticeDTO {
         super();
     }
 
-    public NoticeDTO(int noticeNo, int dogNo, int noticeWriter, String noticeTitle, String noticeBody,
-                     Date createdDate, Date modifiedDate, boolean noticeStatus) {
-        super();
-        this.noticeNo = noticeNo;
-        this.dogNo = dogNo;
-        this.noticeWriter = noticeWriter;
-        this.noticeTitle = noticeTitle;
-        this.noticeBody = noticeBody;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
-        this.noticeStatus = noticeStatus;
-    }
+	public int getNoticeNo() {
+		return noticeNo;
+	}
 
-    public int getNoticeNo() {
-        return noticeNo;
-    }
+	public void setNoticeNo(int noticeNo) {
+		this.noticeNo = noticeNo;
+	}
 
-    public void setNoticeNo(int noticeNo) {
-        this.noticeNo = noticeNo;
-    }
+	public int getDogNo() {
+		return dogNo;
+	}
 
-    public int getDogNo() {
-        return dogNo;
-    }
+	public void setDogNo(int dogNo) {
+		this.dogNo = dogNo;
+	}
 
-    public void setDogNo(int dogNo) {
-        this.dogNo = dogNo;
-    }
+	public int getNoticeWriterCode() {
+		return noticeWriterCode;
+	}
 
-    public int getNoticeWriter() {
-        return noticeWriter;
-    }
+	public void setNoticeWriterCode(int noticeWriterCode) {
+		this.noticeWriterCode = noticeWriterCode;
+	}
 
-    public void setNoticeWriter(int noticeWriter) {
-        this.noticeWriter = noticeWriter;
-    }
+	public MemberDTO getNoticeWriter() {
+		return noticeWriter;
+	}
 
-    public String getNoticeTitle() {
-        return noticeTitle;
-    }
+	public void setNoticeWriter(MemberDTO noticeWriter) {
+		this.noticeWriter = noticeWriter;
+	}
 
-    public void setNoticeTitle(String noticeTitle) {
-        this.noticeTitle = noticeTitle;
-    }
+	public String getNoticeTitle() {
+		return noticeTitle;
+	}
 
-    public String getNoticeBody() {
-        return noticeBody;
-    }
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
+	}
 
-    public void setNoticeBody(String noticeBody) {
-        this.noticeBody = noticeBody;
-    }
+	public String getNoticeBody() {
+		return noticeBody;
+	}
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+	public void setNoticeBody(String noticeBody) {
+		this.noticeBody = noticeBody;
+	}
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
 
-    public boolean isNoticeStatus() {
-        return noticeStatus;
-    }
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
 
-    public void setNoticeStatus(boolean noticeStatus) {
-        this.noticeStatus = noticeStatus;
-    }
+	public boolean isNoticeStatus() {
+		return noticeStatus;
+	}
 
-    /**
+	public void setNoticeStatus(boolean noticeStatus) {
+		this.noticeStatus = noticeStatus;
+	}
+	
+	
+	 /**
      * noticeBody에서 첫 번째 이미지의 URL 추출
      *
      * @return noticeBody에서 추출한 첫 번째 이미지의 URL, 이미지가 없을 경우 빈 문자열("")
@@ -127,18 +126,22 @@ public class NoticeDTO {
         return imageUrl;
     }
 
+	
+
+	@Override
+	public String toString() {
+		return "NoticeDTO [noticeNo=" + noticeNo + ", dogNo=" + dogNo + ", noticeWriterCode=" + noticeWriterCode
+				+ ", noticeWriter=" + noticeWriter + ", noticeTitle=" + noticeTitle + ", noticeBody=" + noticeBody
+				+ ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + ", noticeStatus=" + noticeStatus
+				+ ", getNoticeNo()=" + getNoticeNo() + ", getDogNo()=" + getDogNo() + ", getNoticeWriterCode()="
+				+ getNoticeWriterCode() + ", getNoticeWriter()=" + getNoticeWriter() + ", getNoticeTitle()="
+				+ getNoticeTitle() + ", getNoticeBody()=" + getNoticeBody() + ", getCreatedDate()=" + getCreatedDate()
+				+ ", getModifiedDate()=" + getModifiedDate() + ", isNoticeStatus()=" + isNoticeStatus()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+
     
-    @Override
-    public String toString() {
-        return "NoticeDTO{" +
-                "noticeNo=" + noticeNo +
-                ", dogNo=" + dogNo +
-                ", noticeWriter=" + noticeWriter +
-                ", noticeTitle='" + noticeTitle + '\'' +
-                ", noticeBody='" + noticeBody + '\'' +
-                ", createdDate=" + createdDate +
-                ", modifiedDate=" + modifiedDate +
-                ", noticeStatus=" + noticeStatus +
-                '}';
-    }
+    
+    
 }

@@ -148,39 +148,51 @@ a:active {
 	font-size: 18px;
 }
 
-/* 각 페이지의 페이지네이션 스타일 설정 */
+/* Pagination Styles */
 #pagination {
-	padding: 10px;
-	display: flex;
-	justify-content: center;
-	gap: 10px;
-	margin-bottom: 50px;
-	border: none;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 50px;
 }
 
 #pagination button {
-	border-radius: 5px;
-	border: 1px solid black;
-	background-color: white;
-	color: black;
-	padding: 5px 10px;
-	cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #pagination button[disabled] {
-	border-radius: 5px;
-	border: 1px solid black;
-	background-color: #333;
-	color: white;
+    background-color: rgb(255, 255, 255);
+    color: rgb(192, 192, 192);
+    cursor: default;
 }
 
-#pagination button.selected {
-	border-radius: 5px;
-	border: 1px solid black;
-	background-color: #333;
-	color: white;
-	cursor: default;
+#pagination button.active {
+    background-color: #333;
+    color: white;
 }
+
+#pagination button:hover:not([disabled]) {
+    background-color: #333;
+    color: white;
+}
+
+/* Styling for Arrow Icons */
+#pagination .arrow-icon {
+    font-size: 18px;
+}
+
+#pagination .arrow-icon.disabled {
+    color: rgb(0, 0, 0);
+}
+
+
 
 /* 푸터 스타일 설정 */
 .footer {

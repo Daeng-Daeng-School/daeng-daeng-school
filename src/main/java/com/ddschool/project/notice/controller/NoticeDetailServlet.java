@@ -27,7 +27,7 @@ public class NoticeDetailServlet extends HttpServlet {
 
 		NoticeService noticeService = new NoticeService();
 		NoticeDTO notice = noticeService.selectNoticeDetail(Integer.parseInt(noticeNo));
-
+		System.out.println(notice);
 		String path = "";
 		if (notice != null) {
 			path = "/WEB-INF/views/notice/noticeDetail.jsp";
