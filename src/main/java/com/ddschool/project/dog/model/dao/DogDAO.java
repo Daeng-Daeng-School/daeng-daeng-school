@@ -12,13 +12,9 @@ public interface DogDAO {
 	/* 강아지 정보 등록 :insertDog */
 	int insertDog(DogDTO dog);
 
-	/* 강아지 프로필 이미지 등록:insertDog */
-//	int insertDogImage(ImageDTO image);
-
 	/* 강아지 정보 조회 : registDog */
-	DogDTO selectDog(@Param("dogCode") int dogCode);
-
-	List<DogDTO> selectAllDogs();
+    // 회원에 등록된 강아지 조회
+    List<DogDTO> selectDogsByMemberCode(int memberCode);
 
 	/* 강아지 정보 수정 */
 	int updateDog(DogDTO dog);
