@@ -1,6 +1,6 @@
 
 //클릭한 버튼의 의도에 따라 location.href 속성을 변경해서 서블릿을 요청하는 함수
-function moveLocation(intent) {
+/* function moveLocation(intent) {
 	
 	var movePath = "/jsp";
 	

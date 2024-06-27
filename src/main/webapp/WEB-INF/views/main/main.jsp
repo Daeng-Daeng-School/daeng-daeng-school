@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Eunah's Board</title>
+<title>ddschool</title>
 </head>
 <body>
 	<jsp:forward page="../common/menubar.jsp" />

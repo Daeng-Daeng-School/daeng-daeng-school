@@ -4,9 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Access Denied</title>
 </head>
 <body>
+
+	<script>
+	const message = "<%= request.getAttribute("accessDeniedMessage") != null ? request.getAttribute("accessDeniedMessage") : "" %>";
+	if (message) {
+	    alert(message);
+	    request.removeAttribute("accessDeniedMessage");
+	} 
+	window.location.replace("${pageContext.servletContext.contextPath}");
+	</script>
+
 	<jsp:include page="../common/menubar.jsp" />
 	<h1 align="center">ErrorCode 403: 요청 권한이 없는 페이지 입니다.</h1>
 </body>
