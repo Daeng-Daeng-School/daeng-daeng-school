@@ -10,7 +10,7 @@
 	href="${pageContext.request.contextPath}/resources/css/notice.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	var contextPath = "${pageContext.request.contextPath}"; // Store the context path in a JavaScript variable
+	var contextPath = "${pageContext.request.contextPath}";
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/comment.js"></script>
 <script>

@@ -3,24 +3,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>알림장 서비스</title>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/notice.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/notice.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	var contextPath = "${pageContext.request.contextPath}"; // Store the context path in a JavaScript variable
-</script>
-<!-- Load TinyMCE script -->
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/pagination.js"></script>
 <script
 	src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
 	referrerpolicy="origin"></script>
+<script>
+    var contextPath = "${pageContext.request.contextPath}";
+</script>
+
 </head>
 <body>
+	<%-- 메뉴바 포함 --%>
 	<jsp:include page="../common/menubar.jsp" />
 
 	<main class="main-content">
@@ -40,7 +44,7 @@
 				<jsp:include page="../notice/selectDog.jsp" />
 			</div>
 			<div class="posts">
-				<!-- DB에서 게시글 불러와 반복출력 -->
+				<%-- DB에서 게시글 불러와 반복 출력 --%>
 				<c:forEach var="notice" items="${requestScope.noticeList}">
 					<div class="post-card" onclick="showDetail(${notice.noticeNo})">
 						<div class="post-thumbnail">
@@ -74,14 +78,38 @@
 				</c:forEach>
 			</div>
 			<br>
+			<%-- 페이징 버튼 --%>
+			<div id="pagination">
+				<c:if test="${totalNotices > limit}">
+					<button onclick="goToPage(1)"
+						<c:if test="${currentPage == 1}">disabled</c:if>><<</button>
+					<button onclick="goToPage(${currentPage - 1})"
+						<c:if test="${currentPage == 1}">disabled</c:if>><</button>
+					<c:forEach var="i" begin="1"
+						end="${(totalNotices / limit) + (totalNotices % limit == 0 ? 0 : 1)}">
+						<button onclick="goToPage(${i})"
+							<c:if test="${i == currentPage}">disabled</c:if>>${i}</button>
+					</c:forEach>
+					<button onclick="goToPage(${currentPage + 1})"
+						<c:if test="${currentPage == (totalNotices / limit) + (totalNotices % limit == 0 ? 0 : 1)}">disabled</c:if>>></button>
+					<button
+						onclick="goToPage(${(totalNotices / limit) + (totalNotices % limit == 0 ? 0 : 1)})"
+						<c:if test="${currentPage == (totalNotices / limit) + (totalNotices % limit == 0 ? 0 : 1)}">disabled</c:if>>></button>
+				</c:if>
+			</div>
 		</div>
 	</main>
-	<jsp:include page="../common/paging.jsp" />
+
+	<%-- 푸터 포함 --%>
 	<jsp:include page="../common/footer.jsp" />
 
-	<!-- contextPath를 가져오는 숨겨진 입력 필드 추가 -->
 	<input type="hidden" id="contextPath"
 		value="${pageContext.servletContext.contextPath}" />
 
+	<script>
+    function goToPage(page) {
+        window.location.href = contextPath + '/notice?page=' + page;
+    }
+</script>
 </body>
 </html>

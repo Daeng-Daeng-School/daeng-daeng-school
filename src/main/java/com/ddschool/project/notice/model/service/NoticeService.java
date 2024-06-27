@@ -1,16 +1,15 @@
 package com.ddschool.project.notice.model.service;
 
-import org.apache.ibatis.session.SqlSession;
-
-import com.ddschool.project.common.paging.PaginationUtil;
-import com.ddschool.project.common.paging.SelectCriteria;
-import com.ddschool.project.notice.model.dao.NoticeDAO;
-import com.ddschool.project.notice.model.dto.NoticeDTO;
-import com.mysql.cj.protocol.x.Notice;
-
 import static com.ddschool.project.common.mybatis.Template.getSqlSession;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.ddschool.project.notice.model.dao.NoticeDAO;
+import com.ddschool.project.notice.model.dto.NoticeDTO;
 
 /**
  * 알림장 관련 서비스 제공 클래스
@@ -47,6 +46,7 @@ public class NoticeService {
 
 		int result = noticeDAO.insertNotice(newNotice);
 
+		// 성공적으로 처리되면 커밋, 그렇지 않으면 롤백
 		if (result > 0) {
 			session.commit();
 		} else {
@@ -60,41 +60,21 @@ public class NoticeService {
 	/**
 	 * 지정된 페이지의 알림장 목록 조회
 	 *
-	 * @param currentPage 현재 페이지 번호
-	 * @param limit       페이지당 표시할 알림장 수
+	 * @param currentPage  현재 페이지 번호
+	 * @param itemsPerPage 페이지당 표시할 알림장 수
 	 * @return 현재 페이지의 알림장 목록
 	 */
-	public List<NoticeDTO> selectNotice(int currentPage, int limit) {
+	public List<NoticeDTO> selectNotice(int offset, int limit) {
 		SqlSession session = getSqlSession();
 		noticeDAO = session.getMapper(NoticeDAO.class);
 
-		int offset = PaginationUtil.calculateOffset(currentPage, limit);
-		SelectCriteria selectCriteria = new SelectCriteria(currentPage, limit);
-		selectCriteria.calculateStartRow();
+		Map<String, Integer> params = new HashMap<>();
+		params.put("offset", offset);
+		params.put("limit", limit);
 
-		List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria);
-
-		session.close();
-
-		return noticeList;
-	}
-
-	/**
-	 * 페이징 처리가 적용된 알림장 목록 조회
-	 *
-	 * @param selectCriteria 페이징 정보를 담고 있는 객체
-	 * @return 페이징 처리된 알림장 목록
-	 */
-	public List<NoticeDTO> selectAllNotice(SelectCriteria selectCriteria) {
-		SqlSession session = getSqlSession();
-		noticeDAO = session.getMapper(NoticeDAO.class);
-
-		selectCriteria.setStartRow(selectCriteria.getStartRow() - 1);
-
-		List<NoticeDTO> noticeList = noticeDAO.selectAllNotice(selectCriteria);
+		List<NoticeDTO> noticeList = noticeDAO.selectNotice(params);
 
 		session.close();
-
 		return noticeList;
 	}
 
@@ -107,6 +87,7 @@ public class NoticeService {
 		SqlSession session = getSqlSession();
 		noticeDAO = session.getMapper(NoticeDAO.class);
 
+		// NoticeDAO를 통해 전체 알림장 수 조회
 		int totalCount = noticeDAO.selectTotalCount();
 
 		session.close();
@@ -128,7 +109,7 @@ public class NoticeService {
 	}
 
 	/**
-	 * 알림장 내용 수정 
+	 * 알림장 내용 수정
 	 *
 	 * @param modifyNotice 수정할 알림장 객체
 	 * @return 데이터베이스에 수정된 행 수
@@ -137,9 +118,11 @@ public class NoticeService {
 		SqlSession session = getSqlSession();
 		NoticeDAO noticeDAO = session.getMapper(NoticeDAO.class);
 		int result = noticeDAO.updateNotice(modifyNotice);
-		if(result > 0) {
+
+		// 성공적으로 처리되면 커밋, 그렇지 않으면 롤백
+		if (result > 0) {
 			session.commit();
-		}else {
+		} else {
 			session.rollback();
 		}
 		session.close();
@@ -156,25 +139,33 @@ public class NoticeService {
 		SqlSession session = getSqlSession();
 		NoticeDAO noticeDAO = session.getMapper(NoticeDAO.class);
 		int result = noticeDAO.deleteNotice(noticeNo);
-		if(result > 0) {
+
+		// 성공적으로 처리되면 커밋, 그렇지 않으면 롤백
+		if (result > 0) {
 			session.commit();
-		}else {
+		} else {
 			session.rollback();
 		}
 		session.close();
 		return result;
 	}
 
+	/**
+	 * 키워드를 이용한 알림장 검색
+	 *
+	 * @param keyword 검색 키워드
+	 * @return 검색된 알림장 목록
+	 */
 	public List<NoticeDTO> searchNotices(String keyword) {
 		SqlSession session = getSqlSession();
 		noticeDAO = session.getMapper(NoticeDAO.class);
 
+		// NoticeDAO를 통해 키워드로 알림장 검색
 		List<NoticeDTO> searchList = noticeDAO.searchNotices(keyword);
-		System.out.println(searchList.toString());
+		System.out.println("sadasd" + searchList.toString());
 
 		session.close();
 
 		return searchList;
 	}
-
 }
