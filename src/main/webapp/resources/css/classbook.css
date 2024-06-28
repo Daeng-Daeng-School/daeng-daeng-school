@@ -1,0 +1,215 @@
+@charset "UTF-8";
+
+
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background-color: #fff;
+	color: #000;
+	min-width:1683px;
+}
+
+
+.text-area{
+	font-size:30px;
+	margin:253px 119px 0px 119px;
+	height:86px;
+}
+
+.select-bar{
+	display:flex;
+	margin-top:40px;
+	gap:53px;
+}
+
+input[type='month']{
+	font-size:16px;
+	font-weight: 600;
+	border:1px solid #DADADA;
+	border-radius: 8px;
+	width:245px;
+	height:48px;
+	text-align: center;
+	cursor:pointer;
+}
+
+input[type='month']::before{
+	content: attr(data-placeholder);
+	width:100%;
+}
+
+input[type='month']:focus::before,
+input[type='month']:valid::before{
+	display: none;
+}
+
+/* input[type='month']::-webkit-datetime-edit-month-field{
+    -webkit-appearance: none;
+    display: none;
+}
+
+input[type='month']::-webkit-datetime-edit-year-field {
+    -webkit-appearance: none;
+    display: none;
+} */
+
+
+select{
+	font-size:16px;
+	font-weight: 600;
+	border:1px solid #DADADA;
+	border-radius: 8px;
+	width:245px;
+	height:48px;
+	text-align: center;
+	cursor:pointer;
+}
+
+button{
+	border-radius: 100px;
+	font-size:16px;
+	font-weight: 600;
+	width:120px;
+	height:43px;	
+	text-align: center;
+	cursor:pointer;
+}
+
+.btn-black{
+	background-color:black;
+	color:white;
+}
+
+
+table {
+  border-collapse: collapse; /* 테이블 셀 간의 경계를 합침 */
+  width: 100%;
+}
+
+
+.table-area{
+	width:1680px;
+	height:1311px;
+	border:1px solid #B6B6B6;
+	border-radius: 16px;
+	margin-top:40px;
+	font-size: 20px;
+}
+
+.table-area-member{
+	width:1680px;
+	height:500px;
+	border:1px solid #B6B6B6;
+	border-radius: 16px;
+	margin-top:40px;
+	font-size: 20px;
+}
+
+.table-con{
+	width:100%;
+}
+
+.table-con th{
+	height:60px;
+	padding-top:18px;
+	padding-bottom:18px;
+}
+
+/* hr{
+	border: none;
+	height: 1px;
+	background-color: #F2F2F2;
+	margin-top:0;
+	margin-bottom:0;
+} */
+
+.list-td{
+	height:50px;
+}
+
+/* .hr-td{
+	border: none;
+	height: 1px;
+	background-color: #F2F2F2;
+	margin-top:0;
+	margin-bottom:0;
+	margin-left:15px;
+	margin-right:15px;
+} */
+
+.head-tr {
+  position: relative; /* 상대적 위치 지정 */
+}
+
+.head-tr::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px; /* 테이블 행 아래쪽에 구분선 위치 */
+  width: 100%;
+  border-bottom: 1px solid #F2F2F2; /* 구분선 스타일 지정 */
+}
+
+.body-tr {
+  position: relative; /* 상대적 위치 지정 */
+}
+
+.body-tr::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px; /* 테이블 행 아래쪽에 구분선 위치 */
+  width: 100%;
+  border-bottom: 1px solid #F2F2F2; /* 구분선 스타일 지정 */
+}
+
+
+
+
+
+/* 모달 스타일 */
+.modal {
+  display: none; /* 기본적으로 숨깁니다 */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* 배경을 반투명하게 설정 */
+  overflow: auto;
+}
+
+/* 모달 콘텐츠 */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 화면 중앙에 위치하도록 마진을 조정합니다 */
+  padding: 20px;
+  border: 1px solid #B6B6B6;
+  width: 100%;
+  max-width: 1436px;
+  max-height: 500px;
+  border-radius:16px;
+  font-size:16px;
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input[type='checkbox']{
+	width:120px;
+	cursor:pointer;
+}
+

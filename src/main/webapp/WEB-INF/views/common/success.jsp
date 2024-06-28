@@ -28,8 +28,8 @@
 					movePath = "${ pageContext.servletContext.contextPath }/index.jsp";
 					break;
 				case "insertNotice" : 
-					successMessage = "공지사항 등록에 성공하셨습니다!";
-					movePath = "${ pageContext.servletContext.contextPath }/notice/list";
+					successMessage = "알림장 등록에 성공하셨습니다!";
+					movePath = "${ pageContext.servletContext.contextPath }/notice";
 					break;
 				case "insertBoard" : 
 					successMessage = "자유게시판 등록에 성공하셨습니다!";

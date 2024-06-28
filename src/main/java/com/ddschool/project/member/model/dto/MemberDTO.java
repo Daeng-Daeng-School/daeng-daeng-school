@@ -1,12 +1,12 @@
 package com.ddschool.project.member.model.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MemberDTO {
 	
 	private int memberCode;
 	
-	private int classCode;
+	private Integer classCode;
 	
 	private int roleCode;
 	
@@ -20,6 +20,8 @@ public class MemberDTO {
 	
 	private String address;
 	
+	private String memberBirth;
+	
 	private boolean status;
 	
 	private Date joinDate;
@@ -30,8 +32,8 @@ public class MemberDTO {
 		super();
 	}
 
-	public MemberDTO(int memberCode, int classCode, int roleCode, String memberId, String memberPwd, String memberName,
-			String phone, String address, boolean status, Date joinDate, Date withdrawDate) {
+	public MemberDTO(int memberCode, Integer classCode, int roleCode, String memberId, String memberPwd, String memberName,
+			String phone, String address, String memberBirth, boolean status, Date joinDate, Date withdrawDate) {
 		super();
 		this.memberCode = memberCode;
 		this.classCode = classCode;
@@ -41,6 +43,7 @@ public class MemberDTO {
 		this.memberName = memberName;
 		this.phone = phone;
 		this.address = address;
+		this.memberBirth = memberBirth;
 		this.status = status;
 		this.joinDate = joinDate;
 		this.withdrawDate = withdrawDate;
@@ -54,11 +57,11 @@ public class MemberDTO {
 		this.memberCode = memberCode;
 	}
 
-	public int getClassCode() {
+	public Integer getClassCode() {
 		return classCode;
 	}
 
-	public void setClassCode(int classCode) {
+	public void setClassCode(Integer classCode) {
 		this.classCode = classCode;
 	}
 
@@ -110,6 +113,14 @@ public class MemberDTO {
 		this.address = address;
 	}
 
+	public String getMemberBirth() {
+		return memberBirth;
+	}
+
+	public void setMemberBirth(String memberBirth) {
+		this.memberBirth = memberBirth;
+	}
+
 	public boolean isStatus() {
 		return status;
 	}
@@ -143,3 +154,4 @@ public class MemberDTO {
 	}
 
 }
+

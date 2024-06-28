@@ -151,7 +151,11 @@ public class DogDTO {
 				+ dogName + ", gender=" + gender + ", birth=" + birth + ", dogBreed=" + dogBreed + ", weight=" + weight
 				+ ", chipNo=" + chipNo + ", notes=" + notes + ", joinDate=" + joinDate + ", withdrawDate="
 				+ withdrawDate + ", status=" + status + "]";
+<<<<<<< HEAD
 	}
 
 	
+=======
+	}	
+>>>>>>> refs/remotes/origin/master
 }

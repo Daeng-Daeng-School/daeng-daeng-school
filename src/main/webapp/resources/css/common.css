@@ -4,7 +4,8 @@
 /* 로고 웹폰트 */
 @font-face {
 	font-family: 'KimjungchulGothic-Bold';
-	src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2')
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2')
 		format('woff2');
 	font-weight: 700;
 	font-style: normal;
@@ -26,6 +27,8 @@ body {
 	font-family: 'SUIT-Regular';
 	background-color: #fff;
 	color: #000;
+	position: relative;
+	min-height: 1000vh;
 }
 
 /* 링크 기본 스타일 설정 */
@@ -43,7 +46,6 @@ a:active {
 
 /* 컨테이너의 최대 너비와 여백 설정 */
 .container {
-	max-width: 1920px;
 	margin: 0 auto;
 	padding: 0px 80px;
 }
@@ -58,6 +60,7 @@ a:active {
 	left: 0;
 	z-index: 1000;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	min-width: 1683px;
 }
 
 /* 헤더 내부 콘텐츠의 레이아웃 설정 */
@@ -65,7 +68,7 @@ a:active {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: 100px;
+	height: 125px;
 }
 
 /* 헤더 왼쪽 섹션의 레이아웃 설정 */
@@ -122,8 +125,9 @@ a:active {
 	font-size: 20px;
 	box-sizing: border-box;
 	position: fixed;
-	top: 100px;
+	top: 125px;
 	z-index: 999;
+	min-width: 1683px;
 }
 
 /* 로그인 영역 스타일 설정 */
@@ -156,86 +160,172 @@ a:active {
 	margin-left: 10px;
 }
 
-
 /* 로그인 영역 텍스트 스타일 설정 */
 .login-area h3 {
 	margin: 0 10px 0 0;
 	font-size: 18px;
 }
 
-/* 각 페이지의 페이지네이션 스타일 설정 */
-.pagingArea {
+/* Pagination Styles */
+#pagination {
 	padding: 10px;
 	display: flex;
 	justify-content: center;
 	gap: 10px;
 	margin-bottom: 50px;
-	border: none;
+}
+
+#pagination button {
+	border-radius: 5px;
+	border: 1px solid black;
+	background-color: white;
+	color: black;
+	padding: 5px 10px;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+#pagination button[disabled] {
+	background-color: rgb(255, 255, 255);
+	color: rgb(192, 192, 192);
+	cursor: default;
+}
+
+#pagination button.active {
+	background-color: #333;
+	color: white;
+}
+
+#pagination button:hover:not([disabled]) {
+	background-color: #333;
+	color: white;
+}
+
+/* Styling for Arrow Icons */
+#pagination .arrow-icon {
+	font-size: 18px;
+}
+
+#pagination .arrow-icon.disabled {
+	color: rgb(0, 0, 0);
 }
 
 /* 푸터 스타일 설정 */
-.footer {
-	background-color: #f9f9f9;
-   padding: 50px 130px;
-   display: flex;
-   justify-content: space-between;
-   align-items: flex-start; /* Align items at the top */
-   font-family: Arial, sans-serif;
-   font-size: 14px;
-   color: grey;
-   min-width: 1683px;
-
+.footer { <<<<<<<
+	HEAD background-color: #f9f9f9;
+	padding: 50px 130px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start; /* Align items at the top */
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	color: grey;
+	min-width: 1683px;
 }
 
 .footer-left, .footer-right {
-   flex: 1;
+	flex: 1;
 }
 
 .footer-left {
-   text-align: left;
+	text-align: left;
 }
 
 .footer-right {
-   text-align: right;
-   display: flex;
-   flex-direction: column;
-   align-items: flex-end;
+	text-align: right;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 }
 
 .footer-logo {
-   font-size: 1.5rem;
-   font-weight: bold;
-   margin-bottom: 10px;
-   color: #333;
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #333;
 }
 
 .footer-left p, .footer-right p {
-   margin: 5px 0;
+	margin: 5px 0;
 }
 
 .footer-left .links, .footer-right .links {
-   display: flex;
-   gap: 15px;
-   margin-top: 10px;
+	display: flex;
+	gap: 15px;
+	margin-top: 10px;
 }
 
 .footer-right .icons {
-   display: flex;
-   gap: 10px;
-   margin-bottom: 10px;
-   justify-content: flex-end;
-   margin-right: 0;
+	display: flex;
+	gap: 10px;
+	margin-bottom: 10px;
+	justify-content: flex-end;
+	margin-right: 0;
 }
 
 .footer-right .icons img {
-   width: 24px;
-   height: 24px;
+	width: 24px;
+	height: 24px;
 }
 
 .footer-right .customer-service {
-   font-weight: bold;
+	font-weight: bold;
 }
 
 .footer-right .contact {
-   color: #555;
+	color: #555;
+}
+
+
+.footer-left, .footer-right {
+	flex: 1;
+}
+
+.footer-left {
+	text-align: left;
+}
+
+.footer-right {
+	text-align: right;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.footer-logo {
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #333;
+}
+
+.footer-left p, .footer-right p {
+	margin: 5px 0;
+}
+
+.footer-left .links, .footer-right .links {
+	display: flex;
+	gap: 15px;
+	margin-top: 10px;
+}
+
+.footer-right .icons {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 10px;
+	justify-content: flex-end;
+	margin-right: 0;
+}
+
+.footer-right .icons img {
+	width: 24px;
+	height: 24px;
+}
+
+.footer-right .customer-service {
+	font-weight: bold;
+}
+
+.footer-right .contact {
+	color: #555;
 }

@@ -24,10 +24,13 @@
 				<ul>
 					<li><a href="#">회원정보 관리</a></li>
 					<li><a
-						href="${pageContext.servletContext.contextPath}/dog/select"	class="current">반려견정보 관리</a>
+						href="${pageContext.servletContext.contextPath}/dog/select"
+						class="current">반려견정보 관리</a>
 						<ul>
-							<li><a href="${pageContext.servletContext.contextPath}/dog/insert">등록하기</a></li>
-							<li><a href="${pageContext.servletContext.contextPath}/dog/update">수정하기</a></li>
+							<li><a
+								href="${pageContext.servletContext.contextPath}/dog/insert">등록하기</a></li>
+							<li><a
+								href="${pageContext.servletContext.contextPath}/dog/update">수정하기</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -38,7 +41,8 @@
 							나의 반려견 정보를<br>입력하세요.
 						</h1>
 					</div>
-					<form id="dogForm" class="dogForm" 	action="${pageContext.servletContext.contextPath}/dog/insert"
+					<form id="dogForm" class="dogForm"
+						action="${pageContext.servletContext.contextPath}/dog/insert"
 						method="post">
 						<div class="input_box">
 							<label for="dogName"></label> <input type="text" id="dogName"

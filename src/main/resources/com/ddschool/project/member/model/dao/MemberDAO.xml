@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ddschool.project.member.model.dao.MemberDAO">
+
+	<resultMap type="com.ddschool.project.member.model.dto.MemberDTO" id="memberResultMap">
+		<id property="memberCode" column="MEMBER_CODE"/>
+		<result property="classCode" column="CLASS_CODE"/>
+		<result property="roleCode" column="ROLE_CODE"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberPwd" column="MEMBER_PWD"/>
+		<result property="memberName" column="MEMBER_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="memberBirth" column="MEMBER_BIRTH"/>
+		<result property="status" column="STATUS"/>
+		<result property="joinDate" column="JOIN_DATE"/>
+		<result property="withdrawDate" column="WITHDRAW_DATE"/>
+	</resultMap>
+	
+	<resultMap id="memberResultMap2" type="com.ddschool.project.member.model.dto.MemberDTO">
+        <id property="memberCode" column="MEMBER_CODE"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="memberName" column="MEMBER_NAME"/>
+        <result property="roleCode" column="ROLE_CODE"/>
+        <result property="memberBirth" column="MEMBER_BIRTH"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="phone" column="PHONE"/>
+        <result property="status" column="STATUS"/>
+    </resultMap>
+    
+    <resultMap id="memberResultMap3" type="com.ddschool.project.member.model.dto.MemberDTO">
+        <id property="memberCode" column="MEMBER_CODE"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="memberName" column="MEMBER_NAME"/>
+        <result property="roleCode" column="ROLE_CODE"/>
+        <result property="memberBirth" column="MEMBER_BIRTH"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="phone" column="PHONE"/>
+        <result property="status" column="STATUS"/>
+        <result property="classCode" column="CLASS_CODE"/>
+    </resultMap>
+
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="com.ddschool.project.member.model.dto.MemberDTO">
+	INSERT INTO 
+			TBL_MEMBER (
+						MEMBER_ID
+						, MEMBER_PWD
+						, MEMBER_BIRTH
+						, MEMBER_NAME
+						, PHONE
+						, ADDRESS
+						, ROLE_CODE
+						, CLASS_CODE
+						)
+			VALUES (
+					#{ memberId }
+					, #{ memberPwd }
+					, STR_TO_DATE(#{memberBirth}, '%Y%m%d')
+					, #{ memberName }
+					, #{ phone }
+					, #{ address }
+					, #{ roleCode }
+					, #{ classCode }
+					)
+	</insert>
+	
+	<!-- memberId 로 비밀번호 조회 --> 
+	<select id="selectEncryptedPwd" resultType="java.lang.String">
+	SELECT MEMBER_PWD
+	FROM TBL_MEMBER
+	WHERE MEMBER_ID = #{ memberId }
+	</select>
+	
+	<!-- memberId 로 로그인 회원정보 조회 --> 
+	<select id="selectLoginMember" resultMap="memberResultMap2">
+	SELECT MEMBER_CODE, MEMBER_ID, MEMBER_NAME, ROLE_CODE, MEMBER_BIRTH, ADDRESS, PHONE, STATUS
+	FROM TBL_MEMBER
+	WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<!-- memberCode 로 회원의 phone, address 수정 --> 
+	<update id="updateMember">
+	UPDATE TBL_MEMBER
+	SET PHONE = #{ changePhone }, ADDRESS = #{ changeAddress }
+	WHERE MEMBER_CODE = #{ requestMemberCode }
+	</update>
+	
+	<!-- memberCode 로 회원의 phone, address, classCode 수정 --> 
+	<update id="updateTeacher">
+	UPDATE TBL_MEMBER
+	SET PHONE = #{ changePhone }, ADDRESS = #{ changeAddress }, CLASS_CODE = #{ changeClassCode }
+	WHERE MEMBER_CODE = #{ requestMemberCode }
+	</update>
+	
+	<!-- memberCode 로 회원의 status 수정 --> 
+	<update id="deleteMember">
+	UPDATE TBL_MEMBER
+	SET STATUS = #{ deleteMemberSatus }, WITHDRAW_DATE = NOW()
+	WHERE MEMBER_CODE = #{ deleteMemberCode }
+	</update>
+	
+	<!-- 전체 선생님 목록 조회 -->
+	<select id="selectTeacherList" resultMap="memberResultMap">
+	SELECT *
+	FROM TBL_MEMBER
+	WHERE ROLE_CODE = 2
+	</select>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="isMemberIdExists" parameterType="String" resultType="boolean">
+	SELECT COUNT(*) > 0
+	FROM TBL_MEMBER
+	WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<!-- memberId 로 선생님 정보 조회 --> 
+	<select id="selectTeacherInfo" resultMap="memberResultMap">
+	SELECT *
+	FROM TBL_MEMBER
+	WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<!-- memberId 로 선생님 활성화 -->
+	<update id="rejoinMember">
+	UPDATE TBL_MEMBER
+	SET STATUS = TRUE
+	WHERE MEMBER_ID = #{ memberId }
+	</update>
+
+</mapper>

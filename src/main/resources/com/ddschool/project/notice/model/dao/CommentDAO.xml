@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ddschool.project.notice.model.dao.CommentDAO">
+
+	<resultMap type="com.ddschool.project.notice.model.dto.CommentDTO" id="commentResultMap">
+		<id property="commentCode" column="COMMENT_CODE" />
+		<result property="noticeNo" column="BOARD_CODE" />
+		<result property="memberCode" column="MEMBER_CODE" />
+		<result property="content" column="CONTENT" />
+		<result property="createdDate" column="REGIST_DATE" />
+		<result property="modifyDate" column="MODIFY_DATE" />
+		<result property="status" column="STATUS" />
+	</resultMap>
+	
+	<select id="selectCommentsByNoticeNo" parameterType="_int" resultMap="commentResultMap">
+		SELECT COMMENT_CODE, BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE, MODIFY_DATE, STATUS
+		FROM TBL_COMMENT
+		WHERE BOARD_CODE = #{noticeNo}
+		AND STATUS = 1
+		ORDER BY COMMENT_CODE DESC
+	</select>
+
+	<insert id="insertComment">
+		INSERT INTO TBL_COMMENT (BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE, STATUS)
+		VALUES (#{noticeNo}, #{memberCode}, #{content}, current_date, 1)
+	</insert>
+
+	<update id="updateComment" parameterType="com.ddschool.project.notice.model.dto.CommentDTO">
+		UPDATE TBL_COMMENT
+		SET CONTENT = #{content}, MODIFY_DATE = current_date
+		WHERE COMMENT_CODE = #{commentCode}
+	</update>
+
+	<update id="updateCommentStatusToDeleted" parameterType="_int">
+		UPDATE TBL_COMMENT
+		SET STATUS = 0
+		WHERE COMMENT_CODE = #{commentCode}
+	</update>
+
+</mapper>
