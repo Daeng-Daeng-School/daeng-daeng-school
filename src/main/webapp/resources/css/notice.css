@@ -1,0 +1,423 @@
+@charset "UTF-8";
+
+/* 메인 컨텐츠의 상단 여백 추가 */
+.main-content {
+	padding: 200px 50px 20px;
+	/* 위, 좌우, 아래 여백 설정 */
+	max-width: 1920px;
+	/* 최대 너비 설정 */
+	margin: 0 auto;
+	/* 가운데 정렬 */
+	box-sizing: border-box;
+	/* 박스 크기를 내부 크기(box-sizing)로 설정 */
+}
+
+/* 게시물 제목 스타일 설정 */
+.noticeTitle {
+	font-size: 2rem;
+}
+
+.question-box {
+	display: flex;
+	/* 플렉스 박스로 정렬 */
+	flex-direction: column;
+	/* 수직으로 아이템 배치 */
+	margin-bottom: 40px;
+}
+
+/* 검색 섹션 스타일 설정 */
+.notice-header {
+	display: flex;
+	/* 플렉스 박스로 정렬 */
+	justify-content: space-between;
+	/* 간격을 벌리고 양쪽 끝에 배치 */
+	align-items: center;
+	/* 아이템을 중앙 정렬 */
+	margin-bottom: 20px;
+}
+
+.button-section {
+	display: flex;
+	align-items: center;
+}
+
+/* 검색 입력 컨테이너 스타일 설정 */
+.search-input-container {
+	display: flex;
+	/* 플렉스 박스로 정렬 */
+	align-items: center;
+	/* 아이템을 중앙 정렬 */
+	gap: 10px;
+	/* 아이템 간 간격 설정 */
+	flex: 1;
+	/* 남은 공간 모두 차지 */
+}
+
+.search-input,
+.search-select {
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 16px;
+	font-size: 16px;
+	margin-right: 5px;
+}
+
+.searchAllInput {
+	border: none;
+	border-bottom: 1px solid #000;
+	padding: 8px;
+	font-size: 16px;
+}
+
+.searchAllInput:focus {
+	outline: none;
+	/* 포커스 효과 제거 */
+	border-bottom: 1px solid #000;
+	/* 포커스 시 아래 테두리 설정 */
+}
+
+.search-section a {
+	font-size: 24px;
+	margin-left: 10px;
+	text-decoration: none;
+	/* 텍스트에 밑줄 제거 */
+	color: #000;
+}
+
+.search-section a:hover {
+	color: #555;
+}
+
+.searchIcon {
+	border: none;
+	margin-right: 10px;
+	cursor: pointer;
+	background-color: inherit;
+}
+
+/* 검색 버튼 스타일 설정 */
+.search-button,
+.select-button,
+#reselectButton {
+	padding: 8px 12px;
+	color: #f0f0f0;
+	border: none;
+	border-radius: 16px;
+	cursor: pointer;
+	/* 커서 모양 설정 */
+	font-size: 16px;
+	background-color: rgb(63, 63, 63);
+}
+
+.search-button:hover {
+	background-color: #e0e0e0;
+}
+
+/* 글 작성 버튼 스타일 설정 */
+.write-post-button,
+#write-button,
+.comment-btn,
+.submit-button {
+	padding: 10px 20px;
+	background-color: #333;
+	color: white;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-left: 10px;
+}
+
+.write-post-button:hover,
+#write-button:hover,
+.comment-btn:hover {
+	background-color: #005f6b;
+}
+
+/* 게시물 카드 스타일 설정 */
+.posts {
+	display: flex;
+	flex-wrap: wrap;
+	/* 여러 줄에 걸쳐 정렬 */
+	gap: 20px;
+	/* 아이템 간 간격 설정 */
+}
+
+.post-card {
+	width: calc(33.33% - 14px);
+	/* 너비 계산식 설정 */
+	height: 400px;
+	background-color: #f0f0f0;
+	border-radius: 15px;
+	overflow: hidden;
+	/* 내용이 넘칠 경우 숨김 처리 */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	/* 그림자 효과 설정 */
+	display: flex;
+	flex-direction: column;
+	/* 수직으로 아이템 배치 */
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.post-thumbnail {
+	flex: 3;
+	/* 3분의 1의 너비 차지 */
+	position: relative;
+	/* 위치 설정 */
+	overflow: hidden;
+	/* 내용이 넘칠 경우 숨김 처리 */
+}
+
+.post-thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* 이미지를 지정된 공간에 맞게 조정 */
+}
+
+.post-content {
+	flex: 1;
+	/* 1의 너비 차지 */
+	padding: 15px;
+	background-color: #fff;
+	box-sizing: border-box;
+	/* 박스 크기를 내부 크기(box-sizing)로 설정 */
+	display: flex;
+	/* 플렉스 박스로 정렬 */
+	flex-direction: column;
+	/* 수직으로 아이템 배치 */
+	justify-content: space-between;
+	/* 위아래로 공간 분배 */
+}
+
+.post-content h2 {
+	margin: 5px 0;
+	font-size: 24px;
+	white-space: nowrap;
+	/* 공백 처리 */
+	overflow: hidden;
+	/* 넘침 처리 */
+	text-overflow: ellipsis;
+	/* 글자 넘침 시 ...으로 표시 */
+}
+
+.post-content p {
+	margin: 3px 0;
+	font-size: 18px;
+}
+
+/* 게시물 작성 섹션 스타일 설정 */
+.outer-notice-insert,
+.outer-notice-detail,
+.outer-notice-modify {
+	margin-top: 20px;
+}
+
+.header-row {
+	display: flex;
+	justify-content: space-between;
+	/* 간격을 벌리고 양쪽 끝에 배치 */
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+.header-row .author,
+.header-row .createdDate {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	width: 250px;
+	color: #757575;
+	border-bottom: 1px solid #757575;
+	justify-content: center;
+	font-size: 16px;
+	padding: 10px;
+}
+
+.noneBorderInput{
+	align-items: center;
+	text-align: center;
+	outline: none; 
+	font-size: 1rem;
+	border: none; 
+	outline: none
+	
+}
+
+.header-row .author u,
+.header-row .createdDate u {
+	display: inline-block;
+	/* 인라인 블록 요소로 설정 */
+	width: 100%;
+}
+
+.title {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #757575;
+}
+
+.title input[type="text"] {
+	flex: 1;
+	padding: 5px;
+	font-size: 16px;
+	border: none;
+	outline: none;
+}
+
+.content-box {
+    overflow-y: auto; /* Allows scrolling if content overflows */
+    min-height: 30vh;
+    max-height: 80vh; /* Max height set to 80% of the viewport height */
+    border: none;
+    margin: 20px 0;
+    resize: none; 
+}
+
+.submit-button {
+	float: right;
+	/* 우측 정렬 */
+}
+
+/* 댓글 섹션 스타일 설정 */
+.comments-section {
+	width: 100%;
+	margin-top: 50px;
+}
+
+.comments-section h3 {
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.comments-section .comment-count {
+	font-size: 16px;
+	margin-left: 10px;
+	color: #555;
+}
+
+.comments-section .comment {
+	padding: 0 10px 0 50px;
+	display: flex;
+	flex-direction: column;
+}
+
+.comments-section .comment .comment-info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 5px;
+	width: 100%;
+	padding: 0 50px 0 10px;
+}
+
+.comments-section .comment .comment-info .author {
+	flex: 10%;
+	/* 10% 너비 설정 */
+	white-space: nowrap;
+	/* 공백 처리 */
+	overflow: hidden;
+	/* 넘침 처리 */
+	text-overflow: ellipsis;
+	/* 글자 넘침 시 ...으로 표시 */
+	font-weight: 700;
+	/* 폰트 두께 설정 */
+}
+
+.comments-section .comment .comment-info .original-date, .modify-date {
+	font-size: 12px;
+	color: rgb(128, 128, 128);
+}
+
+.comments-section .comment .comment-info .actions {
+	flex: 20%;
+	/* 20% 너비 설정 */
+	display: flex;
+	justify-content: flex-end;
+	/* 우측 정렬 */
+	gap: 10px;
+}
+
+.comments-section .comment .comment-info .actions button {
+	padding: 8px 8px;
+	border: none;
+	border-radius: 16px;
+	cursor: pointer;
+	font-size: 10px;
+}
+
+.comments-section .comment .original-content, .edit-content {
+	flex: 50%;
+	/* 70% 너비 설정 */
+	text-align: left;
+	/* 텍스트를 왼쪽 정렬 */
+}
+
+.comments-section .comment p {
+	margin: 10px;
+}
+
+#commentForm {
+	display: flex;
+	flex-direction: row;
+	/* 수평으로 아이템 배치 */
+	align-items: center;
+	/* 아이템을 중앙 정렬 */
+	margin: 20px 0;
+	padding-left: 50px;
+	/* 왼쪽 안쪽 여백 설정 */
+	justify-content: space-between;
+}
+
+.comments-section #commentForm textarea, .edit-content textarea {
+	flex: 1;
+	/* 1의 너비 차지 */
+	height: 100px;
+	padding: 10px;
+	border: 1px solid rgb(168, 168, 168);
+	border-radius: 5px;
+	box-sizing: border-box;
+	resize: none;
+	/* 크기 조정 금지 */
+	font-size: 16px;
+}
+
+.comments-section #commentForm .btn {
+	padding: 8px 16px;
+	border: none;
+	border-radius: 16px;
+	background-color: #333;
+	color: #fff;
+	cursor: pointer;
+	font-size: 14px;
+	align-self: flex-end;
+	margin-left: 10px;
+}
+
+.comments-section #commentForm .btn:hover {
+	background-color: #555;
+}
+
+.goBackList {
+	display: block;
+	/* 블록 요소로 설정 */
+	margin: 20px auto;
+	padding: 10px 20px;
+	background-color: rgb(192, 192, 192);
+	color: white;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 16px;
+	text-align: center;
+	width: 25%;
+}
+
+.goBackList a {
+	color: white;
+	text-decoration: none;
+	display: block;
+	/* 블록 요소로 설정하여 버튼을 모두 채우기 */
+}
