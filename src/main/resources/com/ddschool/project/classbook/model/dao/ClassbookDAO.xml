@@ -14,7 +14,7 @@
   </resultMap>
   
   <resultMap id="memberResultMap" type="com.ddschool.project.member.model.dto.MemberDTO">
-  <id property="memberCode" column="MEMBER_CODE"/>
+  	<id property="memberCode" column="MEMBER_CODE"/>
 		<result property="classCode" column="CLASS_CODE"/>
 		<result property="roleCode" column="ROLE_CODE"/>
 		<result property="memberId" column="MEMBER_ID"/>
@@ -29,17 +29,19 @@
   </resultMap>
   
   <resultMap type="com.ddschool.project.dog.model.dto.DogDTO" id="dogResultMap">
-		<id property="dogCode" column="DOG_CODE"/>
-		<result property="memberCode" column="MEMBER_CODE"/>
-		<result property="classCode" column="CLASS_CODE"/>
-		<result property="dogName" column="DOG_NAME"/>
-		<result property="gender" column="GENDER"/>
-		<result property="birth" column="BIRTH"/>
-		<result property="dogBreed" column="DOG_BREED"/>
-		<result property="weight" column="WEIGHT"/>
-		<result property="chipNo" column="CHIP_NO"/>
-		<result property="joinDate" column="JOIN_DATE"/>
-		<result property="withdrawDate" column="WITHDRAW_DATE"/>
+		<id property="dogCode" column="dog_code" />
+	<result property="memberCode" column="member_code" />
+	<result property="classCode" column="class_code" />
+	<result property="dogName" column="dog_name" />
+	<result property="gender" column="gender" />
+	<result property="birth" column="birth" />
+	<result property="dogBreed" column="dog_breed" />
+	<result property="weight" column="weight" />
+	<result property="chipNo" column="chip_no" />
+	<result property="notes" column="notes" />
+	<result property="joinDate" column="join_date" />
+	<result property="withdrawDate" column="withdraw_date" />
+	<result property="status" column="status" />
 	</resultMap>
 
 	<!-- 회원 출석부 반려견 리스트 -->
@@ -75,37 +77,37 @@
   <select id="getDogClassbookList" parameterType="map" resultType="java.util.LinkedHashMap">
 			SELECT
 			d.DOG_NAME,
-	MAX(CASE WHEN DAY(CHECK_DATE) = 1 THEN c.CHECK_STATUS ELSE ' ' END) AS '1일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 2 THEN c.CHECK_STATUS ELSE ' ' END) AS '2일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 3 THEN c.CHECK_STATUS ELSE ' ' END) AS '3일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 4 THEN c.CHECK_STATUS ELSE ' ' END) AS '4일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 5 THEN c.CHECK_STATUS ELSE ' ' END) AS '5일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 6 THEN c.CHECK_STATUS ELSE ' ' END) AS '6일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 7 THEN c.CHECK_STATUS ELSE ' ' END) AS '7일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 8 THEN c.CHECK_STATUS ELSE ' ' END) AS '8일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 9 THEN c.CHECK_STATUS ELSE ' ' END) AS '9일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 10 THEN c.CHECK_STATUS ELSE ' ' END) AS '10일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 11 THEN c.CHECK_STATUS ELSE ' ' END) AS '11일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 12 THEN c.CHECK_STATUS ELSE ' ' END) AS '12일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 13 THEN c.CHECK_STATUS ELSE ' ' END) AS '13일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 14 THEN c.CHECK_STATUS ELSE ' ' END) AS '14일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 15 THEN c.CHECK_STATUS ELSE ' ' END) AS '15일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 16 THEN c.CHECK_STATUS ELSE ' ' END) AS '16일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 17 THEN c.CHECK_STATUS ELSE ' ' END) AS '17일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 18 THEN c.CHECK_STATUS ELSE ' ' END) AS '18일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 19 THEN c.CHECK_STATUS ELSE ' ' END) AS '19일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 20 THEN c.CHECK_STATUS ELSE ' ' END) AS '20일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 21 THEN c.CHECK_STATUS ELSE ' ' END) AS '21일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 22 THEN c.CHECK_STATUS ELSE ' ' END) AS '22일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 23 THEN c.CHECK_STATUS ELSE ' ' END) AS '23일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 24 THEN c.CHECK_STATUS ELSE ' ' END) AS '24일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 25 THEN c.CHECK_STATUS ELSE ' ' END) AS '25일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 26 THEN c.CHECK_STATUS ELSE ' ' END) AS '26일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 27 THEN c.CHECK_STATUS ELSE ' ' END) AS '27일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 28 THEN c.CHECK_STATUS ELSE ' ' END) AS '28일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 29 THEN c.CHECK_STATUS ELSE ' ' END) AS '29일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 30 THEN c.CHECK_STATUS ELSE ' ' END) AS '30일',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 31 THEN c.CHECK_STATUS ELSE ' ' END) AS '31일'
+	MAX(CASE WHEN DAY(CHECK_DATE) = 1 THEN c.CHECK_STATUS ELSE ' ' END) AS '1',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 2 THEN c.CHECK_STATUS ELSE ' ' END) AS '2',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 3 THEN c.CHECK_STATUS ELSE ' ' END) AS '3',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 4 THEN c.CHECK_STATUS ELSE ' ' END) AS '4',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 5 THEN c.CHECK_STATUS ELSE ' ' END) AS '5',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 6 THEN c.CHECK_STATUS ELSE ' ' END) AS '6',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 7 THEN c.CHECK_STATUS ELSE ' ' END) AS '7',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 8 THEN c.CHECK_STATUS ELSE ' ' END) AS '8',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 9 THEN c.CHECK_STATUS ELSE ' ' END) AS '9',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 10 THEN c.CHECK_STATUS ELSE ' ' END) AS '10',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 11 THEN c.CHECK_STATUS ELSE ' ' END) AS '11',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 12 THEN c.CHECK_STATUS ELSE ' ' END) AS '12',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 13 THEN c.CHECK_STATUS ELSE ' ' END) AS '13',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 14 THEN c.CHECK_STATUS ELSE ' ' END) AS '14',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 15 THEN c.CHECK_STATUS ELSE ' ' END) AS '15',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 16 THEN c.CHECK_STATUS ELSE ' ' END) AS '16',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 17 THEN c.CHECK_STATUS ELSE ' ' END) AS '17',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 18 THEN c.CHECK_STATUS ELSE ' ' END) AS '18',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 19 THEN c.CHECK_STATUS ELSE ' ' END) AS '19',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 20 THEN c.CHECK_STATUS ELSE ' ' END) AS '20',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 21 THEN c.CHECK_STATUS ELSE ' ' END) AS '21',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 22 THEN c.CHECK_STATUS ELSE ' ' END) AS '22',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 23 THEN c.CHECK_STATUS ELSE ' ' END) AS '23',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 24 THEN c.CHECK_STATUS ELSE ' ' END) AS '24',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 25 THEN c.CHECK_STATUS ELSE ' ' END) AS '25',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 26 THEN c.CHECK_STATUS ELSE ' ' END) AS '26',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 27 THEN c.CHECK_STATUS ELSE ' ' END) AS '27',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 28 THEN c.CHECK_STATUS ELSE ' ' END) AS '28',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 29 THEN c.CHECK_STATUS ELSE ' ' END) AS '29',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 30 THEN c.CHECK_STATUS ELSE ' ' END) AS '30',
+    MAX(CASE WHEN DAY(CHECK_DATE) = 31 THEN c.CHECK_STATUS ELSE ' ' END) AS '31'
 		FROM TBL_CLASSBOOK c
     JOIN TBL_DOG d ON d.DOG_CODE = c.DOG_CODE
     JOIN TBL_MEMBER m ON m.MEMBER_CODE = c.MEMBER_CODE
