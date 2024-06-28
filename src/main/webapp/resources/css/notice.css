@@ -97,7 +97,8 @@
 
 /* 검색 버튼 스타일 설정 */
 .search-button,
-.select-button {
+.select-button,
+#reselectButton {
 	padding: 8px 12px;
 	color: #f0f0f0;
 	border: none;

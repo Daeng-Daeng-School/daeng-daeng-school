@@ -3,6 +3,8 @@ package com.ddschool.project.notice.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.ddschool.project.ddclass.model.dto.ClassDTO;
+import com.ddschool.project.dog.model.dto.DogDTO;
 import com.ddschool.project.notice.model.dto.NoticeDTO;
 
 /**
@@ -70,5 +72,9 @@ public interface NoticeDAO {
 	int getSearchNoticeCount(String keyword);
 
 	List<NoticeDTO> searchNotices(Map<String, Object> params);
+
+	List<ClassDTO> selectClassList();
+
+	List<DogDTO> selectDogsByClass(int classCode);
 
 }

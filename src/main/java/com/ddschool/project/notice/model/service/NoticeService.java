@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.ddschool.project.ddclass.model.dto.ClassDTO;
+import com.ddschool.project.dog.model.dto.DogDTO;
 import com.ddschool.project.notice.model.dao.NoticeDAO;
 import com.ddschool.project.notice.model.dto.NoticeDTO;
 
@@ -16,7 +18,7 @@ import com.ddschool.project.notice.model.dto.NoticeDTO;
  */
 public class NoticeService {
 
-	private NoticeDAO noticeDAO;
+	private static NoticeDAO noticeDAO;
 
 	/**
 	 * 기본 생성자
@@ -181,5 +183,23 @@ public class NoticeService {
 		session.close();
 
 		return count;
+	}
+
+	public static List<ClassDTO> selectClassList() {
+		SqlSession session = getSqlSession();
+		noticeDAO = session.getMapper(NoticeDAO.class);
+
+		List<ClassDTO> classList = noticeDAO.selectClassList();
+		session.close();
+		return classList;
+	}
+
+	public static List<DogDTO> selectDogsByClass(int classCode) {
+		SqlSession session = getSqlSession();
+		noticeDAO = session.getMapper(NoticeDAO.class);
+
+		List<DogDTO> dogList = noticeDAO.selectDogsByClass(classCode);
+		session.close();
+		return dogList;
 	}
 }

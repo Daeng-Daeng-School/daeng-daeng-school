@@ -33,13 +33,23 @@
 				<form id="postForm"
 					action="${pageContext.servletContext.contextPath}/notice/insert"
 					method="post">
+					<!-- 반과 반려견 선택을 위해 selectDog.jsp 파일 포함 -->
 					<jsp:include page="../notice/selectDog.jsp" />
+
+					<!-- 선택된 반과 반려견 코드를 위한 숨겨진 입력 필드 -->
+					<%-- 반과 반려견 선택 폼 --%>
+					<input type="hidden" name="classCode" id="selectedClassCode"
+						value=""> 
+						<input type="hidden" name="dogCode"
+						id="selectedDogCode" value="">
 					<div class="outer-notice-insert">
 						<div class="header-row">
 							<div class="author">
-								<input type="text" name="writerName" value="${ sessionScope.loginMember.memberName }"
-									class="noneBorderInput">
-									<input type="hidden" name="noticeWriterCode" value="${sessionScope.loginMember.memberCode}">
+								<input type="text" name="writerName"
+									value="${ sessionScope.loginMember.memberName }"
+									class="noneBorderInput"> <input type="hidden"
+									name="noticeWriterCode"
+									value="${sessionScope.loginMember.memberCode}">
 							</div>
 							<div class="createdDate">
 								<input type="date" name="createdDate" class="noneBorderInput"

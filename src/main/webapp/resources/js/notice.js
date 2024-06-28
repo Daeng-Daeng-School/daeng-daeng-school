@@ -46,13 +46,13 @@ document.addEventListener("DOMContentLoaded", function() {
 	window.updateNotice = function() {
 		document.getElementById('postForm').submit();
 	}
-	
+
 	// 삭제하기 버튼 클릭 시, 확인 창을 띄우고 삭제를 실행
-    window.doDelete = function(noticeNo) {
-        if (confirm("정말 삭제하시겠습니까?")) {
-            document.getElementById('deleteForm').submit();
-        }
-    }
+	window.doDelete = function(noticeNo) {
+		if (confirm("정말 삭제하시겠습니까?")) {
+			document.getElementById('deleteForm').submit();
+		}
+	}
 });
 
 
