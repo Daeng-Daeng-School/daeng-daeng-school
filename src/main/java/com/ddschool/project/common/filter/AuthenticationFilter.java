@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*"})
-public class AuthenticationFilger implements Filter {
+public class AuthenticationFilter implements Filter {
 	
 	Map<String, List<String>> permitURIList;
 
@@ -41,6 +41,8 @@ public class AuthenticationFilger implements Filter {
 		masterPermitList.add("/member/update");
 		masterPermitList.add("/member/getMemberInfo");
 		masterPermitList.add("/master/teacherInfo");
+		masterPermitList.add("/member/rejoin");
+		masterPermitList.add("/master/class");
 		
 		memberPermitList.add("/member/mypage");
 		memberPermitList.add("/member/delete");

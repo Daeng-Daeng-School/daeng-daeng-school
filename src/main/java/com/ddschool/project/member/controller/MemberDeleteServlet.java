@@ -21,17 +21,13 @@ public class MemberDeleteServlet extends HttpServlet {
 		System.out.println("서블릿에서 확인한 memberId 쿼리스트링은 : " + memberId);
 		MemberDTO deleteMember = null;
 		
-		// 만약 memberId 가 넘어온게 있다면 탈퇴진행
-		// 아니라면 세션 정보의 로그인 회원을 탈퇴진행
-		
+		// 만약 memberId 가 넘어온게 있다면 그아이디의 선생님 탈퇴진행
 		if (memberId != null && !memberId.isEmpty()) {
-            
 			deleteMember = new MemberService().selectTeacherInfo(memberId);
 			System.out.println("선생님 탈퇴 진행할게!");
 			
-			
+		// 아니라면 세션 정보의 로그인 회원을 탈퇴진행	
         } else {
-            // 세션에서 로그인된 회원 정보를 가져옴
             HttpSession session = request.getSession();
             deleteMember = (MemberDTO) session.getAttribute("loginMember");
         }
@@ -42,24 +38,22 @@ public class MemberDeleteServlet extends HttpServlet {
 		int deleteMemberCode = deleteMember.getMemberCode();
 		boolean deleteMemberSatus = deleteMember.isStatus();
 		
-		// 디비에 저장하기
+		// 디비에 반영하기
 		int deleteResult = new MemberService().deleteMember(deleteMemberCode, deleteMemberSatus);
 		
+		// 결과 콘솔에 찍기
 		if(deleteResult > 0) {
 			System.out.println("status 변경 성공!");
-			
-		} else {
-			System.out.println("status 변경 실패!");
-			
-		}
+		} else System.out.println("status 변경 실패!");
 		
-		if (memberId != null && !memberId.isEmpty()) {
-			
+		// master의 선생님 탈퇴 진행이었다면 선생님 목록 조회페이지로 리다이렉트
+		if ((memberId != null && !memberId.isEmpty())&& (deleteResult>0)) {
 			response.sendRedirect(request.getContextPath()+"/master/management");
 			
+		// 로그인한 회원 자신의 탈퇴 진행이었다면 세션만료 후 메인페이지 복귀	
 		} else {
-			request.getSession().invalidate(); // 세션 만료 시키기
-			response.sendRedirect(request.getContextPath()); // 메인 페이지 복귀
+			request.getSession().invalidate(); 
+			response.sendRedirect(request.getContextPath()); 
 		}
 	}
 }

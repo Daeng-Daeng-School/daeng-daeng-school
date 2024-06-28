@@ -115,18 +115,12 @@
         border-bottom: 2px solid #ddd; /* 하단 테두리선만 추가 */
     }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+</script>
 </head>
 <body>
-
-<script> // 선생님 등록 성공 시 띄울 alert
-window.onload = function() {
-    const message = "<%= session.getAttribute("registTeacherSuccessMessage") != null ? session.getAttribute("registTeacherSuccessMessage") : "" %>";
-    if (message) {
-        alert(message);
-        session.removeAttribute("registTeacherSuccessMessage");
-    } 
-}
-</script>
 
 <jsp:include page="../common/menubar.jsp"/>
 
@@ -135,15 +129,15 @@ window.onload = function() {
         <div class="sidebar">
             <ul>
                 <li><a href="${pageContext.servletContext.contextPath}/master/mypage">회원정보 관리</a></li>
-                <li><a href="${pageContext.servletContext.contextPath}/master/management" class="current">선생님 관리</a></li>
-                <li><a href="${pageContext.servletContext.contextPath}/master/class">반 관리</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/master/management">선생님 관리</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/master/class" class="current">반 관리</a></li>
             </ul>
     	</div>
     	<div class="main-content">
             <div class="main-content-header">
-                <h1>댕댕스쿨 선생님들</h1>
-                <form action="${pageContext.servletContext.contextPath}/master/teacherRegist" method="get" style="margin: 0;">
-                    <button type="submit" class="teacher-regist-btn">신규 선생님 등록하기</button>
+                <h1>댕댕스쿨 반</h1>
+                <form action="${pageContext.servletContext.contextPath}/" method="get" style="margin: 0;">
+                    <button type="submit" class="teacher-regist-btn">신규 반 등록하기</button>
                 </form>
             </div>
             <div class="teacher-list">

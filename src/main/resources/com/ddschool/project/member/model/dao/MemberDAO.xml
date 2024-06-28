@@ -84,6 +84,13 @@
 	<!-- memberCode 로 회원의 phone, address 수정 --> 
 	<update id="updateMember">
 	UPDATE TBL_MEMBER
+	SET PHONE = #{ changePhone }, ADDRESS = #{ changeAddress }
+	WHERE MEMBER_CODE = #{ requestMemberCode }
+	</update>
+	
+	<!-- memberCode 로 회원의 phone, address, classCode 수정 --> 
+	<update id="updateTeacher">
+	UPDATE TBL_MEMBER
 	SET PHONE = #{ changePhone }, ADDRESS = #{ changeAddress }, CLASS_CODE = #{ changeClassCode }
 	WHERE MEMBER_CODE = #{ requestMemberCode }
 	</update>
@@ -91,7 +98,7 @@
 	<!-- memberCode 로 회원의 status 수정 --> 
 	<update id="deleteMember">
 	UPDATE TBL_MEMBER
-	SET STATUS = #{ deleteMemberSatus }
+	SET STATUS = #{ deleteMemberSatus }, WITHDRAW_DATE = NOW()
 	WHERE MEMBER_CODE = #{ deleteMemberCode }
 	</update>
 	
@@ -115,5 +122,12 @@
 	FROM TBL_MEMBER
 	WHERE MEMBER_ID = #{memberId}
 	</select>
+	
+	<!-- memberId 로 선생님 활성화 -->
+	<update id="rejoinMember">
+	UPDATE TBL_MEMBER
+	SET STATUS = TRUE
+	WHERE MEMBER_ID = #{ memberId }
+	</update>
 
 </mapper>

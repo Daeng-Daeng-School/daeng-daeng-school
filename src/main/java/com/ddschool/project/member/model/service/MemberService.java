@@ -68,14 +68,14 @@ public class MemberService {
 
 	}
 
-	public int updateMember(int requestMemberCode, String changePhone, String changeAddress, Integer changeClassCode) {
+	public int updateMember(int requestMemberCode, String changePhone, String changeAddress) {
 		
 		System.out.println("서비스에서 회원정보 수정 시작!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
 		
-		int updateResult = memberDAO.updateMember(requestMemberCode, changePhone, changeAddress, changeClassCode);
+		int updateResult = memberDAO.updateMember(requestMemberCode, changePhone, changeAddress);
 		
 		if(updateResult > 0) {
 			session.commit();
@@ -150,6 +150,45 @@ public class MemberService {
 		
 		
 		return teacherInfo;
+	}
+
+	public int updateTeacher(int requestMemberCode, String changePhone, String changeAddress, Integer changeClassCode) {
+		System.out.println("서비스에서 선생님 정보 수정 시작!");
+		
+		SqlSession session = getSqlSession();
+		memberDAO = session.getMapper(MemberDAO.class);
+		
+		int updateResult = memberDAO.updateTeacher(requestMemberCode, changePhone, changeAddress, changeClassCode);
+		
+		if(updateResult > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return updateResult;
+	}
+
+	public int rejoinMember(String memberId) {
+		
+		System.out.println("서비스에서 선생님 활성화 시작!");
+		
+		SqlSession session = getSqlSession();
+		memberDAO = session.getMapper(MemberDAO.class);
+		
+		int rejoinResult = memberDAO.rejoinMember(memberId);
+		
+		if(rejoinResult > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return rejoinResult;
 	}
 
 }

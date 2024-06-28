@@ -14,9 +14,7 @@
 			</dataSource>
 		</environment>
 	</environments>
-	
 <mappers>
    <mapper resource="com/ddschool/project/member/model/dao/MemberDAO.xml"/>
 </mappers>
-
 </configuration>

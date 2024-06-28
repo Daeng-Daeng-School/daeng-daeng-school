@@ -127,6 +127,24 @@ window.onload = function() {
 }
 </script>
 
+<script>
+window.onload = function() {
+    // 탈퇴한 회원의 로그인 실패 시 띄울 alert
+    const statusDisAvailableMessage = "<%= request.getAttribute("statusDisAvailableMessage") != null ? request.getAttribute("statusDisAvailableMessage") : "" %>";
+    if (statusDisAvailableMessage !== "") {
+        alert(statusDisAvailableMessage);
+        <% request.removeAttribute("statusDisAvailableMessage"); %>
+    }
+
+    // 존재하지 않는 회원의 로그인 실패 시 띄울 alert
+    const notfoundMEmberMessage = "<%= request.getAttribute("notfoundMEmberMessage") != null ? request.getAttribute("notfoundMEmberMessage") : "" %>";
+    if (notfoundMEmberMessage !== "") {
+        alert(notfoundMEmberMessage);
+        <% request.removeAttribute("notfoundMEmberMessage"); %>
+    }
+}
+</script>
+
 
     <div class="login-container">
     <div class="container">

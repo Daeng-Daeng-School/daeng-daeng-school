@@ -17,8 +17,7 @@ public interface MemberDAO {
 	int updateMember(
 					@Param("requestMemberCode") int requestMemberCode, 
             		@Param("changePhone") String changePhone, 
-            		@Param("changeAddress") String changeAddress,
-            		@Param("changeClassCode") int changeClassCode);
+            		@Param("changeAddress") String changeAddress);
 
 	int deleteMember(
 					@Param("deleteMemberCode") int deleteMemberCode,
@@ -29,5 +28,13 @@ public interface MemberDAO {
 	boolean isMemberIdExists(String memberId);
 
 	MemberDTO selectTeacherInfo(String memberId);
+
+	int updateTeacher(
+					@Param("requestMemberCode") int requestMemberCode, 
+            		@Param("changePhone") String changePhone, 
+            		@Param("changeAddress") String changeAddress,
+            		@Param("changeClassCode") int changeClassCode);
+
+	int rejoinMember(String memberId);
 
 }

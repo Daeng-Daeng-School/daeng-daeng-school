@@ -139,25 +139,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
-    // 페이지 로드 시 회원 정보를 로드
-    loadMemberInfo();
-
-    function loadMemberInfo() {
-        $.ajax({
-            url: '${pageContext.servletContext.contextPath}/member/getMemberInfo',
-            type: 'GET',
-            success: function(response) {
-                $("#memberId").val(response.memberId).prop('disabled', true);
-                $("#memberPwd").val(response.memberPwd).prop('disabled', true);
-                $("#memberBirth").val(response.memberBirth).prop('disabled', true);
-                $("#memberName").val(response.memberName).prop('disabled', true);
-                $("#phone").val(response.phone).prop('disabled', true);
-                $("#address").val(response.address).prop('disabled', true);
-                $("#edit-btn").show();
-                $("#update-btn").hide();
-            }
-    	 });
-    }
 
     // 수정하기 버튼 클릭 시
     $("#edit-btn").click(function() {
@@ -168,13 +149,22 @@ $(document).ready(function() {
 
     // 수정 완료 버튼 클릭 시
     $("#update-btn").click(function() {
+    	
+    	var phone = $("#phone").val();
+        var address = $("#address").val();
+
+        if (!phone || !address) {
+            alert("연락처와 주소를 모두 입력해주세요.");
+            return; // 데이터가 없으면 여기서 중단
+        }
+        
         var updatedData = {
             memberId: $("#memberId").val(),
             memberPwd: $("#memberPwd").val(),
             memberBirth: $("#memberBirth").val(),
             memberName: $("#memberName").val(),
-            phone: $("#phone").val(),
-            address: $("#address").val()
+            phone: phone,
+            address: address
         };
 
         $.ajax({
@@ -184,6 +174,11 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.status == 'success') {
                     alert("회원 정보가 수정되었습니다.");
+                    
+                 	// DOM 업데이트
+                    $("#phone").val(updatedData.phone);
+                    $("#address").val(updatedData.address);
+                    
                     $("#phone, #address").prop('disabled', true);
                     $("#update-btn").hide();
                     $("#edit-btn").show();

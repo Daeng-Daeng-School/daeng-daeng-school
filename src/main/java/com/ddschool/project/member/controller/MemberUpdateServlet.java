@@ -17,6 +17,7 @@ import com.ddschool.project.member.model.service.MemberService;
 @WebServlet("/member/update")
 public class MemberUpdateServlet extends HttpServlet {
 
+	// 마스터가 선생님 정보 수정할 때
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
@@ -38,7 +39,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		System.out.println("MemberMypageServlet 의 changeClassCode : " + changeClassCode);
 		
 		// db 정보 업데이트 
-		int updateResult = new MemberService().updateMember(requestMemberCode, changePhone, changeAddress, changeClassCode);
+		int updateResult = new MemberService().updateTeacher(requestMemberCode, changePhone, changeAddress, changeClassCode);
 		
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -55,25 +56,27 @@ public class MemberUpdateServlet extends HttpServlet {
 	
 	}
 
+	// 회원이 자신의 정보를 수정할 때
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		// 누가 요청한건지 세션에서 pk 추출
 		HttpSession session = request.getSession();
 		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 		int requestMemberCode = loginMember.getMemberCode();
+		System.out.println(requestMemberCode);
 		
 		// 회원이 수정을 요청한 입력값을 불러오기
-		String changePhone = (String) request.getParameter("phone");
-		String changeAddress = (String) request.getParameter("address");
-		Integer changeClassCode = Integer.parseInt(request.getParameter("classCode"));
+		String changePhone = request.getParameter("phone");
+		String changeAddress = request.getParameter("address");
+		
 		
 		// 잘 넘어왔는지 로그 확인
 		System.out.println("MemberMypageServlet 의 changePhone : " + changePhone);
 		System.out.println("MemberMypageServlet 의 changeAddress : " + changeAddress);
-		System.out.println("MemberMypageServlet 의 changeClassCode : " + changeClassCode);
+		
 		
 		// db 정보 업데이트 
-		int updateResult = new MemberService().updateMember(requestMemberCode, changePhone, changeAddress, changeClassCode);
+		int updateResult = new MemberService().updateMember(requestMemberCode, changePhone, changeAddress);
 		
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -81,6 +84,10 @@ public class MemberUpdateServlet extends HttpServlet {
 		
 		if(updateResult > 0) {
 			System.out.println("업데이트 성공!");
+			
+			// 세션에 있는 로그인 유저정보도 업데이트
+			MemberDTO updateLoginMember = new MemberService().selectTeacherInfo(loginMember.getMemberId());
+			session.setAttribute("loginMember", updateLoginMember);
 			out.write("{\"status\":\"success\"}");
 			
 		} else {
