@@ -1,70 +1,9 @@
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const selectedMonthInput = document.getElementById('selectedMonth');
-
-    // 최소 연도와 월 설정
-    const minYearMonth = '2020-01';
-    selectedMonthInput.min = minYearMonth;
-
-    // 최대 연도와 월 설정
-    function getMaxYearMonth() {
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        let currentMonth = currentDate.getMonth() + 1;
-        if (currentMonth < 10) {
-            currentMonth = '0' + currentMonth;
-        }
-        return `${currentYear}-${currentMonth}`;
-    }
-
-    const maxYearMonth = getMaxYearMonth();
-    selectedMonthInput.max = maxYearMonth;
-
-    // 초기 값 설정
-    selectedMonthInput.value = maxYearMonth;
-    console.log('선택: ', maxYearMonth);
-    console.log('선택된 값: ', selectedMonthInput.value);
-
-    // 초기 데이터 표시 함수
-    displayInitialData(maxYearMonth);
-
-    // 이벤트 핸들러 등록 (비동기 전송 등)
-    const getDogMemberBtn = document.getElementById('getDogMember');
-    getDogMemberBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        const selectedValue = selectedMonthInput.value;
-        console.log('선택된 값 전송: ', selectedValue);
-        // 여기서 선택된 값(selectedValue)을 비동기로 처리할 수 있음
-        // 예를 들어 AJAX 요청을 보내거나 필요한 로직을 추가할 수 있음
-        displayInitialData(selectedValue); // 선택된 값으로 초기 데이터를 다시 표시
-    });
-
-    // 초기 데이터 표시 함수
-    function displayInitialData(selectedMonth) {
-        console.log('선택된 값 전송: ', selectedMonth);
-        // AJAX 요청을 통해 서버에서 초기 데이터를 가져옴
-        $.ajax({
-            url: contextPath + '/classbook/member', // 서블릿 URL
-            type: 'GET',
-            data: { month: selectedMonth }, // 선택된 연도-월 정보를 전달
-            success: function(data) {
-                // 서버에서 받아온 데이터를 화면에 출력하는 로직
-                console.log('Received data:', data);
-                // 예시: 받아온 데이터를 특정 영역에 추가적으로 출력
-                // $('#dogClassbookMember1').html(...);
-            },
-            error: function(err) {
-                console.error('출석부 데이터 로드 실패', err);
-                alert("출석부 데이터 로드 실패");
-            }
-        });
-    }
-});
 
 
 
-/*$(document).ready(function() {
+$(document).ready(function() {
     const selectedMonthInput = $('#selectedMonth');
 
     // 최소 연도와 월 설정
@@ -117,31 +56,89 @@ document.addEventListener('DOMContentLoaded', function() {
             success: function(data) {
                 // 서버에서 받아온 데이터를 화면에 출력하는 로직
                 // 예시: 서버에서 JSON 형태의 데이터를 받아와서 화면에 표시
+                console.log('출석부 데이터 로드 성공');
                 console.log('Received data:', data);
                 // 예시: 받아온 데이터를 특정 영역에 추가적으로 출력
                 // $('#dogClassbookMember1').html(...);
                 
-                var html = "";
-                $.each(data, function(index, item){
-					var i=1;
-					
-					html += "<tr><td>" + item.DOG_NAME + "</td>";
-					html += "<td>" + item['\''+i+'일'+'\''] + "</td>";
-					
-					
-				})
+                
+                // 첫 번째 테이블 데이터 처리
+            updateTableData('#listArea1 tbody', data, 1, 15);
+            
+            // 두 번째 테이블 데이터 처리
+            updateTableData('#listArea2 tbody', data, 16, 31);
                 
                 
+                
+           /*     
+                 // 테이블 바디 가져오기
+            var tbody = $('#listArea1 tbody');
+            tbody.empty(); // 기존 테이블 데이터 초기화
+            
+            // 데이터를 테이블에 추가
+            $.each(data, function(index, dog) {
+                var row = $('<tr>');
+                row.append($('<td>').text(dog.DOG_NAME));
+                
+                for (var day = 1; day <= 15; day++) {
+                    var cellValue = dog[day] ? dog[day] : '';
+                    row.append($('<td>').text(cellValue));
+                }
+                
+                tbody.append(row);
+                
+                });
+                
+              // 테이블 바디 가져오기
+            var tbody = $('#listArea2 tbody');
+            tbody.empty(); // 기존 테이블 데이터 초기화
+            
+            // 데이터를 테이블에 추가
+            $.each(data, function(index, dog) {
+                var row = $('<tr>');
+                row.append($('<td>').text(dog.DOG_NAME));
+                
+                for (var day = 16; day <= 31; day++) {
+                    var cellValue = dog[day] ? dog[day] : '';
+                    row.append($('<td>').text(cellValue));
+                }
+                
+                tbody.append(row);
+                
+                });  
+        */
+
             },
             error: function(err) {
                 console.error('출석부 데이터 로드 실패', err);
                 alert("출석부 데이터 로드 실패");
             }
         });
+        
     }
+    
+    // 테이블 데이터 업데이트 함수
+function updateTableData(tableId, data, startDay, endDay) {
+    var tbody = $(tableId);
+    tbody.empty(); // 기존 테이블 데이터 초기화
+    
+    $.each(data, function(index, dog) {
+        var row = $('<tr>');
+        row.append($('<td>').text(dog.DOG_NAME));
+        
+        for (var day = startDay; day <= endDay; day++) {
+            var cellValue = dog[day] ? dog[day] : '';
+            row.append($('<td>').text(cellValue));
+        }
+        
+        tbody.append(row);
+    });
+}
+    
+    
       
     
-});*/
+});
 
 
 

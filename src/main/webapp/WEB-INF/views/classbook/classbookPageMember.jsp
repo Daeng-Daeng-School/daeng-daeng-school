@@ -5,6 +5,7 @@
 	import="java.util.Map" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,18 +45,65 @@
 		</div>
 
 
-		<%-- 반복 테이블 영역 --%>
+		<%-- 테이블 영역 --%>
 		<div class="table-area-member">
-			<table align="center" id="listArea" class="table-con">
+			<table align="center" id="listArea1" class="table-con">
+				<thead>
 				<tr class="head-tr">
 					<th>반려견/날짜</th>
+					<c:forEach begin="1" end="15" var="day">
+						<th>${day }일</th>
+					</c:forEach>
+				</tr>
+				</thead>
+				<tbody>
+				<c:forEach var="dog" items="${dogClassbookList}">
+					<tr class="body-tr">
+						<td>${dog.DOG_NAME }</td>
+						<c:forEach begin="1" end="15" var="day">
+							<td>${dog[day]}</td>
+						</c:forEach>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="table-area-member">
+			<table align="center" id="listArea2" class="table-con">
+				<thead>
+				<tr class="head-tr">
+					<th>반려견/날짜</th>
+					<c:forEach begin="16" end="31" var="day">
+						<th>${day }일</th>
+					</c:forEach>
+				</tr>
+				</thead>
+				<tbody>
+				<c:forEach var="dog" items="${dogClassbookList}">
+					<tr class="body-tr">
+						<td>${dog.DOG_NAME }</td>
+						<c:forEach begin="16" end="31" var="day">
+							<td>${dog[day]}</td>
+						</c:forEach>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
+				
+				
+				
+				
+				
+				<%-- 
 					<%
 					// 일자 반복
 					for (int i = 1; i <= 15; i++) {
 						out.println("<th>" + i + "일" + "</th>");
 					}
 					%>
-				</tr>
+				</tr> --%>
 				
 				<%-- <% 
 				// 데이터를 LinkedHashMap 타입으로 받음
@@ -77,9 +125,9 @@
         <% } %> --%>
 				
 				
-			<%-- 데이터 출력 --%>
-            <%
-            @SuppressWarnings("unchecked")
+			<%-- <%-- 데이터 출력 --%>
+            <%-- <%
+            <%-- @SuppressWarnings("unchecked")
             List<Map<String, Object>> dataList = (List<Map<String, Object>>) request.getAttribute("dogClassbookList");
             out.println(dataList);
             if (dataList != null && !dataList.isEmpty()) {
@@ -88,7 +136,7 @@
             %>
             <tr>
                 <td><%= dogName %></td>
-                <%-- 1일부터 15일까지의 데이터 출력 --%>
+                1일부터 15일까지의 데이터 출력
                 <% for (int i = 1; i <= 15; i++) { %>
                     <% String dayKey = i + "일"; %>
                     <td><%= dogData.get(dayKey) %></td>
@@ -97,9 +145,7 @@
             <% 
                 } // end for
             } // end if
-            %>	
-				
-				
+            %>	 --%>
 				
 				
 				
@@ -135,10 +181,10 @@
 
 				}
 				%> --%>
-</table>
-</div>
+<!-- </table>
+</div> -->
 
-<div class="table-area-member">
+<%-- <div class="table-area-member">
 			<table align="center" id="listArea" class="table-con">
 				<tr class="head-tr">
 					<th>반려견/날짜</th>
@@ -148,7 +194,7 @@
 						out.println("<th>" + i + "일" + "</th>");
 					}
 					%>
-				</tr>
+				</tr> --%>
 				<%--
 				<!-- 비동기 조회 출력 -->
 				여기서 서블릿에서 전달받은 데이터를 사용하여 초기 데이터를 출력할 수 있음
@@ -452,10 +498,6 @@
 			</div>
 
 		</div>
-
-		<%-- 	<script
-			src="${pageContext.servletContext.contextPath}/resources/js/classbook.js"></script> --%>
-
 	</div>
 
 	<%-- 푸터 --%>

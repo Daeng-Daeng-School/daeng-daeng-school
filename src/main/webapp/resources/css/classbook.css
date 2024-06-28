@@ -150,7 +150,18 @@ table {
   border-bottom: 1px solid #F2F2F2; /* 구분선 스타일 지정 */
 }
 
+.body-tr {
+  position: relative; /* 상대적 위치 지정 */
+}
 
+.body-tr::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px; /* 테이블 행 아래쪽에 구분선 위치 */
+  width: 100%;
+  border-bottom: 1px solid #F2F2F2; /* 구분선 스타일 지정 */
+}
 
 
 

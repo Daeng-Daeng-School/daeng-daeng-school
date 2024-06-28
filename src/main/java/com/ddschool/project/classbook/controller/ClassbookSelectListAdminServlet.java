@@ -9,7 +9,7 @@ import java.io.IOException;
 
 
 @WebServlet("/classbook/admin")
-public class ClassbookSelectListServlet extends HttpServlet {
+public class ClassbookSelectListAdminServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
