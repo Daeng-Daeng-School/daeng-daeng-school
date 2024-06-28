@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Footer</title>
+<link rel="stylesheet"
+	href="${pageContext.servletContext.contextPath}/resources/css/common.css">
 </head>
 <body>
       <footer class="footer">
