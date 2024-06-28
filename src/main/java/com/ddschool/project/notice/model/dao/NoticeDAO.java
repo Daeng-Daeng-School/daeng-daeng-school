@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ddschool.project.ddclass.model.dto.ClassDTO;
 import com.ddschool.project.dog.model.dto.DogDTO;
+import com.ddschool.project.member.model.dto.MemberDTO;
 import com.ddschool.project.notice.model.dto.NoticeDTO;
 
 /**
@@ -76,5 +77,8 @@ public interface NoticeDAO {
 	List<ClassDTO> selectClassList();
 
 	List<DogDTO> selectDogsByClass(int classCode);
+
+	List<MemberDTO> getMemberByCode(int memberCode);
+
 
 }

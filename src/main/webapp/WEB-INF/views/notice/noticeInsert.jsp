@@ -37,7 +37,6 @@
 					<jsp:include page="../notice/selectDog.jsp" />
 
 					<!-- 선택된 반과 반려견 코드를 위한 숨겨진 입력 필드 -->
-					<%-- 반과 반려견 선택 폼 --%>
 					<input type="hidden" name="classCode" id="selectedClassCode"
 						value=""> 
 						<input type="hidden" name="dogCode"

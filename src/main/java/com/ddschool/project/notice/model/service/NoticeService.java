@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.ddschool.project.ddclass.model.dto.ClassDTO;
 import com.ddschool.project.dog.model.dto.DogDTO;
+import com.ddschool.project.member.model.dto.MemberDTO;
 import com.ddschool.project.notice.model.dao.NoticeDAO;
 import com.ddschool.project.notice.model.dto.NoticeDTO;
 
@@ -202,4 +203,7 @@ public class NoticeService {
 		session.close();
 		return dogList;
 	}
+
+ 
+
 }

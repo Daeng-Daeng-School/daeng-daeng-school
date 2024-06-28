@@ -17,52 +17,52 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/notice")
 public class NoticePageServlet extends HttpServlet {
 
-    private NoticeService noticeService;
+	private NoticeService noticeService;
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        noticeService = new NoticeService();
-    }
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		noticeService = new NoticeService();
+	}
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String keyword = request.getParameter("keyword");
-        int currentPage = 1;
-        int limit = 6; // 페이지당 표시할 알림장 수
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String keyword = request.getParameter("keyword");
+		int currentPage = 1;
+		int limit = 6; // 페이지당 표시할 알림장 수
 
-        String pageParam = request.getParameter("page");
-        if (pageParam != null && !pageParam.isEmpty()) {
-            try {
-                currentPage = Integer.parseInt(pageParam);
-                if (currentPage < 1) {
-                    currentPage = 1;
-                }
-            } catch (NumberFormatException e) {
-                currentPage = 1;
-            }
-        }
+		String pageParam = request.getParameter("page");
+		if (pageParam != null && !pageParam.isEmpty()) {
+			try {
+				currentPage = Integer.parseInt(pageParam);
+				if (currentPage < 1) {
+					currentPage = 1;
+				}
+			} catch (NumberFormatException e) {
+				currentPage = 1;
+			}
+		}
 
-        int totalNotices;
-        List<NoticeDTO> noticeList;
+		int totalNotices;
+		List<NoticeDTO> noticeList;
 
-        if (keyword != null && !keyword.isEmpty()) {
-            totalNotices = noticeService.getSearchNoticeCount(keyword);
-            noticeList = noticeService.searchNotices(keyword, (currentPage - 1) * limit, limit);
-        } else {
-            totalNotices = noticeService.getTotalNoticeCount();
-            noticeList = noticeService.selectNotice((currentPage - 1) * limit, limit);
-        }
+		if (keyword != null && !keyword.isEmpty()) {
+			totalNotices = noticeService.getSearchNoticeCount(keyword);
+			noticeList = noticeService.searchNotices(keyword, (currentPage - 1) * limit, limit);
+		} else {
+			totalNotices = noticeService.getTotalNoticeCount();
+			noticeList = noticeService.selectNotice((currentPage - 1) * limit, limit);
+		}
 
-        Pagination pagination = new Pagination(currentPage, totalNotices, limit);
+		Pagination pagination = new Pagination(currentPage, totalNotices, limit);
 
-        request.setAttribute("noticeList", noticeList);
-        request.setAttribute("pagination", pagination);
-        request.setAttribute("keyword", keyword);
-        
-        System.out.println(noticeList);
+		request.setAttribute("noticeList", noticeList);
+		request.setAttribute("pagination", pagination);
+		request.setAttribute("keyword", keyword);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticePage.jsp");
-        dispatcher.forward(request, response);
-    }
+		System.out.println(noticeList);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/notice/noticePage.jsp");
+		dispatcher.forward(request, response);
+	}
 }
