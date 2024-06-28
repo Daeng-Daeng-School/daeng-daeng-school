@@ -12,9 +12,18 @@
       <result property="memberCode" column="MEMBER_NAME"/>
       <result property="stickerNum" column="STICKER_NUM"/>
       <result property="comment" column="COMMENT"/>
-      <result property="registDate" column="REGIST_DATE"/>   
-            
+      <result property="registDate" column="REGIST_DATE"/>               
    </resultMap>   
+   
+   <resultMap type="com.ddschool.project.sticker.model.dto.StickerDTO" id="stickerMemberListResultMap">
+      <result property="memberCode" column="MEMBER_CODE"/>
+      <result property="memberName" column="MEMBER_NAME"/> 
+   </resultMap>  
+   
+   <resultMap type="com.ddschool.project.sticker.model.dto.StickerDTO" id="stickerDogListResultMap">
+      <result property="dogCode" column="DOG_CODE"/>
+      <result property="dogName" column="DOG_NAME"/> 
+   </resultMap> 
    
        			
 
@@ -52,9 +61,7 @@
    
    <delete id="deleteSticker" parameterType="com.ddschool.project.sticker.model.dto.StickerDTO">
   	 DELETE FROM TBL_STICKER
-  	 WHERE STICKER_CODE = #{ stickerCode }
-                                 
-         
+  	 WHERE STICKER_CODE = #{ stickerCode }                                
    </delete>
    
    
@@ -72,6 +79,42 @@
 		WHERE DATE_FORMAT(A.REGIST_DATE, '%Y%m')=#{registDate};
                                  
          
+   </select>
+   
+   <select id="selectRankSticker" parameterType="com.ddschool.project.sticker.model.dto.StickerDTO" resultType="hashmap">
+ 		SELECT 
+            CONCAT(@ROWNUM:=@ROWNUM + 1, '등') AS ranking
+            ,DOG_NAME AS dogName
+            ,CONCAT(CAST(TOTAL_STICKERS AS UNSIGNED), '개') AS totalStickers
+ 		FROM
+    		(SELECT 
+       		 	B.DOG_NAME
+       		 	,SUM(A.STICKER_NUM) AS TOTAL_STICKERS
+    	FROM
+        	 TBL_STICKER A
+   		JOIN TBL_DOG B ON A.DOG_CODE = B.DOG_CODE
+   		WHERE
+        	 DATE_FORMAT(A.REGIST_DATE, '%Y%m') = #{registDate}
+    	GROUP BY B.DOG_NAME
+    	ORDER BY TOTAL_STICKERS DESC
+    			LIMIT 5) AS ranked_dogs
+        JOIN
+   			(SELECT @ROWNUM:=0) AS R
+		ORDER BY TOTAL_STICKERS DESC;         
+   </select>
+   
+    <select id="selectMemberListSticker" resultMap="stickerMemberListResultMap">
+         SELECT MEMBER_CODE, MEMBER_NAME
+         FROM 
+            TBL_MEMBER 
+         WHERE ROLE_CODE = 201
+         ORDER BY MEMBER_NAME ASC;                                 
+   </select>
+   
+   <select id="selectDogListSticker" resultMap="stickerDogListResultMap">
+         SELECT DOG_CODE, DOG_NAME
+         FROM TBL_DOG
+         ORDER BY DOG_NAME ASC;
    </select>
 
 </mapper>

@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import com.ddschool.project.sticker.model.dto.StickerDTO;
 import com.ddschool.project.sticker.model.service.StickerService;
@@ -16,8 +18,30 @@ public class StickerInsertServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String path = "/WEB-INF/views/sticker/adminPageRegist.jsp";
-	    request.getRequestDispatcher(path).forward(request, response);
+		 StickerDTO requestSticker = new StickerDTO();
+	      
+	      Map<String, List<StickerDTO>> stickerOptionLists = new StickerService().SelectOptionListSticker(requestSticker);
+	      List<StickerDTO> stickerMemberList = stickerOptionLists.get("memberList");
+	      List<StickerDTO> stickerDogList = stickerOptionLists.get("dogList");
+	      
+	      System.out.println("stickerMemberList : " + stickerMemberList );
+	      System.out.println("stickerDogList : " + stickerDogList );
+	      
+	      String page = "";
+	      
+	      if(stickerMemberList != null && stickerDogList != null) {
+	         page = "/WEB-INF/views/sticker/adminPageRegist.jsp";
+	         request.setAttribute("stickerMemberList", stickerMemberList);
+	         request.setAttribute("stickerDogList", stickerDogList);
+
+	         
+	      }else {
+	         page = "/WEB-INF/views/common/failed.jsp";
+	         request.setAttribute("message", "조회가 실패하였습니다");
+	         
+	      }
+	    
+		request.getRequestDispatcher(page).forward(request, response);
 	}	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

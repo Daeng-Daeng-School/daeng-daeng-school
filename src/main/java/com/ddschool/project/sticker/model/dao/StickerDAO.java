@@ -1,6 +1,7 @@
 package com.ddschool.project.sticker.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ddschool.project.sticker.model.dto.StickerDTO;
 
@@ -13,5 +14,13 @@ public interface StickerDAO {
 	int deleteSticker(StickerDTO requestSticker);
 
 	List<StickerDTO> selectListSticker(StickerDTO requestSticker);
+
+	List<Map<String, String>> selectRankSticker(StickerDTO requestSticker);
+	
+	List<StickerDTO> selectDogListSticker(StickerDTO requestSticker);
+
+	List<StickerDTO> selectMemberListSticker(StickerDTO requestSticker);
+
+	
 
 }

@@ -13,11 +13,6 @@ import com.ddschool.project.sticker.model.service.StickerService;
 @WebServlet("/sticker/delete")
 public class StickerDeleteServlet extends HttpServlet {
 	
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "/WEB-INF/views/sticker/adminPage.jsp";
-	    request.getRequestDispatcher(path).forward(request, response);
-	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,17 +24,7 @@ public class StickerDeleteServlet extends HttpServlet {
 		
        int result = new StickerService().deleteSticker(requestSticker);
 		
-		String page = "";
-		
-		if(result>0) {
-			page = "/WEB-INF/views/sticker/adminPage.jsp";
-		}else {
-			page = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("message", "등록이 실패하였습니다");
-			
-		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/sticker/list");
 		
 	}
 

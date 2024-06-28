@@ -14,6 +14,7 @@ import com.ddschool.project.sticker.model.service.StickerService;
 public class StickerUpdateServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+					
 		String path = "/WEB-INF/views/sticker/adminPageUpdate.jsp";
 	    request.getRequestDispatcher(path).forward(request, response);
 	}
