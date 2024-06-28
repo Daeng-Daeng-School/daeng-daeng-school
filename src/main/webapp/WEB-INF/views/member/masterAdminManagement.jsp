@@ -136,7 +136,7 @@ window.onload = function() {
             <ul>
                 <li><a href="${pageContext.servletContext.contextPath}/master/mypage">회원정보 관리</a></li>
                 <li><a href="${pageContext.servletContext.contextPath}/master/management" class="current">선생님 관리</a></li>
-                <li><a href="${pageContext.servletContext.contextPath}/master/class">반 관리</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/class/management">반 관리</a></li>
             </ul>
     	</div>
     	<div class="main-content">
@@ -167,14 +167,14 @@ window.onload = function() {
                                 <td><c:out value="${teacher.classCode}" /></td>
                                 <td><c:out value="${teacher.phone}" /></td>
                                 <td>
-                                <c:choose>
-                                <c:when test="${teacher.status == true}">
-                                활성
-                                </c:when>
-                                <c:otherwise>
-                                비활성
-                                </c:otherwise>
-                                </c:choose>
+	                                <c:choose>
+		                                <c:when test="${teacher.status == true}">
+		                                활성
+		                                </c:when>
+		                                <c:otherwise>
+		                                비활성
+		                                </c:otherwise>
+	                                </c:choose>
                                 </td>
                             </tr>
                         </c:forEach>

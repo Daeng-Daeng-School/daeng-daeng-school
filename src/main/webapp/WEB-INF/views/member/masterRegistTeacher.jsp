@@ -241,7 +241,7 @@ $(document).ready(function() {
             <ul>
                 <li><a href="${pageContext.servletContext.contextPath}/master/mypage">회원정보 관리</a></li>
                 <li><a href="${pageContext.servletContext.contextPath}/master/management" class="current">선생님 관리</a></li>
-                <li><a href="${pageContext.servletContext.contextPath}/master/class">반 관리</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/class/management">반 관리</a></li>
             </ul>
         </div>
         <div class="main-content">
