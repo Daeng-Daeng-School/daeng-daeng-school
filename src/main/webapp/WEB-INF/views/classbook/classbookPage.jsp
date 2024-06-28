@@ -12,7 +12,7 @@
 	href="${pageContext.servletContext.contextPath}/resources/css/classbook.css">
 </head>
 <body>
-	<jsp:include page="../common/menubar.jsp" />
+	<jsp:include page="../main/main.jsp" />
 	<div class="text-area">
 		<b>댕댕 유치원 출석부</b>를<br>이용해볼까요?
 
@@ -246,8 +246,5 @@
 			src="${pageContext.servletContext.contextPath}/resources/js/classbook.js"></script>
 
 	</div>
-
-
-	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
