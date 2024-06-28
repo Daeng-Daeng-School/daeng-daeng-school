@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ddschool.project.dog.model.dto.DogDTO;
-import com.ddschool.project.dog.model.dto.ImageDTO;
 
 public interface DogDAO {
 
@@ -19,12 +18,7 @@ public interface DogDAO {
 	/* 강아지 정보 수정 */
 	int updateDog(DogDTO dog);
 
-	/* 강아지 이미지 정보 수정 */
-//	int updateDogImage(ImageDTO image);
-
 	/* 강아지 정보 삭제 */
-	int deleteDog(@Param("dogCode") int dogCode);
+//	int deleteDog(@Param("dogCode") int dogCode);
 
-	/* 강아지 이미지 정보 삭제 */
-//	int deleteDogImage(@Param("dogCode") int dogCode);
 }

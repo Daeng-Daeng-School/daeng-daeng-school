@@ -1,85 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<resultMap id="DogResultMap"
-	type="com.ddschool.project.dog.model.dto.DogDTO">
-	<id property="dogCode" column="dog_code" />
-	<result property="memberCode" column="member_code" />
-	<result property="classCode" column="class_code" />
-	<result property="dogName" column="dog_name" />
-	<result property="gender" column="gender" />
-	<result property="birth" column="birth" />
-	<result property="dogBreed" column="dog_breed" />
-	<result property="weight" column="weight" />
-	<result property="chipNo" column="chip_no" />
-	<result property="notes" column="notes" />
-	<result property="joinDate" column="join_date" />
-	<result property="withdrawDate" column="withdraw_date" />
-	<result property="status" column="status" />
-
-	<!-- MemberDTO와의 association 설정 -->
-	<association property="member"
-		javaType="com.ddschool.project.member.model.dto.MemberDTO">
-		<id property="memberCode" column="member_code" />
-		<result property="classCode" column="CLASS_CODE"/>
-		<result property="roleCode" column="ROLE_CODE"/>
-		<result property="memberId" column="MEMBER_ID"/>
-		<result property="memberPwd" column="MEMBER_PWD"/>
-		<result property="memberName" column="MEMBER_NAME"/>
-		<result property="phone" column="PHONE"/>
-		<result property="address" column="ADDRESS"/>
-		<result property="memberBirth" column="MEMBER_BIRTH"/>
-		<result property="status" column="STATUS"/>
-		<result property="joinDate" column="JOIN_DATE"/>
-		<result property="withdrawDate" column="WITHDRAW_DATE"/>
-		<!-- 기타 회원과 관련된 필드들을 추가적으로 매핑 -->
-	</association>
-</resultMap>
+<mapper namespace="com.ddschool.project.dog.model.dao.DogDAO">
+	<resultMap id="DogResultMap"
+		type="com.ddschool.project.dog.model.dto.DogDTO">
+		<id property="dogCode" column="dog_code" />
+		<result property="classCode" column="class_code" />
+		<result property="memberCode" column="MEMBER_CODE" />
+		<result property="dogName" column="dog_name" />
+		<result property="gender" column="gender" />
+		<result property="birth" column="birth" />
+		<result property="dogBreed" column="dog_breed" />
+		<result property="weight" column="weight" />
+		<result property="chipNo" column="chip_no" />
+		<result property="notes" column="notes" />
+		<result property="joinDate" column="join_date" />
+		<result property="withdrawDate" column="withdraw_date" />
+		<result property="status" column="status" />
+	</resultMap>
 
 
 
-<!-- 강아지 정보 등록 -->
-<insert id="insertDog"
-	parameterType="com.ddschool.project.dog.model.dto.DogDTO">
-	INSERT INTO TBL_DOG (
-	DOG_CODE
-	, MEMBER_CODE
-	, CLASS_CODE
-	,
-	DOG_NAME
-	, GENDER
-	, BIRTH
-	, DOG_BREED
-	, WEIGHT
-	, CHIP_NO
-	, NOTES
-	, JOIN_DATE
-	,
-	WITHDRAW_DATE
-	, STATUS
-	)
-	VALUES (
-	#{dogCode}
-	, #{memberCode}
-	, #{classCode}
-	,
-	#{dogName}
-	, #{gender}
-	, #{birth}
-	, #{dogBreed}
-	, #{weight}
-	, #{chipNo}
-	,
-	#{notes}
-	, current_date
-	, #{withdrawDate}
-	, #{status}
-	)
-</insert>
+	<!-- 강아지 정보 등록 -->
+	<insert id="insertDog" parameterType="com.ddschool.project.dog.model.dto.DogDTO">
+		INSERT INTO TBL_DOG (
+		DOG_CODE
+		, MEMBER_CODE
+		, CLASS_CODE
+		,
+		DOG_NAME
+		, GENDER
+		, BIRTH
+		, DOG_BREED
+		, WEIGHT
+		, CHIP_NO
+		, NOTES
+		, JOIN_DATE
+		,
+		WITHDRAW_DATE
+		, STATUS
+		)
+		VALUES (
+		#{dogCode}
+		, #{memberCode}
+		, #{classCode}
+		,
+		#{dogName}
+		, #{gender}
+		, #{birth}
+		, #{dogBreed}
+		, #{weight}
+		, #{chipNo}
+		,
+		#{notes}
+		, current_date
+		, #{withdrawDate}
+		, #{status}
+		)
+	</insert>
 
-<!-- 회원에 등록된 강아지 호출(조회) -->
-<select id="selectDogsByMemberCode" parameterType="int"
-	resultMap="DogResultMap">
-	SELECT 
+	<!-- 회원에 등록된 강아지 호출(조회) -->
+	<select id="selectDogsByMemberCode" parameterType="int"
+		resultMap="DogResultMap">
+		SELECT
 		D.DOG_CODE
 		, D.MEMBER_CODE
 		, D.CLASS_CODE
@@ -90,37 +72,31 @@
 		, D.WEIGHT
 		, D.CHIP_NO
 		, D.NOTES
-		, M.MEMBER_NAME
-	FROM TBL_DOG D
-	INNER JOIN TBL_MEMBER M ON D.MEMBER_CODE = M.MEMBER_CODE
-	WHERE M.MEMBER_CODE= #{memberCode}
-</select>
+		FROM TBL_DOG D
+		WHERE D.MEMBER_CODE= #{memberCode}
+	</select>
 
-<!-- 강아지 정보 수정 -->
-<!-- <update id="updateDog"
-	parameterType="com.ddschool.project.dog.model.dto.DogDTO">
-	UPDATE dogs
-	SET member_code = #{memberCode}
-	, class_code =
-	#{classCode}
-	, dog_name = #{dogName}
-	, gender = #{gender}
-	, birth =
-	#{birth}
-	, dog_breed = #{dogBreed}
-	, weight = #{weight}
-	, chip_no =
-	#{chipNo}
-	, notes = #{notes}
-	, join_date = #{joinDate}
-	, withdraw_date =
-	#{withdrawDate}
-	, status = #{status}
-	WHERE dog_code = #{dogCode}
-</update> -->
+	<!-- 강아지 정보 수정 -->
+	<update id="updateDog" parameterType="com.ddschool.project.dog.model.dto.DogDTO"> 
+		UPDATE dogs 
+			SET member_code = #{memberCode}
+				 , class_code = #{classCode}
+				 , dog_name = #{dogName}
+				 , gender = #{gender}
+			  	 , birth = #{birth}
+			  	 , dog_breed = #{dogBreed}
+			  	 , weight = #{weight}
+			  	 , chip_no = #{chipNo}
+			  	 , notes = #{notes} 
+				 , join_date = #{joinDate}
+				 , withdraw_date = #{withdrawDate}
+				 , status = #{status} 
+		WHERE dog_code = #{dogCode}
+	</update>
+	
 
-<!-- 강아지 정보 삭제(가짜삭제) -->
-<!-- <update id="deleteDog" parameterType="int"> UPDATE dogs SET status = 
-	'N' WHERE dog_code = #{dogCode} </update> -->
+	<!-- 강아지 정보 삭제(가짜삭제) -->
+	<!-- <update id="deleteDog" parameterType="int"> UPDATE dogs SET status 
+		= 'N' WHERE dog_code = #{dogCode} </update> -->
 
 </mapper>

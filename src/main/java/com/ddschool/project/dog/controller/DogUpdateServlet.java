@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import com.ddschool.project.dog.model.dto.DogDTO;
-import com.ddschool.project.dog.model.dto.MemberDTO;
-import com.ddschool.project.dog.model.service.dogService;
+import com.ddschool.project.member.model.dto.MemberDTO;
+import com.ddschool.project.dog.model.service.DogService;
 
 @WebServlet("/dog/Update")
 public class DogUpdateServlet extends HttpServlet {
@@ -54,7 +54,7 @@ public class DogUpdateServlet extends HttpServlet {
 		requestDog.setMemberCode(writerMemberCode);
 		System.out.println("requestDog: " + requestDog);
 
-		int result = new dogService().updateDog(requestDog);
+		int result = new DogService().updateDog(requestDog);
 
 		String page = "";
 		if (result > 0) {

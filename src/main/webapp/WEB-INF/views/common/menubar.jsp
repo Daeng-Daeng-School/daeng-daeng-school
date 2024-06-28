@@ -23,8 +23,8 @@
 				</div>
 				<nav class="nav">
 					<a href="${pageContext.servletContext.contextPath}/notice">알림장</a>
-					<a href="#">출석부</a> <a
-						href="${pageContext.servletContext.contextPath}/dog/insert">반려견관리</a>
+					<a href="#">출석부</a>
+					<a href="${pageContext.servletContext.contextPath}/dog/select">반려견관리</a>
 					<a href="#">이달의 반려견</a> <a href="#">유치원관리</a>
 				</nav>
 			</div>

@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.UUID;
 
 import com.ddschool.project.dog.model.dto.DogDTO;
-import com.ddschool.project.dog.model.service.dogService;
-import com.ddschool.project.dog.model.dto.MemberDTO;
+import com.ddschool.project.dog.model.service.DogService;
+import com.ddschool.project.member.model.dto.MemberDTO;
 
 @WebServlet("/dog/insert")
 public class DogInsertServlet extends HttpServlet {
@@ -21,7 +21,7 @@ public class DogInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 등록 폼으로 이동
-		String path = "/WEB-INF/views/dog/dogInsertpage.jsp";
+		String path = "/WEB-INF/views/dog/dogInsertPage.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
@@ -31,10 +31,10 @@ public class DogInsertServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		// 폼에서 입력된 데이터 받기
-		String dogName = request.getParameter("name");
-		String dogBreed = request.getParameter("dog_breed");
-		int dogClass = Integer.parseInt(request.getParameter("dog_class"));
-		String dogGender = request.getParameter("dog_gender");
+		String dogName = request.getParameter("dogName");
+		String dogBreed = request.getParameter("dogBreed");
+		int dogClass = Integer.parseInt(request.getParameter("dogClass"));
+		String dogGender = request.getParameter("gender");
 		String birth = request.getParameter("birthdate");
 		String chipNo = request.getParameter("regNumber");
 		double weight = Double.parseDouble(request.getParameter("weight"));
@@ -59,17 +59,17 @@ public class DogInsertServlet extends HttpServlet {
 		dogDTO.setMemberCode(writerMemberCode);
 
 		// 강아지 서비스 호출하여 등록 처리
-		dogService DogService = new dogService();
+		DogService DogService = new DogService();
 		int result = DogService.insertDog(dogDTO);
 
 		// 등록 결과에 따라 페이지 이동 처리
 		String path = "";
 		if (result > 0) {
 			path = "/WEB-INF/views/common/success.jsp";
-			request.setAttribute("successMessage", "등록성공했습니다");
+			request.setAttribute("successMessage", "강아지 등록에 성공했습니다!");
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("errorMessage", "강아지 등록 실패했습니다!");
+			request.setAttribute("errorMessage", "강아지 등록에 실패했습니다!");
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);
