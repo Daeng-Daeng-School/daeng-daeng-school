@@ -6,6 +6,8 @@ public class ClassDTO {
 	
 	private String className;
 	
+	private boolean status;
+	
 	public ClassDTO() {
 		super();
 	}
@@ -14,6 +16,7 @@ public class ClassDTO {
 		super();
 		this.classCode = classCode;
 		this.className = className;
+		this.status = status;
 	}
 
 	public int getClassCode() {
@@ -32,9 +35,17 @@ public class ClassDTO {
 		this.className = className;
 	}
 
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
-		return "ClassDTO [classCode=" + classCode + ", className=" + className + "]";
+		return "ClassDTO [classCode=" + classCode + ", className=" + className + ", status=" + status + "]";
 	}
-	
+
 }

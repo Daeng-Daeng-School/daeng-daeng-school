@@ -16,5 +16,7 @@
 	</environments>
 <mappers>
    <mapper resource="com/ddschool/project/member/model/dao/MemberDAO.xml"/>
+   <mapper resource="com/ddschool/project/ddclass/model/dao/ClassDAO.xml"/>
 </mappers>
+
 </configuration>

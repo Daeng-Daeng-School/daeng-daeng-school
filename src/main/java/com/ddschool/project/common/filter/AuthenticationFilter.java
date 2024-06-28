@@ -42,7 +42,7 @@ public class AuthenticationFilter implements Filter {
 		masterPermitList.add("/member/getMemberInfo");
 		masterPermitList.add("/master/teacherInfo");
 		masterPermitList.add("/member/rejoin");
-		masterPermitList.add("/master/class");
+		masterPermitList.add("/class/management");
 		
 		memberPermitList.add("/member/mypage");
 		memberPermitList.add("/member/delete");
