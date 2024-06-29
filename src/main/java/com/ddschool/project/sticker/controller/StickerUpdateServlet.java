@@ -15,8 +15,37 @@ public class StickerUpdateServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 					
-		String path = "/WEB-INF/views/sticker/adminPageUpdate.jsp";
-	    request.getRequestDispatcher(path).forward(request, response);
+		//String path = "/WEB-INF/views/sticker/adminPageUpdate.jsp";
+	    //request.getRequestDispatcher(path).forward(request, response);
+		
+		int stickerCode = Integer.parseInt(request.getParameter("stickerCode"));
+		StickerDTO stickerDTO = new StickerService().updateSearchSticker(stickerCode);
+		
+		System.out.println("stickerDTO: " + stickerDTO);
+		
+		String page = "";
+		
+		if(stickerDTO != null ) {
+			page = "/WEB-INF/views/sticker/adminPageUpdate.jsp";
+			request.setAttribute("stickerCode", stickerDTO.getStickerCode());
+			request.setAttribute("dogCode", stickerDTO.getDogCode());
+			request.setAttribute("memberCode", stickerDTO.getMemberCode());
+			request.setAttribute("dogName", stickerDTO.getDogName());
+			request.setAttribute("memberName", stickerDTO.getMemberName());
+			request.setAttribute("stickerNum", stickerDTO.getStickerNum());
+			request.setAttribute("comment", stickerDTO.getComment());
+			request.setAttribute("registDate", stickerDTO.getRegistDate());
+			
+		}else {
+			page = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("message", "조회가 실패하였습니다");
+			
+		}	
+		
+		
+		request.getRequestDispatcher(page).forward(request, response);
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,14 +71,14 @@ public class StickerUpdateServlet extends HttpServlet {
 		String page = "";
 		
 		if(result>0) {
-			page = "/WEB-INF/views/sticker/adminPage.jsp";
+			response.sendRedirect(request.getContextPath() + "/sticker/list");
 		}else {
 			page = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("message", "수정이 실패하였습니다");
 			
-		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
+			request.getRequestDispatcher(page).forward(request, response);	
+			
+		}	
 	
 			
 	

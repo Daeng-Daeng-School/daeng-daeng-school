@@ -25,6 +25,17 @@
       <result property="dogName" column="DOG_NAME"/> 
    </resultMap> 
    
+   <resultMap type="com.ddschool.project.sticker.model.dto.StickerDTO" id="updateSearchStickerResultMap">
+      <id property="stickerCode" column="STICKER_CODE"/>
+      <result property="dogCode" column="DOG_CODE"/>
+      <result property="dogName" column="DOG_NAME"/>
+      <result property="memberCode" column="MEMBER_CODE"/>
+      <result property="memberName" column="MEMBER_NAME"/>
+      <result property="stickerNum" column="STICKER_NUM"/>
+      <result property="comment" column="COMMENT"/>
+      <result property="registDate" column="REGIST_DATE"/>   
+   </resultMap> 
+   
        			
 
    <insert id="insertSticker" parameterType="com.ddschool.project.sticker.model.dto.StickerDTO">
@@ -116,5 +127,21 @@
          FROM TBL_DOG
          ORDER BY DOG_NAME ASC;
    </select>
+   
+   
+   <select id="updateSearchSticker" parameterType="int" resultMap="updateSearchStickerResultMap">
+ 		SELECT A.STICKER_CODE 
+ 				, B.DOG_CODE				
+      			, B.DOG_NAME
+      			, C.MEMBER_CODE
+      			, C.MEMBER_NAME
+      			, A.STICKER_NUM
+      			, A.COMMENT
+      			, A.REGIST_DATE
+		FROM TBL_STICKER A
+		JOIN TBL_DOG B ON (A.DOG_CODE = B.DOG_CODE)
+		JOIN TBL_MEMBER C ON (A.MEMBER_CODE = C.MEMBER_CODE)
+		WHERE A.STICKER_CODE = #{stickerCode};
+    </select>		
 
 </mapper>

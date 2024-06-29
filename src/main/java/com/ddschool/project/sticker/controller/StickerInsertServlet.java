@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -46,11 +48,21 @@ public class StickerInsertServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//String stickerCode = request.getParameter("stickerCode");
-		String dogCode = request.getParameter("dogCode");
-		String memberCode = request.getParameter("memberCode");
+		
+		//String dogCode = request.getParameter("dogCode");
+		//String memberCode = request.getParameter("memberCode");
+		
+		
+		String dogCode = request.getParameter("stickerDogList");
+		String memberCode = request.getParameter("stickerMemberList");
+		
 		String stickerNum = request.getParameter("stickerNum");
 		String comment = request.getParameter("comment");
-		String registDate = request.getParameter("registDate");
+		//String registDate = request.getParameter("registDate");
+		
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date currentDate = new Date();
+        String registDate = dateFormat.format(currentDate);	
 		
 		StickerDTO requestSticker = new StickerDTO();
 		
@@ -66,14 +78,15 @@ public class StickerInsertServlet extends HttpServlet {
 		String page = "";
 		
 		if(result>0) {
-			page = "/WEB-INF/views/sticker/adminPage.jsp";
+			//page = "/WEB-INF/views/sticker/adminPage.jsp";
+			response.sendRedirect(request.getContextPath() + "/sticker/list");
 		}else {
 			page = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("message", "등록이 실패하였습니다");
-			
+			request.getRequestDispatcher(page).forward(request, response);
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		
 	
 			
 	}

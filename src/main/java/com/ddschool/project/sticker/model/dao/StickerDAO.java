@@ -21,6 +21,8 @@ public interface StickerDAO {
 
 	List<StickerDTO> selectMemberListSticker(StickerDTO requestSticker);
 
+	StickerDTO updateSearchSticker(int stickerCode);
+
 	
 
 }

@@ -23,7 +23,7 @@ public class StickerListServlet extends HttpServlet {
 			  // 현재 시스템 시간으로 파싱
 	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMM");
 	        Date currentDate = new Date();
-	        String formattedDate = dateFormat.format(currentDate);		
+	        registDate = dateFormat.format(currentDate);		
 	
 		}
 	 
@@ -44,6 +44,7 @@ public class StickerListServlet extends HttpServlet {
 		
 		if(stickerList != null && stickerRank != null) {
 			page = "/WEB-INF/views/sticker/adminPage.jsp";
+			request.setAttribute("registDate", registDate);
 			request.setAttribute("stickerList", stickerList);
 			request.setAttribute("stickerRank", stickerRank);
 			

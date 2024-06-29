@@ -119,6 +119,19 @@ public class StickerService {
 	    return result;
 
 	}
+
+	public StickerDTO updateSearchSticker(int stickerCode) {
+		SqlSession session = getSqlSession();
+	    stickerDAO = session.getMapper(StickerDAO.class);
+	    
+	    StickerDTO result = stickerDAO.updateSearchSticker(stickerCode);
+	    
+	    session.close();
+	      
+	    return result;
+	    
+	    
+	}
 	
 
 }
