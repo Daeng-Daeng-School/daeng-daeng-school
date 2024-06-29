@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+main {
+  background: #FFFFFF;
+  min-height: 520px;
+  position : relative;
+  top: 175px;
+}
+
+
+table tr th {
+  text-align: center; 
+  vertical-align: middle; 
+  word-break: keep-all;
+  padding-right: 4em;
+}
+
+table tr td {
+  text-align: center; 
+  vertical-align: middle; 
+  word-break: keep-all;
+  padding-right: 4em;
+}
+
+/* 헤더 내부 콘텐츠의 레이아웃 설정 */
+.sticker-header-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100px;
+}
+
+/* 컨테이너의 최대 너비와 여백 설정 */
+.sticker-container {
+    margin: 0 auto;
+    padding: 0px 100px;
+}
+
+
+.main-body-container {
+	width: 1920px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+
+select {
+	width: 245px;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: #fff;
+}
+
+.header-title {
+    width: 400px;
+    height: 86px;
+    
+    position : relative;
+    left: 100px;
+    top: 20px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-size: 30px;
+    line-height: 43px;
+    /* or 143% */
+    
+    color: #000000;    
+}
+
+/* left_box */
+.left_box {
+    box-sizing: border-box;
+
+    width: 350px;
+    height: 400px;
+	/*
+	position : absolute;
+    */
+    left: 100px;
+    top: 80px;
+    
+    text-align: center; /* 텍스트 가운데 정렬 */
+    
+    padding: 20px;    
+  
+    border: 1px solid #B6B6B6;    
+    border-radius: 26px;
+    
+}
+
+.left_box td {
+    font-size: 19px; /* 원하는 글자 크기로 설정 */
+    line-height: 2.5; /* 줄 간격 설정 */
+}
+
+/* right_box */
+.right_box {
+    box-sizing: border-box;
+
+    width: 1260px;
+    height: 400px;
+	/*
+	position : absolute;
+    */
+    left: 541px;
+    top: 80px;
+
+    padding: 20px;    
+    
+    border: 1px solid #B6B6B6;
+    border-radius: 26px;
+    
+}
+
+
+.foter_top {
+	position : relative;
+	top: 175px;
+}
