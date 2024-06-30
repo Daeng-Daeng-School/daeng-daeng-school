@@ -108,7 +108,7 @@
    		
   	</main>
     
-    <footer class="foter_top">
+    <footer class="foter">
 		<jsp:include page="../common/footer.jsp" />		
 	</footer> 
 	
