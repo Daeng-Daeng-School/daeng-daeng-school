@@ -17,16 +17,16 @@ import com.ddschool.project.member.model.dto.MemberDTO;
 public class DogSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		// 조회하는 동작이 먼저 수행되어야한다. 
-		//dog 서비스 객체를 생성해서   selectDogsByMemberCode 메소드를 호출한다. 
+
+		// 조회하는 동작이 먼저 수행되어야한다.
+		// dog 서비스 객체를 생성해서 selectDogsByMemberCode 메소드를 호출한다.
 		DogService dogService = new DogService();
 //		int memberNo = ((MemberDTO) request.getSession().getAttribute("loginMember")).getMemberCode();
-		int memberNo = 1; 
+		int memberNo = 1;
 		List<DogDTO> dogList = dogService.selectDogsByMemberCode(memberNo);
 		request.setAttribute("dogList", dogList);
 		System.out.println(dogList);
-		
+
 		String path = "/WEB-INF/views/dog/dogSelectListPage.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 		// get 요청에 대한 처리 담당
@@ -43,5 +43,4 @@ public class DogSelectServlet extends HttpServlet {
 	 * "/WEB-INF/views/dog/dogselectlistpage.jsp";
 	 * request.getParameter(path).forward(request, response); }
 	 */
-
 }

@@ -44,34 +44,44 @@ public class DogService {
 
 	// 수정하기
 	public int updateDog(DogDTO dogDTO) {
-	    SqlSession session = getSqlSession();
-	    dogDAO = session.getMapper(DogDAO.class);
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
 
-	    int result = 0;
+		int result = 0;
 
-	    try {
-	        result = dogDAO.updateDog(dogDTO); // DogDAO를 통해 데이터베이스에 수정
-	        if (result > 0) {
-	            session.commit(); 
-	        } else {
-	            session.rollback();
-	        }
-	    } finally {
-	        session.close(); 
-	    }
+		try {
+			result = dogDAO.updateDog(dogDTO); // DogDAO를 통해 데이터베이스에 수정
+			if (result > 0) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+		} finally {
+			session.close();
+		}
 
-	    return result;
+		return result;
 	}
 
-	
 // 삭제하기
-	/*
-	 * public int deleteDog(int dogCode, boolean status) { SqlSession session =
-	 * getSqlSession(); dogDAO = session.getMapper(DogDAO.class);
-	 * 
-	 * int result = 0; try { result = dogDAO.deleteDog(dogCode, status); if (result
-	 * > 0) { session.commit();// 커밋 } else { session.rollback();// 롤백 } } finally {
-	 * session.close();// 세션 닫기 } return result; }
-	 */
+	public int deleteDog(int dogCode) {
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
 
+		int result = 0;
+
+		try {
+			// 'N'으로 업데이트하는 예시
+			result = dogDAO.deleteDog(dogCode); // DogDAO를 통해 데이터베이스에 삭제 상태 업데이트
+			if (result > 0) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
 }

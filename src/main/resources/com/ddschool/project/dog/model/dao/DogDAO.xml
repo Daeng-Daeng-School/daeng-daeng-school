@@ -96,7 +96,9 @@
 	
 
 	<!-- 강아지 정보 삭제(가짜삭제) -->
-	<!-- <update id="deleteDog" parameterType="int"> UPDATE dogs SET status 
-		= 'N' WHERE dog_code = #{dogCode} </update> -->
-
+	<update id="deleteDog" parameterType="int">
+	UPDATE dogs 
+	SET status = 'N' 
+	WHERE dog_code = #{dogCode}
+	</update>
 </mapper>

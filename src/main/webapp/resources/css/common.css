@@ -28,7 +28,7 @@ body {
 	background-color: #fff;
 	color: #000;
 	position: relative;
-	min-height: 1000vh;
+	min-height: 80vh;
 }
 
 /* 링크 기본 스타일 설정 */
@@ -79,15 +79,15 @@ a:active {
 
 /* 로고의 스타일 설정 */
 .logo {
-	font-size: 36px;
-	font-weight: 700;
-	margin: 20px 50px;
 	font-family: 'KimjungchulGothic-Bold';
+	font-size: 36px;
+	font-weight: bold;
+	margin: 20px 50px;
 }
 
 /* 네비게이션바 스타일 설정 */
 .nav {
-	padding-left: 10px;
+	padding-left: 100px;
 	display: flex;
 	gap: 50px;
 }
@@ -96,8 +96,7 @@ a:active {
 .nav a {
 	text-decoration: none;
 	color: #000;
-	font-size: 20px;
-	font-weight: 600;
+	font-size: 18px;
 }
 
 /* 아이콘 섹션 스타일 설정 */
@@ -144,20 +143,23 @@ a:active {
 
 /* 로그인폼 내부 테이블 스타일 설정 */
 .login-form table {
-	margin: 0 30px 0 0;
+	margin: 0 10px 0 0;
 }
 
 /* 로그인폼 버튼 스타일 설정 */
 .login-form .btn {
-	width: 30px;
-	height: auto;
 	margin-left: 10px;
 	padding: 5px 10px;
+	border-radius: 20px;
 	border: 1px solid #ccc;
 	background-color: #fff;
 	cursor: pointer;
 	font-size: 14px;
-	margin-left: 10px;
+}
+
+/* 로그인폼 버튼 호버 스타일 설정 */
+.login-form .btn:hover {
+	background-color: #f0f0f0;
 }
 
 /* 로그인 영역 텍스트 스타일 설정 */
@@ -211,8 +213,8 @@ a:active {
 }
 
 /* 푸터 스타일 설정 */
-.footer { <<<<<<<
-	HEAD background-color: #f9f9f9;
+.footer {
+	background-color: #f9f9f9;
 	padding: 50px 130px;
 	display: flex;
 	justify-content: space-between;
@@ -221,6 +223,8 @@ a:active {
 	font-size: 14px;
 	color: grey;
 	min-width: 1683px;
+	position: absolute;
+	bottom: 0;
 }
 
 .footer-left, .footer-right {
@@ -239,60 +243,7 @@ a:active {
 }
 
 .footer-logo {
-	font-size: 1.5rem;
-	font-weight: bold;
-	margin-bottom: 10px;
-	color: #333;
-}
-
-.footer-left p, .footer-right p {
-	margin: 5px 0;
-}
-
-.footer-left .links, .footer-right .links {
-	display: flex;
-	gap: 15px;
-	margin-top: 10px;
-}
-
-.footer-right .icons {
-	display: flex;
-	gap: 10px;
-	margin-bottom: 10px;
-	justify-content: flex-end;
-	margin-right: 0;
-}
-
-.footer-right .icons img {
-	width: 24px;
-	height: 24px;
-}
-
-.footer-right .customer-service {
-	font-weight: bold;
-}
-
-.footer-right .contact {
-	color: #555;
-}
-
-
-.footer-left, .footer-right {
-	flex: 1;
-}
-
-.footer-left {
-	text-align: left;
-}
-
-.footer-right {
-	text-align: right;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-}
-
-.footer-logo {
+	font-family: 'KimjungchulGothic-Bold';
 	font-size: 1.5rem;
 	font-weight: bold;
 	margin-bottom: 10px;

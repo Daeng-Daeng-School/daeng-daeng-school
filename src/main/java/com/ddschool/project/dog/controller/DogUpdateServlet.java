@@ -11,7 +11,7 @@ import com.ddschool.project.dog.model.dto.DogDTO;
 import com.ddschool.project.member.model.dto.MemberDTO;
 import com.ddschool.project.dog.model.service.DogService;
 
-@WebServlet("/dog/Update")
+@WebServlet("/dog/update")
 public class DogUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -39,7 +39,12 @@ public class DogUpdateServlet extends HttpServlet {
 		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 //        int writerMemberCode = loginMember.getMemberCode();
 		int writerMemberCode = 1; // 예시로 1234를 임의의 회원 코드로 설정
-
+		
+		/* 필터 쓸거라 주석 처리
+		 * if (loginMember == Null) { // 로그인되지 않은 경우
+		 * response.sendRedirect(request.getcontextPath() + "/member/login.jsp");
+		 * return; }
+		 */
 		// 강아지 정보 DTO 생성
 		DogDTO requestDog = new DogDTO();
 

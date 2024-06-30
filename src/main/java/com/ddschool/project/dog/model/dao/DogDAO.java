@@ -19,6 +19,6 @@ public interface DogDAO {
 	int updateDog(DogDTO dog);
 
 	/* 강아지 정보 삭제 */
-//	int deleteDog(@Param("dogCode") int dogCode);
+	int deleteDog(@Param("dogCode") int dogCode);
 
 }
