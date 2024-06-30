@@ -26,9 +26,10 @@ public interface MemberDAO {
 	List<MemberDTO> selectTeacherList(
 					@Param("limit") int limit, // pageSize
 					@Param("offset") int offset,
-					@Param("sortOrder") String sortOrder);
+					@Param("sortOrder") String sortOrder,
+					@Param("classFilter") String calssFilter);
 	
-	int getTeacherCount();
+	int getTeacherCount(@Param("classFilter") String classFilter);
 
 	boolean isMemberIdExists(String memberId);
 

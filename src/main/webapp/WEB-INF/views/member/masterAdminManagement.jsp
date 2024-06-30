@@ -175,9 +175,16 @@ function updateSortOrder() {
                 <form id="sortForm" action="${pageContext.servletContext.contextPath}/master/management" method="get">
                     <label for="sortOrder">정렬 기준:</label>
                     <select id="sortOrder" name="sortOrder" onchange="updateSortOrder()">
-                        <option value="memberCode" ${sortOrder == 'memberCode' ? 'selected' : ''}>등록일 기준</option>
+                        <option value="joinDate" ${sortOrder == 'joinDate' ? 'selected' : ''}>등록일 기준</option>
                         <option value="status" ${sortOrder == 'status' ? 'selected' : ''}>활성 상태 기준</option>
                         <option value="classCode" ${sortOrder == 'classCode' ? 'selected' : ''}>담당 반 기준</option>
+                    </select>
+                    <label for="classFilter">반 선택:</label>
+                    <select id="classFilter" name="classFilter" onchange="updateSortOrder()">
+                        <option value="" ${classFilter == '' ? 'selected' : ''}>전체</option>
+                        <option value="1" ${classFilter == '1' ? 'selected' : ''}>오전반</option>
+                        <option value="2" ${classFilter == '2' ? 'selected' : ''}>오후반</option>
+                        <option value="3" ${classFilter == '3' ? 'selected' : ''}>종일반</option>
                     </select>
                 </form>
             </div>
@@ -185,6 +192,7 @@ function updateSortOrder() {
                 <table>
                     <thead>
                         <tr>
+                        	<th>순서</th>
                             <th>이름</th>
                             <th>담당 반</th>
                             <th>연락처</th>
@@ -193,14 +201,30 @@ function updateSortOrder() {
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${requestScope.teacherList}" var="teacher">
+                        <c:forEach items="${requestScope.teacherList}" var="teacher" varStatus="status">
                             <tr>
+                            	<td><c:out value="${status.index + 1}"/></td>
                             	<td>
                             		<a href="${pageContext.servletContext.contextPath}/master/teacherInfo?memberId=${teacher.memberId}">
                                 	<c:out value="${teacher.memberName}" />
                                 	</a>
                                 </td>
-                                <td><c:out value="${teacher.classCode}" /></td>
+                                <td>
+						            <c:choose>
+						                <c:when test="${teacher.classCode == 1}">
+						                    오전반
+						                </c:when>
+						                <c:when test="${teacher.classCode == 2}">
+						                    오후반
+						                </c:when>
+						                <c:when test="${teacher.classCode == 3}">
+						                    종일반
+						                </c:when>
+						                <c:otherwise>
+						                    미정
+						                </c:otherwise>
+						            </c:choose>
+						        </td>
                                 <td><c:out value="${teacher.phone}" /></td>
                                 <td>
 	                                <c:choose>
@@ -221,7 +245,7 @@ function updateSortOrder() {
             
             <div class="pagination">
                 <c:forEach begin="1" end="${totalPages}" var="i">
-                    <a href="${pageContext.servletContext.contextPath}/master/management?page=${i}&sortOrder=${sortOrder}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                    <a href="${pageContext.servletContext.contextPath}/master/management?page=${i}&sortOrder=${sortOrder}&classFilter=${classFilter}" class="${i == currentPage ? 'active' : ''}">${i}</a>
                 </c:forEach>
             </div>
             

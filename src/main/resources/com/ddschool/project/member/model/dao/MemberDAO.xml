@@ -107,12 +107,15 @@
 	SELECT *
 	FROM TBL_MEMBER
 	WHERE ROLE_CODE = 2
+	<if test="classFilter != ''">
+            AND CLASS_CODE = #{classFilter}
+    </if>
 	ORDER BY 
 	<choose>
-		<when test="sortOrder == 'status'">STATUS DESC</when>
-		<when test="sortOrder == 'classCode'">CLASS_CODE</when>
+		<when test="sortOrder == 'status'">STATUS DESC, JOIN_DATE</when>
+		<when test="sortOrder == 'classCode'">CLASS_CODE, JOIN_DATE</when>
 		<otherwise>
-			MEMBER_CODE
+			JOIN_DATE
 		</otherwise>
 	</choose>
 	LIMIT #{limit} OFFSET #{offset}
@@ -123,6 +126,9 @@
         SELECT COUNT(*)
         FROM TBL_MEMBER
         WHERE ROLE_CODE = 2
+        <if test="classFilter != ''">
+            AND CLASS_CODE = #{classFilter}
+    	</if>
     </select>
 	
 	<!-- 아이디 중복체크 -->
