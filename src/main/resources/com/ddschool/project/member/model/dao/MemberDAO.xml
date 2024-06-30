@@ -102,12 +102,28 @@
 	WHERE MEMBER_CODE = #{ deleteMemberCode }
 	</update>
 	
-	<!-- 전체 선생님 목록 조회 -->
+	<!-- 전체 선생님 목록 조회 (페이지네이션 적용) -->
 	<select id="selectTeacherList" resultMap="memberResultMap">
 	SELECT *
 	FROM TBL_MEMBER
 	WHERE ROLE_CODE = 2
+	ORDER BY 
+	<choose>
+		<when test="sortOrder == 'status'">STATUS DESC</when>
+		<when test="sortOrder == 'classCode'">CLASS_CODE</when>
+		<otherwise>
+			MEMBER_CODE
+		</otherwise>
+	</choose>
+	LIMIT #{limit} OFFSET #{offset}
 	</select>
+	
+	<!-- 총 선생님 데이터 수 조회 -->
+    <select id="getTeacherCount" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_MEMBER
+        WHERE ROLE_CODE = 2
+    </select>
 	
 	<!-- 아이디 중복체크 -->
 	<select id="isMemberIdExists" parameterType="String" resultType="boolean">

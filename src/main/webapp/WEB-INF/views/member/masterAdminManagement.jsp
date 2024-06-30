@@ -114,6 +114,27 @@
     	border: none;
         border-bottom: 2px solid #ddd; /* 하단 테두리선만 추가 */
     }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .pagination a {
+        margin: 0 5px;
+        padding: 10px 15px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+        color: #000;
+        border-radius: 5px;
+    }
+    
+    .pagination a.active {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+    }
 </style>
 </head>
 <body>
@@ -125,6 +146,10 @@ window.onload = function() {
         alert(message);
         session.removeAttribute("registTeacherSuccessMessage");
     } 
+}
+
+function updateSortOrder() {
+    document.getElementById("sortForm").submit();
 }
 </script>
 
@@ -146,6 +171,16 @@ window.onload = function() {
                     <button type="submit" class="teacher-regist-btn">신규 선생님 등록하기</button>
                 </form>
             </div>
+            <div class="sort-options">
+                <form id="sortForm" action="${pageContext.servletContext.contextPath}/master/management" method="get">
+                    <label for="sortOrder">정렬 기준:</label>
+                    <select id="sortOrder" name="sortOrder" onchange="updateSortOrder()">
+                        <option value="memberCode" ${sortOrder == 'memberCode' ? 'selected' : ''}>등록일 기준</option>
+                        <option value="status" ${sortOrder == 'status' ? 'selected' : ''}>활성 상태 기준</option>
+                        <option value="classCode" ${sortOrder == 'classCode' ? 'selected' : ''}>담당 반 기준</option>
+                    </select>
+                </form>
+            </div>
             <div class="teacher-list">
                 <table>
                     <thead>
@@ -154,6 +189,7 @@ window.onload = function() {
                             <th>담당 반</th>
                             <th>연락처</th>
                             <th>활성 상태</th>
+                            <th>최초 등록일</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -176,11 +212,19 @@ window.onload = function() {
 		                                </c:otherwise>
 	                                </c:choose>
                                 </td>
+                                <td><c:out value="${teacher.formattedDate}" /></td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
             </div>
+            
+            <div class="pagination">
+                <c:forEach begin="1" end="${totalPages}" var="i">
+                    <a href="${pageContext.servletContext.contextPath}/master/management?page=${i}&sortOrder=${sortOrder}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                </c:forEach>
+            </div>
+            
         </div>
 	</div>
 </div>

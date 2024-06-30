@@ -23,7 +23,12 @@ public interface MemberDAO {
 					@Param("deleteMemberCode") int deleteMemberCode,
 					@Param("deleteMemberSatus") boolean deleteMemberSatus);
 
-	List<MemberDTO> selectTeacherList();
+	List<MemberDTO> selectTeacherList(
+					@Param("limit") int limit, // pageSize
+					@Param("offset") int offset,
+					@Param("sortOrder") String sortOrder);
+	
+	int getTeacherCount();
 
 	boolean isMemberIdExists(String memberId);
 
