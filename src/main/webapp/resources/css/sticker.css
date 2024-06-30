@@ -25,15 +25,22 @@ table tr td {
 /* 헤더 내부 콘텐츠의 레이아웃 설정 */
 .sticker-header-content {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
+	
 	align-items: center;
 	height: 100px;
+	
 }
 
 /* 컨테이너의 최대 너비와 여백 설정 */
 .sticker-container {
     margin: 0 auto;
     padding: 0px 100px;
+   
+}
+
+.sticker-item{
+	margin-right: 1055px;
 }
 
 
@@ -71,7 +78,7 @@ select {
     color: #000000;    
 }
 
-/* left_box */
+/* 메인left_box */
 .left_box {
     box-sizing: border-box;
 
@@ -97,7 +104,7 @@ select {
     line-height: 2.5; /* 줄 간격 설정 */
 }
 
-/* right_box */
+/* 메인right_box */
 .right_box {
     box-sizing: border-box;
 
@@ -116,8 +123,85 @@ select {
     
 }
 
+/* input_box */
+.input_box {
+    box-sizing: border-box;
 
-.foter_top {
-	position : relative;
-	top: 175px;
+    width: 800px;
+    height: 450px;
+	
+    left: 201px;
+    top: 80px;
+
+    padding: 20px;    
+    
+    border: 1px solid #B6B6B6;
+    border-radius: 26px;
+   
+   font-size: 22px; 
+   
+   display: flex;
+   flex-direction: column;
+   align-items: center; /* Center horizontally */
+   justify-content: center; /* Center vertically */
+    
 }
+
+.input_style{
+	font-size: 22px;
+    margin-bottom : 20px;
+    margin-left : 10px;
+    padding : 5px;
+    
+    width: 385px; 
+         
+    text-align : center; 
+    
+   
+ 
+}
+
+.select_style{
+	font-size: 22px;
+    margin-bottom : 20px;
+    width: 400px;
+    text-align: center;
+    margin-left : 10px;
+}
+
+/* 클릭 버튼 스타일 설정 */
+.submit-button {
+   padding: 10px 20px;
+   background-color: #333;
+   color: white;
+   border: none;
+   border-radius: 20px;
+   cursor: pointer;
+   font-size: 16px;
+   margin-left: 10px;
+}
+
+/* 클릭 미니버튼 스타일 설정 */
+.submit-mini-button {
+   padding: 10px 20px;
+   background-color: #333;
+   color: white;
+   border: none;
+   border-radius: 16px;
+   cursor: pointer;
+   font-size: 12px;
+   margin-left: 10px;
+}
+
+/* 클릭 입력버튼 스타일 설정*/
+.submit-input-button {
+   padding: 10px 20px;
+   background-color: #333;
+   color: white;
+   border: none;
+   border-radius: 20px;
+   cursor: pointer;
+   font-size: 16px;
+   margin-left: 200px;
+}
+

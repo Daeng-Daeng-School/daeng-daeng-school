@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>칭찬스티커 메인화면</title>
 <link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath}/resources/css/CssStickerAdminPage.css">
+	href="${pageContext.servletContext.contextPath}/resources/css/sticker.css">
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/common.css">
 <script
@@ -19,12 +19,11 @@
 		<jsp:include page="../common/menubar.jsp" />     
 	</header>
 
-  	<main role="main">
+  	<main role="main">  	
+  	   	      	      
   		<div class="sticker-header-content sticker-container">
-			<h2>
-				우리 댕댕이를 <br> 칭찬합니다.
-			</h2>
-
+		 <h2 class="sticker-item">우리 댕댕이를 <br> 칭찬합니다.</h2> 	
+		
 			<form action="${ pageContext.servletContext.contextPath }/sticker/list" method="get" 
 			  class="container-item">
 				<select id="selectbox" name="registDate">
@@ -38,12 +37,12 @@
 		        <option value="202407" ${registDate == '202407' ? 'selected' : ''}>2024년 7월</option>        
 		        
     			</select>
-				<button type="submit">조회하기</button>
+				<button class="submit-button" type="submit">조회하기</button>
 			</form>
 			
 			
 			<form action="${ pageContext.servletContext.contextPath }/sticker/insert" method="get">
-				<button type="submit">등록하기</button>
+				<button class="submit-button" type="submit">등록하기</button>
 			</form>
 			
 			<%--수정하기 버튼test임(추후 삭제) --%>
@@ -95,8 +94,8 @@
 							<td>							
 							<input type="hidden" class="stickerCode" value="${sticker.stickerCode}">
 							
-								<button id="updateButton" onClick="updatePost(${ sticker.stickerCode })">수정</button>
-								<button id="deleteButton" onClick="deletePost(${ sticker.stickerCode })">삭제</button> 	
+								<button class="submit-mini-button" id="updateButton" onClick="updatePost(${ sticker.stickerCode })">수정</button>
+								<button class="submit-mini-button" id="deleteButton" onClick="deletePost(${ sticker.stickerCode })">삭제</button> 	
 							</td>						
 									
 						</tr>
