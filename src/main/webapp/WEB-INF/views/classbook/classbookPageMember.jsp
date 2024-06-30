@@ -1,8 +1,3 @@
-<%@page
-	import="com.ddschool.project.classbook.model.service.ClassbookService"
-	import="java.util.List"
-	import="com.ddschool.project.dog.model.dto.DogDTO"
-	import="java.util.Map" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -15,7 +10,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/classbook.css">
-
 <script
 	src="${pageContext.request.contextPath }/resources/js/classbook.js"></script>
 <script>
@@ -24,15 +18,14 @@
 
 </head>
 <body>
-	<jsp:include page="../common/menubar.jsp" />
+	<jsp:include page="../main/main.jsp" />
 	<div class="text-area">
 		<b>댕댕 유치원 출석부</b>를<br>이용해볼까요?
 
 		<div class="select-bar">
 			<form>
 				<!-- 연도-월 선택 input -->
-				<input type="month" id="selectedMonth" data-placeholder="연도-월 선택"
-					required aria-required="true">
+				<input type="month" id="selectedMonth">
 
 				<!-- 반 선택 select (disabled) -->
 				<select disabled>
@@ -59,9 +52,9 @@
 				<tbody>
 				<c:forEach var="dog" items="${dogClassbookList}">
 					<tr class="body-tr">
-						<td>${dog.DOG_NAME }</td>
+						<td class="list-td">${dog.DOG_NAME }</td>
 						<c:forEach begin="1" end="15" var="day">
-							<td>${dog[day]}</td>
+							<td class="list-td">${dog[day]}</td>
 						</c:forEach>
 					</tr>
 				</c:forEach>
@@ -82,9 +75,9 @@
 				<tbody>
 				<c:forEach var="dog" items="${dogClassbookList}">
 					<tr class="body-tr">
-						<td>${dog.DOG_NAME }</td>
+						<td class="list-td">${dog.DOG_NAME }</td>
 						<c:forEach begin="16" end="31" var="day">
-							<td>${dog[day]}</td>
+							<td class="list-td">${dog[day]}</td>
 						</c:forEach>
 					</tr>
 				</c:forEach>
@@ -92,246 +85,6 @@
 			</table>
 		</div>
 				
-				
-				
-				
-				
-				<%-- 
-					<%
-					// 일자 반복
-					for (int i = 1; i <= 15; i++) {
-						out.println("<th>" + i + "일" + "</th>");
-					}
-					%>
-				</tr> --%>
-				
-				<%-- <% 
-				// 데이터를 LinkedHashMap 타입으로 받음
-				List<Map<String, Object>> dogs = (List<Map<String, Object>>) request.getAttribute("dogs");
-				
-        // 각각의 강아지 데이터를 반복적으로 출력
-        for (Map<String, Object> dog : dogs) {
-        %>
-        <tr>
-            <td><%= dog.get("DOG_NAME") %></td>
-            <% 
-            // 각각의 날짜에 대해 출석 상태를 확인하여 출력
-            for (int i = 1; i <= 15; i++) {
-                String status = (String) dog.get(String.valueOf(i) + "일");
-                out.println("<td>" + status + "</td>");
-            }
-            %>
-        </tr>
-        <% } %> --%>
-				
-				
-			<%-- <%-- 데이터 출력 --%>
-            <%-- <%
-            <%-- @SuppressWarnings("unchecked")
-            List<Map<String, Object>> dataList = (List<Map<String, Object>>) request.getAttribute("dogClassbookList");
-            out.println(dataList);
-            if (dataList != null && !dataList.isEmpty()) {
-                for (Map<String, Object> dogData : dataList) {
-                    String dogName = (String) dogData.get("DOG_NAME");
-            %>
-            <tr>
-                <td><%= dogName %></td>
-                1일부터 15일까지의 데이터 출력
-                <% for (int i = 1; i <= 15; i++) { %>
-                    <% String dayKey = i + "일"; %>
-                    <td><%= dogData.get(dayKey) %></td>
-                <% } %>
-            </tr>
-            <% 
-                } // end for
-            } // end if
-            %>	 --%>
-				
-				
-				
-				
-				
-				
-				<%--
-				<!-- 비동기 조회 출력 -->
-				여기서 서블릿에서 전달받은 데이터를 사용하여 초기 데이터를 출력할 수 있음
-				예시로 초기 데이터를 출력
-				
-				<%
-					// 데이터를 LinkedHashMap 타입으로 받음
-					List<Map<String, Object>> dogs1 = (List<Map<String, Object>>) request.getAttribute("dogs");
-
-				// 각각의 LinkedHashMap 데이터에 대해 처리
-					for (Map<String, Object> dog : dogs1) {
-				
-						out.println("<tr>");
-						
-					// DOG_NAME 출력
-					out.println("<td>" + dog.get("DOG_NAME") + "</td>");
-
-					// 1일부터 15일까지의 데이터 출력
-
-					for (int j = 1; j <= 15; j++) {
-
-					String status = (String) dog.get(String.valueOf(j));
-					out.println("<td>" + status + "</td>");
-					}
-					
-				out.println("</tr>");
-
-				}
-				%> --%>
-<!-- </table>
-</div> -->
-
-<%-- <div class="table-area-member">
-			<table align="center" id="listArea" class="table-con">
-				<tr class="head-tr">
-					<th>반려견/날짜</th>
-					<%
-					// 일자 반복
-					for (int i = 16; i <= 31; i++) {
-						out.println("<th>" + i + "일" + "</th>");
-					}
-					%>
-				</tr> --%>
-				<%--
-				<!-- 비동기 조회 출력 -->
-				여기서 서블릿에서 전달받은 데이터를 사용하여 초기 데이터를 출력할 수 있음
-				예시로 초기 데이터를 출력
-				
-				<%
-					// 데이터를 LinkedHashMap 타입으로 받음
-					List<Map<String, Object>> dogs2 = (List<Map<String, Object>>) request.getAttribute("dogs");
-
-				// 각각의 LinkedHashMap 데이터에 대해 처리
-					for (Map<String, Object> dog : dogs2) {
-				
-						out.println("<tr>");
-						
-					// DOG_NAME 출력
-					out.println("<td>" + dog.get("DOG_NAME") + "</td>");
-
-					// 1일부터 15일까지의 데이터 출력
-
-					for (int j = 16; j <= 31; j++) {
-
-					String status = (String) dog.get(String.valueOf(j));
-					out.println("<td>" + status + "</td>");
-					}
-					
-				out.println("</tr>");
-
-				}
-				%>--%>
-</table>
-</div> 
-
-
-
-
-<%-- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		반복 테이블 영역
-		<%
-		int day = 1;
-		for (int i = 1; i <= 2; i++) {
-		%>
-		<div class="table-area-member">
-			<table align="center" id="listArea" class="table-con">
-				<tr class="head-tr">
-					<th>반려견/날짜</th>
-					<%
-					// 일자 반복
-					for (int j = 1; j <= 15; j++) {
-
-						out.println("<th>" + day + "일" + "</th>");
-						++day;
-
-					}
-					if (day == 31) {
-						out.println("<th>" + day + "일" + "</th>");
-					}
-					%>
-				</tr>
-
-
-
-
-
-
-
-
-</table>
-
-<div id="dogClassbookMember">
-				<!-- 비동기 조회 출력 -->
-				여기서 서블릿에서 전달받은 데이터를 사용하여 초기 데이터를 출력할 수 있음
-				예시로 초기 데이터를 출력
-				비동기출력창입니다
-				<tr>
-					<%
-					int index = 1;
-					// 데이터를 LinkedHashMap 타입으로 받음
-					List<Map<String, Object>> dogs = (List<Map<String, Object>>) request.getAttribute("dogs");
-
-					// 각각의 LinkedHashMap 데이터에 대해 처리
-					for (Map<String, Object> dog : dogs) {
-						// DOG_NAME 출력
-
-						out.println("<td>" + dog.get("DOG_NAME") + "</td>");
-
-						// 1일부터 15일까지의 데이터 출력
-
-						for (int j = 1; j <= 15; j++) {
-
-							String status = (String) dog.get(String.valueOf(index));
-							out.println("<td>" + status + "</td>");
-							++index;
-						}
-
-						out.println("</tr>");
-					}
-					%>
-
-
-					<c:forEach var="dogInfo" items="${dogClassbookList}">
-				<div>${dogInfo.dogName}</div>
-				<c:forEach var="checkStatus" items="${dogInfo.checkStatusList}">
-					<div>${checkStatus}</div>
-				</c:forEach>
-			</c:forEach>
-			</div>
-
-
-
-		</div>
-		<%
-		}
-		%>
-
- --%>
-
-
 
 		<%-- <% for (Map<String, Object> dogClassbook : (List<Map<String, Object>>) request.getAttribute("dogClassbookList")) { %>
                 <tr>
@@ -454,9 +207,9 @@
 
 
 
-		<div>
+		<%-- <div>
 
-			<%-- 모달 창 --%>
+			모달 창
 			<div id="myModal" class="modal">
 				<div class="modal-content">
 					<span class="close">&times;</span>
@@ -497,10 +250,7 @@
 				</div>
 			</div>
 
-		</div>
+		</div> --%>
 	</div>
-
-	<%-- 푸터 --%>
-	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

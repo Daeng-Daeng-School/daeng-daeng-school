@@ -6,15 +6,16 @@
   
   <resultMap type="com.ddschool.project.classbook.model.dto.ClassbookDTO" id="classbookResultMap">
   <id property="classbookNo" column="CLASSBOOK_CODE" />
-  <result property="dog" column="DOG_CODE" />
+  <result property="dogCode" column="DOG_CODE" />
   <result property="checkDate" column="CHECK_DATE"/>
   <result property="checkStatus" column="CHECK_STATUS"/>
   <result property="modifyDate" column="MODIFY_DATE"/>
+  <result property="status" column="STATUS" />
   <collection property="member" ofType="com.ddschool.project.member.model.dto.MemberDTO" resultMap="memberResultMap"/>
   </resultMap>
   
   <resultMap id="memberResultMap" type="com.ddschool.project.member.model.dto.MemberDTO">
-  	<id property="memberCode" column="MEMBER_CODE"/>
+  			<id property="memberCode" column="MEMBER_CODE"/>
 		<result property="classCode" column="CLASS_CODE"/>
 		<result property="roleCode" column="ROLE_CODE"/>
 		<result property="memberId" column="MEMBER_ID"/>
@@ -70,7 +71,7 @@
         </foreach>
 		FROM TBL_CLASSBOOK c
 		JOIN TBL_DOG d ON d.DOG_CODE=c.DOG_CODE
-		JOIN TBL_MEMBER m ON c.MEMBER_CODE=m.MEMBER_CODE
+		JOIN TBL_MEMBER m ON m.MEMBER_CODE=c.MEMBER_CODE
 		WHERE m.MEMBER_CODE=1 AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m')=#{month}
 		GROUP BY d.DOG_NAME
   	</select> -->
@@ -128,6 +129,19 @@
         AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m') = #{month}
     GROUP BY d.DOG_NAME
 </select> -->
+
+	<select id="getClassbookList" resultType="java.util.LinkedHashMap">
+	SELECT
+    	DAY(c.CHECK_DATE) AS CHECK_DATE,
+    	GROUP_CONCAT(CONCAT(d.DOG_NAME, ': ', c.CHECK_STATUS) ORDER BY d.DOG_NAME SEPARATOR ', ') AS dogClassbook
+	FROM TBL_CLASSBOOK c
+	JOIN TBL_DOG d ON d.DOG_CODE = c.DOG_CODE
+	WHERE d.CLASS_CODE = #{classCode}
+    	AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m') = #{month}
+	GROUP BY DAY(c.CHECK_DATE)
+	ORDER BY DAY(c.CHECK_DATE)
+	</select>
+
 
   
   </mapper>

@@ -55,6 +55,18 @@ public class ClassbookService {
 		return dogClassbookList;
 	}
 
+	public List<Map<String, Object>> getClassbookList(String month, int classCode) {
+	
+		SqlSession session = getSqlSession();
+		classbookDAO = session.getMapper(ClassbookDAO.class);
+		
+		List<Map<String, Object>> classbookList = classbookDAO.getClassbookList(month, classCode);
+		System.out.println("여긴 서비스"+classbookList);
+		
+		session.close();
+		return classbookList;
+	}
+
 	
 	/*
 	 * public List<ClassbookDTO> getDogClassbookList(Map<String, Object> params) {

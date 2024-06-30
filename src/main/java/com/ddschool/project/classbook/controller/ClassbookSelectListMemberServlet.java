@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -22,6 +24,14 @@ public class ClassbookSelectListMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
+		
+		/*	HttpSession session = request.getSession();
+			
+			int memberCode = (int) session.getAttribute("memberCode");*/
+
+
+			
 		String month = request.getParameter("month");
 		System.out.println("여긴 서블릿" + month);
 
