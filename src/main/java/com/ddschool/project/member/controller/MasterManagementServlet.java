@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ddschool.project.ddclass.model.dto.ClassDTO;
+import com.ddschool.project.ddclass.model.service.ClassService;
 import com.ddschool.project.member.model.dto.MemberDTO;
 import com.ddschool.project.member.model.service.MemberService;
 
@@ -17,6 +19,10 @@ public class MasterManagementServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		// 반 목록 가져오기
+		List<ClassDTO> classList = new ClassService().getClassList();
+        request.setAttribute("classList", classList);
+		
 		int page = 1; // 현재 페이지 번호 (기본값 : 1)
 		int pageSize =10; // 한 페이지에 표시할 항목 수 (기본값 : 10)
 		

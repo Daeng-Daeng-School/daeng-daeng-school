@@ -217,20 +217,13 @@ function updateFilters() {
                                 	</a>
                                 </td>
                                 <td>
-						            <c:choose>
-						                <c:when test="${teacher.classCode == 1}">
-						                    오전반
-						                </c:when>
-						                <c:when test="${teacher.classCode == 2}">
-						                    오후반
-						                </c:when>
-						                <c:when test="${teacher.classCode == 3}">
-						                    종일반
-						                </c:when>
-						                <c:otherwise>
-						                    미정
-						                </c:otherwise>
-						            </c:choose>
+					                <c:set var="className" value="미정"/>
+                                    <c:forEach items="${requestScope.classList}" var="ddclass">
+                                        <c:if test="${ddclass.classCode == teacher.classCode}">
+                                            <c:set var="className" value="${ddclass.className}"/>
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:out value="${className}" />
 						        </td>
                                 <td><c:out value="${teacher.phone}" /></td>
                                 <td>

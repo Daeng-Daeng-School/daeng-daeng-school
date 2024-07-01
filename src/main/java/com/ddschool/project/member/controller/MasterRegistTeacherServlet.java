@@ -6,7 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
+import com.ddschool.project.ddclass.model.dto.ClassDTO;
+import com.ddschool.project.ddclass.model.service.ClassService;
 import com.ddschool.project.member.model.dto.MemberDTO;
 import com.ddschool.project.member.model.service.MemberService;
 
@@ -15,6 +18,11 @@ public class MasterRegistTeacherServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		// class 정보를 가져와서 함께 넘겨준다
+		List<ClassDTO> classList = new ClassService().getClassList();
+		request.setAttribute("classList", classList);
+		System.out.println(classList);
+		
 		request.getRequestDispatcher("/WEB-INF/views/member/masterRegistTeacher.jsp").forward(request, response);
 	
 	}
@@ -29,21 +37,8 @@ public class MasterRegistTeacherServlet extends HttpServlet {
 		String memberBirth = request.getParameter("memberBirth");
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
-		String className = request.getParameter("className");
-		System.out.println(className);
+		int classCode = Integer.parseInt(request.getParameter("classCode"));
 		
-		Integer classCode=0;
-		
-		if(className.equals("오전반")) {
-			classCode = 1;
-		} else if(className.equals("오후반")) {
-			classCode = 2;
-		} else if(className.equals("종일반")) {
-			classCode = 3;
-		}
-		
-		System.out.println(classCode);
-				
 		// 꺼낸 정보를 Dto 객체에 담는다
 		MemberDTO registMember = new MemberDTO();
 		registMember.setMemberId(memberId);
