@@ -52,6 +52,8 @@
 						</c:choose> --%>
 
 
+				
+			
 
 
 
@@ -73,6 +75,24 @@
 				%>
 			</select> --%>
 
+	
+				<c:choose>
+					
+					
+				
+				</c:choose>
+
+
+
+
+				<select id="selectedClass">
+					<option value="1" selected>오전반</option>
+					<option value="2">오후반</option>
+					<option value="3">종일반</option>
+				</select>
+				
+				
+				
 				<%-- </c:if> --%>
 
 				<!-- 조회하기 버튼 -->
@@ -141,7 +161,12 @@
 
 							<c:forEach var="entry" items="${classbook }">
 								<c:if test="${!entry.key.equals('CHECK_DATE')}">
-									<th data-name="${entry.key }">${entry.key }</th>
+
+									<th data-name="${entry.key }">
+									${entry.key }
+					<%-- <input type="hidden" name="dogCode_${entry.key }" value="${entry.key }"> --%>
+									
+									</th>
 								</c:if>
 
 							</c:forEach>
@@ -164,6 +189,9 @@
 													<c:if test="${subEntry.value == null}">
 														<td data-content=""></td>
 													</c:if>
+													 <!-- 강아지 코드 hidden input -->
+                                        <%-- <input type="hidden" name="dogCode_${subEntry.key }" value="${subEntry.key}"> --%>
+                                    
 												</c:if>
 											</c:forEach>
 										</c:when>
@@ -182,52 +210,7 @@
 
 				</c:forEach>
 
-				<!-- <thead>
-				<tr class="head-tr">
-					<th>날짜/반려견</th>
-					<th>강아지1</th>
-					<th>강아지2</th>
-					<th>강아지3</th>
-					<th>강아지4</th>
-					<th>강아지5</th>
-					<th>강아지6</th>
-					<th>강아지7</th>
-					<th>강아지8</th>
-					<th>강아지9</th>
-					<th>강아지10</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr class="body-tr" id="openModalBtn">
-					<td>1일</td>
-					<td>Y</td>
-					<td>N</td>
-					<td>N</td>
-					<td>Y</td>
-					<td>Y</td>
-					<td>Y</td>
-					<td>N</td>
-					<td>N</td>
-					<td>Y</td>
-					<td>N</td>
-
-				</tr>
-				<tr class="body-tr" id="openModalBtn">
-					<td>2일</td>
-					<td>N</td>
-					<td>N</td>
-					<td>Y</td>
-					<td>Y</td>
-					<td>Y</td>
-					<td>N</td>
-					<td>Y</td>
-					<td>Y</td>
-					<td>N</td>
-					<td>Y</td>
-
-				</tr>
 				
-				</tbody> -->
 
 			</table>
 		</div>
@@ -263,73 +246,55 @@
 
 
 	<div>
-
-		<!-- 모달 창 -->
+	<!-- 모달창 -->
 		<div id="myModal" class="modal">
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				
-				
-	<form id="editForm">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <!-- 수정 및 등록 폼 -->
+        <form id="editForm">
+            <!-- postId를 저장할 hidden input -->
             <input type="hidden" id="postId" name="postId">
             <div id="modalTable">
+                <!-- 출결 정보를 보여줄 테이블 -->
                 <table align="center" id="listAreaModal" class="table-con">
                     <thead>
-                        <tr>
+                        <tr class="head-tr">
+                         <%--   <th>출결</th>
+                            <!-- 강아지명을 헤더로 설정 -->
+                            <c:forEach var="entry" items="${classbook}">
+                                <!-- CHECK_DATE를 제외한 모든 key 출력 -->
+                                <c:if test="${!entry.key.equals('CHECK_DATE')}">
+                                    <th>${entry.key}</th>
+                                </c:if>
+                            </c:forEach> --%>
+                            
+                            
                             <th>출결</th>
-                            <c:forEach var="entry" items="${classbook}">
-                                <c:if test="${!entry.key.equals('CHECK_DATE')}">
-                                    <th>강아지 ${entry.key}</th>
-                                </c:if>
-                            </c:forEach>
-                        </tr>
-                    </thead>
-                    <tbody id="modalTableBody">
-                        <tr id="attendanceRow">
-                            <td>출석</td>
-                            <c:forEach var="entry" items="${classbook}">
-                                <c:if test="${!entry.key.equals('CHECK_DATE')}">
-                                    <td><input type="checkbox" name="attendance" value="Y"></td>
-                                </c:if>
-                            </c:forEach>
-                        </tr>
-                        <tr id="absenceRow">
-                            <td>결석</td>
-                            <c:forEach var="entry" items="${classbook}">
-                                <c:if test="${!entry.key.equals('CHECK_DATE')}">
-                                    <td><input type="checkbox" name="attendance" value="N"></td>
-                                </c:if>
-                            </c:forEach>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div align="center">
-                <button type="button" class="btn-black" id="submitClassbookBtn">등록하기</button>
-                <button type="button" class="btn-black" id="editClassbookBtn">수정하기</button>
-                <button type="button" class="btn-black" id="deleteClassbookBtn">삭제하기</button>
-            </div>
-        </form>
-	
-	
-	
-	
-	
-	
-				<%-- <div id="modalTable">
-					<!-- <form id="attendanceForm"> -->
-					<table align="center" id="listAreaModal" class="table-con">
-						<tr>
-							<th>출결</th>
 							<%
 							// 강아지 반복
 							for (int i = 1; i <= 10; i++) {
 								out.println("<th>강아지" + i + "</th>");
 							}
-							%>
-						</tr>
-						<tr>
-							<th>출석</th>
+							%> 
+                 
+                             
+                             
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="modalTableBody">
+                        <tr id="attendanceRow">
+                          <%--   <td>출석</td>
+                            <!-- 강아지별 출석 체크박스 -->
+                            <c:forEach var="entry" items="${classbook}">
+                                <c:if test="${!entry.key.equals('CHECK_DATE')}">
+                                    <td><input type="checkbox" name="attendance" value="Y"></td>
+                                </c:if>
+                            </c:forEach> --%>
+                            
+                            
+                            <th>출석</th>
 							<%
 							// 출석 여부 체크박스
 							for (int i = 1; i <= 10; i++) {
@@ -337,77 +302,47 @@
 								/* 	out.println("<td><input type='checkbox' name='attendance' value='attend-" + i + "'></td>"); */
 							}
 							%>
-						</tr>
-						<tr>
-							<th>결석</th>
+                            
+        
+                            
+                            
+                            
+                        </tr>
+                        <tr id="absenceRow">
+                            <%-- <td>결석</td>
+                            <!-- 강아지별 결석 체크박스 -->
+                            <c:forEach var="entry" items="${classbook}">
+                                <c:if test="${!entry.key.equals('CHECK_DATE')}">
+                                    <td><input type="checkbox" name="attendance" value="N"></td>
+                                </c:if>
+                            </c:forEach> --%>
+                            
+                            
+                            <th>결석</th>
 							<%
 							// 결석 여부 체크박스
 							for (int i = 1; i <= 10; i++) {
 								out.println("<td><input type='checkbox' name='attendance' value='N'></td>");
 							}
 							%>
-						</tr>
-					</table>
-				</div>
-				<div align="center">
-					<button class="btn-black" id="submitClassbookBtn">등록하기</button>
-					<button class="btn-black" id="editClassbookBtn">수정하기</button>
-					<button class="btn-black" id="deleteClassbookBtn">삭제하기</button>
-				</div> --%>
-			</div>
-		</div>
-		
-		
-		
-		<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>강아지 출결 정보 수정 및 삭제</h2>
-        <form id="editForm">
-            <input type="hidden" id="postId" name="postId">
-            <div id="modalTable">
-                <table align="center" id="listAreaModal" class="table-con">
-                    <thead>
-                        <tr>
-                            <th>출결</th>
-                            <c:forEach var="entry" items="${classbook}">
-                                <c:if test="${!entry.key.equals('CHECK_DATE')}">
-                                    <th>강아지 ${entry.key}</th>
-                                </c:if>
-                            </c:forEach>
-                        </tr>
-                    </thead>
-                    <tbody id="modalTableBody">
-                        <tr id="attendanceRow">
-                            <td>출석</td>
-                            <c:forEach var="entry" items="${classbook}">
-                                <c:if test="${!entry.key.equals('CHECK_DATE')}">
-                                    <td><input type="checkbox" name="attendance" value="Y"></td>
-                                </c:if>
-                            </c:forEach>
-                        </tr>
-                        <tr id="absenceRow">
-                            <td>결석</td>
-                            <c:forEach var="entry" items="${classbook}">
-                                <c:if test="${!entry.key.equals('CHECK_DATE')}">
-                                    <td><input type="checkbox" name="attendance" value="N"></td>
-                                </c:if>
-                            </c:forEach>
+			
+							
+                            
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div align="center">
+            <!-- 버튼 그룹 -->
+            <div align="center" id="registerBtn">
                 <button type="button" class="btn-black" id="submitClassbookBtn">등록하기</button>
+              </div>  
+              <div align="center" id="editDeleteBtns">
                 <button type="button" class="btn-black" id="editClassbookBtn">수정하기</button>
                 <button type="button" class="btn-black" id="deleteClassbookBtn">삭제하기</button>
             </div>
         </form>
     </div>
 </div>
-		
-		
-		
 		
 		
 

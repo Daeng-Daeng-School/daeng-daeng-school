@@ -19,4 +19,6 @@ public interface ClassbookDAO {
 
 	List<Map<String, Object>> getClassbookList(@Param("month") String month, @Param("classCode") int classCode);
 
+	List<Map<String, Object>> getAdminClassbookList(String selectedDay, String[] status, String month, int classCode);
+
 }

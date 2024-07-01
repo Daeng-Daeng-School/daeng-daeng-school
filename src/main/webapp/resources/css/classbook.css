@@ -215,3 +215,7 @@ input[type='checkbox']{
 	cursor:pointer;
 }
 
+#editDeleteBtns, #registerBtn{
+	display: none;
+}
+
