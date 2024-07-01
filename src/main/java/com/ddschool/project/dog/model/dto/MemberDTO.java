@@ -1,40 +1,40 @@
-package com.ddschool.project.member.model.dto;
+package com.ddschool.project.dog.model.dto;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MemberDTO {
-	
+
 	private int memberCode;
-	
+
 	private Integer classCode;
-	
+
 	private int roleCode;
-	
+
 	private String memberId;
-	
+
 	private String memberPwd;
-	
+
 	private String memberName;
-	
+
 	private String phone;
-	
+
 	private String address;
-	
+
 	private String memberBirth;
-	
+
 	private boolean status;
-	
+
 	private Date joinDate;
-	
+
 	private Date withdrawDate;
-	
+
 	public MemberDTO() {
 		super();
 	}
 
-	public MemberDTO(int memberCode, Integer classCode, int roleCode, String memberId, String memberPwd, String memberName,
-			String phone, String address, String memberBirth, boolean status, Date joinDate, Date withdrawDate) {
+	public MemberDTO(int memberCode, Integer classCode, int roleCode, String memberId, String memberPwd,
+			String memberName, String phone, String address, String memberBirth, boolean status, Date joinDate,
+			Date withdrawDate) {
 		super();
 		this.memberCode = memberCode;
 		this.classCode = classCode;
@@ -153,12 +153,5 @@ public class MemberDTO {
 				+ phone + ", address=" + address + ", status=" + status + ", joinDate=" + joinDate + ", withdrawDate="
 				+ withdrawDate + "]";
 	}
-	
-	// 포맷된 날짜를 반환하는 메서드
-    public String getFormattedDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return dateFormat.format(joinDate);
-    }
 
 }
-

@@ -1,5 +1,26 @@
 @charset "UTF-8";
 
+/* 웹폰트 설정 */
+/* 로고 웹폰트 */
+@font-face {
+	font-family: 'KimjungchulGothic-Bold';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2')
+		format('woff2');
+	font-weight: 700;
+	font-style: normal;
+}
+
+/* 전체 기본 폰트 */
+@font-face {
+	font-family: 'SUIT-Regular';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
 /* 전체 문서의 기본 스타일 설정 */
 body {
 	margin: 0;
@@ -7,7 +28,7 @@ body {
 	background-color: #fff;
 	color: #000;
 	position:relative;
-	min-height: 1000vh;
+	min-height: 103vh;
 }
 
 /* 링크 기본 스타일 설정 */
