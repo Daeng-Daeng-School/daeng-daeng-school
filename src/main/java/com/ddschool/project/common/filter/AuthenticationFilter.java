@@ -19,11 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-<<<<<<< HEAD
-@WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*"}) /*,"/dog/*"*/
-=======
-@WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*", "/class/*"})
->>>>>>> refs/remotes/origin/master
+@WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*", "/class/*", "/dog/*"})
 public class AuthenticationFilter implements Filter {
 	
 	Map<String, List<String>> permitURIList;
@@ -53,10 +49,10 @@ public class AuthenticationFilter implements Filter {
 		memberPermitList.add("/member/delete");
 		memberPermitList.add("/member/update");
 		memberPermitList.add("/member/getMemberInfo");
-		/*
-		 * memberPermitList.add("/dog/insert"); memberPermitList.add("/dog/update");
-		 * memberPermitList.add("/dog/select");
-		 */
+		memberPermitList.add("/dog/insert"); 
+		memberPermitList.add("/dog/update");
+		memberPermitList.add("/dog/select");
+		 
 		teacherPermitList.add("/teacher/mypage");
 		teacherPermitList.add("/member/delete");
 		teacherPermitList.add("/member/update");
