@@ -174,6 +174,27 @@
 	    border-radius: 10px; /* 둥근 모서리 */
 	    font-size: 16px;
 	}
+	
+	.dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .dropdown-content a:hover {
+        background-color: #f1f1f1
+    }
+    .dropdown .dropbtn.active + .dropdown-content {
+        display: block;
+    }
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -197,13 +218,13 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '${pageContext.servletContext.contextPath}/class/regist', 
+            url: '${pageContext.servletContext.contextPath}/class/regist',
             data: { className: className },
             success: function(response) {
-            	if (response.status === 'success') {
+                if (response.status === 'success') {
                     alert('반 등록이 완료되었습니다');
                     modal.css('display', 'none');
-                    updateClassList();
+                    location.reload(); // 페이지 새로고침
                 } else {
                     alert('반 등록에 실패하였습니다');
                 }
@@ -213,30 +234,54 @@ $(document).ready(function() {
             }
         });
     });
-    
-    function updateClassList() {
-    	$.ajax({
-    		type: 'GET',
-    		url: '${pageContext.servletContext.contextPath}/class/list',
-    		success: function(response) {
-    			const classList = $('#classList');
-    			classList.empty();
-    			response.forEach(function(ddclass) {
-    				const row = `
-                        <tr>
-                            <td>${ddclass.classCode}</td>
-                            <td>${ddclass.className}</td>
-                            <td>${ddclass.status ? '활성' : '비활성'}</td>
-                        </tr>
-                    `;
-                    classList.append(row);
-                });
+
+    // toggleStatus 함수 전역에 선언
+    window.toggleStatus = function(classCode, newStatus) {
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.servletContext.contextPath}/class/management',
+            data: { classCode: classCode, status: newStatus },
+            success: function(response) {
+                if (response.status === 'success') {
+                	alert('상태 변경이 완료되었습니다');
+                	location.reload();
+                } else {
+                    alert('상태 변경에 실패하였습니다');
+                }
             },
             error: function() {
-                alert('반 목록을 불러오는데 실패하였습니다.');
+                alert('상태 변경에 실패하였습니다');
             }
         });
-    }
+    };
+
+    window.toggleDropdown = function(button) {
+        const dropdowns = document.querySelectorAll('.dropdown .dropbtn');
+        dropdowns.forEach(function(dropbtn) {
+            if (dropbtn !== button) {
+                dropbtn.classList.remove('active');
+                dropbtn.nextElementSibling.style.display = 'none'; // 드롭다운 숨기기
+            }
+        });
+        button.classList.toggle('active');
+        const dropdownContent = button.nextElementSibling;
+        if (button.classList.contains('active')) {
+            dropdownContent.style.display = 'block'; // 드롭다운 보이기
+        } else {
+            dropdownContent.style.display = 'none'; // 드롭다운 숨기기
+        }
+    };
+    
+ 	// 빈 곳 클릭 시 드롭다운 닫기
+    window.addEventListener('click', function(event) {
+        const dropdowns = document.querySelectorAll('.dropdown .dropbtn');
+        dropdowns.forEach(function(dropbtn) {
+            if (!dropbtn.contains(event.target) && !dropbtn.nextElementSibling.contains(event.target)) {
+                dropbtn.classList.remove('active');
+                dropbtn.nextElementSibling.style.display = 'none';
+            }
+        });
+    });
 });
 </script>
 </head>
@@ -273,14 +318,22 @@ $(document).ready(function() {
                             	<td><c:out value="${ddclass.classCode}"/></td>
                             	<td><c:out value="${ddclass.className}"/></td>
                                 <td>
-	                                <c:choose>
-		                                <c:when test="${ddclass.status == true}">
-		                                활성
-		                                </c:when>
-		                                <c:otherwise>
-		                                비활성
-		                                </c:otherwise>
-	                                </c:choose>
+                                	<div class="dropdown">
+                                        <button class="dropbtn" onclick="toggleDropdown(this)">
+                                            <c:choose>
+                                                <c:when test="${ddclass.status == true}">
+                                                    활성
+                                                </c:when>
+                                                <c:otherwise>
+                                                    비활성
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </button>
+                                        <div class="dropdown-content">
+                                            <a href="#" onclick="toggleStatus(${ddclass.classCode}, true); return false;">활성</a>
+                                            <a href="#" onclick="toggleStatus(${ddclass.classCode}, false); return false;">비활성</a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </c:forEach>

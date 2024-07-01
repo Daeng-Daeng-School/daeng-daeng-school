@@ -158,18 +158,31 @@ $(document).ready(function() {
 
     // 수정하기 버튼 클릭 시
     $("#edit-btn").click(function() {
-        $("#classCode").prop('disabled', false);
+        $("#className").prop('disabled', false);
         $("#edit-btn").hide();
         $("#update-btn").show();
+        
+     	// Select element를 채우기 위해 기존 className input을 숨기고 select element를 추가
+        let selectHtml = '<select id="classNameSelect" name="classCode" class="input-box" required>';
+        selectHtml += '<option value="">반 선택</option>';
+
+        <c:forEach var="ddclass" items="${classList}">
+            if (${ddclass.status} == true) {
+                selectHtml += '<option value="${ddclass.classCode}">${ddclass.className}</option>';
+            }
+        </c:forEach>
+
+        selectHtml += '</select>';
+        $("#className").replaceWith(selectHtml);
     });
 
     // 수정 완료 버튼 클릭 시
     $("#update-btn").click(function() {
     	
-    	var classCode = $("#classCode").val();
+    	var classCode = $("#classNameSelect").val();
     	
     	if (!classCode) {
-    		alert("반 입력은 필수로 입력해주세요.");
+    		alert("반 선택은 필수로 입력해주세요.");
     		return;
     	}
     	
@@ -191,13 +204,7 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.status == 'success') {
                     alert("회원 정보가 수정되었습니다.");
-                    
-                	// DOM 업데이트
-                    $("#classCode").val(updatedData.classCode);
-                    
-                    $("#classCode, #status").prop('disabled', true);
-                    $("#update-btn").hide();
-                    $("#edit-btn").show();
+                    location.reload();
                     
                 } else {
                     alert("회원 정보 수정에 실패했습니다.");
@@ -251,7 +258,11 @@ $(document).ready(function() {
                     </div>
                     <div class="input-group">
                         <label for="classCode">담당 반</label>
-                        <input type="text" id="classCode" name="classCode" value="${teacherInfo.classCode}" class="input-box" required disabled>
+					        <c:forEach var="ddclass" items="${classList}">
+					            <c:if test="${ddclass.classCode == teacherInfo.classCode}">
+									<input type="text" id="className" name="className" value="${ddclass.className}" class="input-box" required disabled>					            
+								</c:if>
+					        </c:forEach>
                     </div>
                     <div class="input-group">
                         <label for="phone">연락처</label>
@@ -267,8 +278,14 @@ $(document).ready(function() {
                     </div>
                     <div class="input-group">
                         <label for="status">활성상태</label>
-                        <input type="text" id="status" name="status" value="${teacherInfo.status}" class="input-box" required disabled>
-                    </div>
+							<c:choose>
+                                <c:when test="${teacherInfo.status}">
+                                    <input type="text" id="status" name="status" value="활성" class="input-box" required disabled>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="text" id="status" name="status" value="비활성" class="input-box" required disabled>
+                                </c:otherwise>
+                            </c:choose>                    </div>
                     <div class="button-container">
                         <button type="button" id="edit-btn" class="edit-btn">수정하기</button>
                         <button type="button" id="update-btn" class="register-btn" style="display:none;">수정 완료</button>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -255,11 +256,13 @@ $(document).ready(function() {
                             <input type="password" id="memberPwd" name="memberPwd" class="input-box auth-input" placeholder="비밀번호" required>
                         </div>
                         <div class="input-group spacing-top">
-                            <select id="className" name="className" class="select-box" required>
+                            <select id="className" name="classCode" class="select-box" required>
                                 <option value="" disabled selected>담당반을 선택하세요</option>
-                                <option value="오전반">오전반</option>
-                                <option value="오후반">오후반</option>
-                                <option value="종일반">종일반</option>
+                                <c:forEach items="${requestScope.classList}" var="ddclass">
+                                <c:if test="${ddclass.status == true}">
+                                    <option value="${ddclass.classCode}">${ddclass.className}</option>
+                                </c:if>
+                                </c:forEach>
                             </select>
                         </div>
                         <div class="input-group">
