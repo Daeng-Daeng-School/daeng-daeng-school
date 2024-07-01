@@ -14,11 +14,9 @@ import com.ddschool.project.ddclass.model.service.ClassService;
 @WebServlet("/class/regist")
 public class ClassRegistServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		System.out.println("반 등록하러 서블릿 도착!");
 	
 		String className = request.getParameter("className");
 		System.out.println("서블릿에서 신규반명 확인 : " + className);

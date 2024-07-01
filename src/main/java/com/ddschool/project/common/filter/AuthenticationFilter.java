@@ -43,6 +43,7 @@ public class AuthenticationFilter implements Filter {
 		masterPermitList.add("/master/teacherInfo");
 		masterPermitList.add("/member/rejoin");
 		masterPermitList.add("/class/management");
+		masterPermitList.add("/class/regist");
 		
 		memberPermitList.add("/member/mypage");
 		memberPermitList.add("/member/delete");
@@ -82,8 +83,6 @@ public class AuthenticationFilter implements Filter {
 			boolean isPermitTeacher = permitURIList.get("teacherPermitList").contains(intent);
 			boolean isPermitAll = permitURIList.get("allPermitList").contains(intent);
 			
-			System.out.println("isPermitMember 승인됐어? : " + isPermitMember);
-			System.out.println("isPermitAll 승인됐어? : " + isPermitAll);
 			System.out.println("roleCode 가 뭐야? : "+loginMember.getRoleCode());
 			
             if (isPermitAll) {
