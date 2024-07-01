@@ -101,7 +101,7 @@ public class MemberService {
 	}
 
 	// 선생님목록 조회
-	public List<MemberDTO> selectTeacherList(int page, int pageSize, String sortOrder, String classFilter) {
+	public List<MemberDTO> selectTeacherList(int page, int pageSize, String sortOrder, String classFilter, String startDate, String endDate) {
 		System.out.println("서비스에서 선생님 목록조회 시작!");
 		
 		SqlSession session = getSqlSession();
@@ -116,19 +116,19 @@ public class MemberService {
 		 * page = 2, offset = 10 => 앞 10개의 데이터는 건너뛰로 11번째 데이터부터 시작
 		 * */
 		
-		List<MemberDTO> teacherList = memberDAO.selectTeacherList(pageSize, offset, sortOrder, classFilter);
+		List<MemberDTO> teacherList = memberDAO.selectTeacherList(pageSize, offset, sortOrder, classFilter, startDate, endDate);
 		
 		session.close();
 		return teacherList;
 	}
 	
 	// 전체 선생님 수 조회
-	public int getTeacherCount(String classFilter) {
+	public int getTeacherCount(String classFilter, String startDate, String endDate) {
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
 		
-		int count = memberDAO.getTeacherCount(classFilter);
+		int count = memberDAO.getTeacherCount(classFilter, startDate, endDate);
 		
 		session.close();
 		return count;

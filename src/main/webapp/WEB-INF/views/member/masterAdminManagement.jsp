@@ -148,8 +148,8 @@ window.onload = function() {
     } 
 }
 
-function updateSortOrder() {
-    document.getElementById("sortForm").submit();
+function updateFilters() { 
+	document.getElementById("filterForm").submit();
 }
 </script>
 
@@ -172,20 +172,27 @@ function updateSortOrder() {
                 </form>
             </div>
             <div class="sort-options">
-                <form id="sortForm" action="${pageContext.servletContext.contextPath}/master/management" method="get">
+                <form id="filterForm" action="${pageContext.servletContext.contextPath}/master/management" method="get">
                     <label for="sortOrder">정렬 기준:</label>
-                    <select id="sortOrder" name="sortOrder" onchange="updateSortOrder()">
+                    <select id="sortOrder" name="sortOrder" onchange="updateFilters()">
                         <option value="joinDate" ${sortOrder == 'joinDate' ? 'selected' : ''}>등록일 기준</option>
                         <option value="status" ${sortOrder == 'status' ? 'selected' : ''}>활성 상태 기준</option>
                         <option value="classCode" ${sortOrder == 'classCode' ? 'selected' : ''}>담당 반 기준</option>
                     </select>
                     <label for="classFilter">반 선택:</label>
-                    <select id="classFilter" name="classFilter" onchange="updateSortOrder()">
+                    <select id="classFilter" name="classFilter" onchange="updateFilters()">
                         <option value="" ${classFilter == '' ? 'selected' : ''}>전체</option>
                         <option value="1" ${classFilter == '1' ? 'selected' : ''}>오전반</option>
                         <option value="2" ${classFilter == '2' ? 'selected' : ''}>오후반</option>
                         <option value="3" ${classFilter == '3' ? 'selected' : ''}>종일반</option>
                     </select>
+                    
+                    <label for="startDate">시작 날짜:</label>
+                    <input type="date" id="startDate" name="startDate" value="${startDate}" onchange="updateFilters()">
+
+                    <label for="endDate">종료 날짜:</label>
+                    <input type="date" id="endDate" name="endDate" value="${endDate}" onchange="updateFilters()">
+
                 </form>
             </div>
             <div class="teacher-list">
@@ -245,7 +252,7 @@ function updateSortOrder() {
             
             <div class="pagination">
                 <c:forEach begin="1" end="${totalPages}" var="i">
-                    <a href="${pageContext.servletContext.contextPath}/master/management?page=${i}&sortOrder=${sortOrder}&classFilter=${classFilter}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                    <a href="${pageContext.servletContext.contextPath}/master/management?page=${i}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}" class="${i == currentPage ? 'active' : ''}">${i}</a>
                 </c:forEach>
             </div>
             

@@ -19,8 +19,11 @@ public class MasterManagementServlet extends HttpServlet {
 	
 		int page = 1; // 현재 페이지 번호 (기본값 : 1)
 		int pageSize =10; // 한 페이지에 표시할 항목 수 (기본값 : 10)
+		
 		String sortOrder = "joinDate"; // 기본 정렬 기준
 		String classFilter = ""; // 반 필터 기준
+		String startDate = ""; // 날짜 필터 : 시작일
+		String endDate = ""; // 날짜 필터 : 종료일
 		
 		// 사용자가 요청한 페이지 값 가져오기
 		if(request.getParameter("page") != null) { 
@@ -37,11 +40,23 @@ public class MasterManagementServlet extends HttpServlet {
 			classFilter = request.getParameter("classFilter");
 		}
 		
+		// 사용자가 요청한 날짜 필터 시작일 가져오기
+		if (request.getParameter("startDate") != null) {
+			startDate = request.getParameter("startDate");
+			System.out.println(startDate);
+		}
+		
+		// 사용자가 요청한 날짜 필터 종료일 가져오기
+		if (request.getParameter("endDate") != null) {
+            endDate = request.getParameter("endDate");
+            System.out.println(endDate);
+        }
+		
 		// 이곳에서 선생님 목록을 조회하여 화면으로 전달
-		List<MemberDTO> teacherList = new MemberService().selectTeacherList(page, pageSize, sortOrder, classFilter);
+		List<MemberDTO> teacherList = new MemberService().selectTeacherList(page, pageSize, sortOrder, classFilter, startDate, endDate);
 		System.out.println("서블릿에서 선생님 목록 출력: " + teacherList);
 		
-		int totalTeachers = new MemberService().getTeacherCount(classFilter); // 전체 항목 수
+		int totalTeachers = new MemberService().getTeacherCount(classFilter, startDate, endDate); // 전체 항목 수
 		System.out.println(totalTeachers);
 		int totalPages = (int) Math.ceil(totalTeachers / pageSize) + 1; // 총 몇 페이지가 필요한지 계산 (ceil : 소수점 -> 정수)
 		System.out.println(totalPages);
@@ -52,6 +67,8 @@ public class MasterManagementServlet extends HttpServlet {
 		request.setAttribute("totalPages", totalPages);
 		request.setAttribute("sortOrder", sortOrder);
 		request.setAttribute("classFilter", classFilter);
+		request.setAttribute("startDate", startDate);
+        request.setAttribute("endDate", endDate);
 		
 		// masterAdminManagement.jsp 로 포워드
 		request.getRequestDispatcher("/WEB-INF/views/member/masterAdminManagement.jsp").forward(request, response);

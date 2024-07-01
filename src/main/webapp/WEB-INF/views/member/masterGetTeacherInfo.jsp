@@ -267,8 +267,14 @@ $(document).ready(function() {
                     </div>
                     <div class="input-group">
                         <label for="status">활성상태</label>
-                        <input type="text" id="status" name="status" value="${teacherInfo.status}" class="input-box" required disabled>
-                    </div>
+							<c:choose>
+                                <c:when test="${teacherInfo.status}">
+                                    <input type="text" id="status" name="status" value="활성" class="input-box" required disabled>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="text" id="status" name="status" value="비활성" class="input-box" required disabled>
+                                </c:otherwise>
+                            </c:choose>                    </div>
                     <div class="button-container">
                         <button type="button" id="edit-btn" class="edit-btn">수정하기</button>
                         <button type="button" id="update-btn" class="register-btn" style="display:none;">수정 완료</button>

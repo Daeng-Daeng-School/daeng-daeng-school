@@ -110,6 +110,9 @@
 	<if test="classFilter != ''">
             AND CLASS_CODE = #{classFilter}
     </if>
+    <if test="startDate != '' and endDate != ''">
+            AND JOIN_DATE BETWEEN #{startDate} AND #{endDate}
+    </if>
 	ORDER BY 
 	<choose>
 		<when test="sortOrder == 'status'">STATUS DESC, JOIN_DATE</when>
@@ -128,6 +131,9 @@
         WHERE ROLE_CODE = 2
         <if test="classFilter != ''">
             AND CLASS_CODE = #{classFilter}
+    	</if>
+    	<if test="startDate != '' and endDate != ''">
+            AND JOIN_DATE BETWEEN #{startDate} AND #{endDate}
     	</if>
     </select>
 	
