@@ -208,9 +208,9 @@
 		N.CONTENT
 		FROM tbl_notice N
 		JOIN tbl_dog D ON N.DOG_CODE = D.DOG_CODE
-		JOIN tbl_member M ON D.MEMBER_CODE = M.MEMBER_CODE
+		JOIN tbl_member M ON N.MEMBER_CODE = M.MEMBER_CODE
 		WHERE N.STATUS = 1
-		AND M.MEMBER_CODE = #{memberCode}
+		AND D.MEMBER_CODE = #{memberCode}
 		ORDER BY N.BOARD_CODE DESC
 		LIMIT
 		#{offset}, #{limit}
@@ -224,9 +224,9 @@
 		N.CONTENT
 		FROM tbl_notice N
 		JOIN tbl_dog D ON N.DOG_CODE = D.DOG_CODE
-		JOIN tbl_member M ON D.MEMBER_CODE = M.MEMBER_CODE
+		JOIN tbl_member M ON N.MEMBER_CODE = M.MEMBER_CODE
 		WHERE N.STATUS = 1
-		AND M.MEMBER_CODE = #{memberCode}
+		AND D.MEMBER_CODE = #{memberCode}
 		AND (
 		N.TITLE LIKE CONCAT('%',
 		#{keyword}, '%')

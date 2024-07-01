@@ -24,8 +24,8 @@ function displayComments(comments) {
 		commentListHtml += `
             <div class="comment" data-comment-code="${comment.commentCode}">
                 <div class="comment-info">
-                	<p class="author">${comment.memberCode}</p>
-                	<!-- 원본 내용 -->
+                    <p class="author">${comment.commentWriter.memberName}</p>
+                    <!-- 원본 내용 -->
                     <p class="original-content">${comment.content}</p>
                     <!-- 편집할 textarea -->
                     <textarea class="edit-content" style="display: none;" rows="3">${comment.content}</textarea> 
@@ -43,27 +43,36 @@ function displayComments(comments) {
         `;
 	});
 	// 댓글 목록 업데이트
-	$("#commentList").html(commentListHtml); 
+	$("#commentList").html(commentListHtml);
 }
 
 // 댓글 등록을 처리하는 함수
 function addComment() {
+	var memberCode = $("#memberCode").val();
 	var noticeNo = $("#noticeNo").val();
 	var content = $("#content").val();
+
+	console.log("memberCode:", memberCode);
+	console.log("noticeNo:", noticeNo);
+	console.log("content:", content);
+
+	if (content.trim() === "") {
+		alert("댓글 내용을 입력해주세요.");
+		return;
+	}
 
 	$.ajax({
 		type: "POST",
 		url: contextPath + "/notice/comment",
 		data: {
 			noticeNo: noticeNo,
-			memberCode: 1,
+			memberCode: memberCode,
 			content: content
 		},
 		success: function(response) {
 			if (response.result === "success") {
-				// alert("댓글이 등록되었습니다.");
-				fetchComments(noticeNo); // 등록 후 댓글 목록 갱신
-				document.getElementById('content').value = ''; // 입력 필드 비우기
+				fetchComments(noticeNo); // 댓글 목록 갱신
+				$("#content").val(''); // 입력 필드 비우기
 			} else {
 				alert("댓글 등록에 실패했습니다.");
 			}
@@ -91,34 +100,33 @@ function toggleEditMode(commentCode) {
 
 // 댓글 저장
 function saveComment(commentCode) {
-var newContent = $(".comment[data-comment-code='" + commentCode + "'] .edit-content").val();
+	var newContent = $(".comment[data-comment-code='" + commentCode + "'] .edit-content").val();
 
-    // 내용을 URL 안전하게 인코딩
-    var encodedContent = encodeURIComponent(newContent);
-    console.log(newContent);
+	// 내용을 URL 안전하게 인코딩
+	var encodedContent = encodeURIComponent(newContent);
+	console.log(newContent);
 
-    $.ajax({
-        type: "PUT",
-        // 톰캣에서 PUT/DELETE 요청시, 바디값이 NULL로 전달되기 때문에, 쿼리스트링으로 댓글 코드와 컨텐츠를 전달함
-        url: contextPath + "/notice/comment?commentCode=" + commentCode + "&content=" + encodedContent,
-        dataType: "json",
-        success: function(response) {
-            if (response.result === "success") {
-                // alert("댓글이 수정되었습니다.");
-                fetchComments($("#noticeNo").val()); // 수정 후 댓글 목록 다시 불러오기
-            } else {
-                alert("댓글 수정에 실패했습니다.");
-                cancelEdit(commentCode); // 실패 시 편집 취소
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("댓글 수정 오류:", error);
-            alert("댓글 수정에 실패했습니다.");
-            cancelEdit(commentCode); // 오류 시 편집 취소
-        }
-    });
+	$.ajax({
+		type: "PUT",
+		// 톰캣에서 PUT/DELETE 요청시, 바디값이 NULL로 전달되기 때문에, 쿼리스트링으로 댓글 코드와 컨텐츠를 전달함
+		url: contextPath + "/notice/comment?commentCode=" + commentCode + "&content=" + encodedContent,
+		dataType: "json",
+		success: function(response) {
+			if (response.result === "success") {
+				// alert("댓글이 수정되었습니다.");
+				fetchComments($("#noticeNo").val()); // 수정 후 댓글 목록 다시 불러오기
+			} else {
+				alert("댓글 수정에 실패했습니다.");
+				cancelEdit(commentCode); // 실패 시 편집 취소
+			}
+		},
+		error: function(xhr, status, error) {
+			console.error("댓글 수정 오류:", error);
+			alert("댓글 수정에 실패했습니다.");
+			cancelEdit(commentCode); // 오류 시 편집 취소
+		}
+	});
 }
-
 
 // 편집 취소 후 보기 모드로 복귀
 function cancelEdit(commentCode) {

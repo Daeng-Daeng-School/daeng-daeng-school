@@ -26,6 +26,7 @@ public class CommentService {
 	public int addComment(CommentDTO comment) {
 		SqlSession session = getSqlSession();
 		commentDAO = session.getMapper(CommentDAO.class);
+		System.out.println("Adding comment: " + comment);
 		int result = commentDAO.insertComment(comment);
 		if (result > 0) {
 			session.commit();
