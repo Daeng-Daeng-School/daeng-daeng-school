@@ -201,7 +201,7 @@ $(document).ready(function() {
 </head>
 <body>
 
-<jsp:include page="../main/main.jsp"/>
+<jsp:include page="../common/menubar.jsp"/>
 
 <div class="mypage-container">
     <div class="container">
