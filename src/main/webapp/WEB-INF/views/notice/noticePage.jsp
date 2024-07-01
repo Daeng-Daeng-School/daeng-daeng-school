@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,16 +18,11 @@
 <script
 	src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
 	referrerpolicy="origin"></script>
-<script>
-        var contextPath = "${pageContext.request.contextPath}";
-        $(document).ready(function() {
-            $('#selectButton').hide(); // 페이지 로딩 시 선택 버튼 숨기기
-        });
-    </script>
 </head>
 <body>
 	<%-- 메뉴바 포함 --%>
 	<jsp:include page="../common/menubar.jsp" />
+
 	<!-- 선택된 반과 반려견 코드를 위한 숨겨진 입력 필드 -->
 	<input type="hidden" name="classCode" id="selectedClassCode" value="">
 	<input type="hidden" name="dogCode" id="selectedDogCode" value="">
@@ -40,8 +35,9 @@
 						<span style="font-weight: 900;">댕댕스쿨</span>에서는<br> 무엇을 할까요?
 					</p>
 					<div class="search-section">
+						<!-- 검색어 입력 필드 -->
 						<input type="text" id="searchInput" class="searchAllInput"
-							placeholder="Search All..." onkeypress="handleKeyPress(event)">
+							placeholder="검색어를 입력하세요..." onkeypress="handleKeyPress(event)">
 						<button class="searchIcon" onclick="search()">🔎</button>
 						<button class="write-post-button" onclick="writeNotice()">작성하기</button>
 					</div>
