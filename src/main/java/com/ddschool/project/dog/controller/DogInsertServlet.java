@@ -25,8 +25,7 @@ public class DogInsertServlet extends HttpServlet {
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
@@ -36,14 +35,13 @@ public class DogInsertServlet extends HttpServlet {
 		int dogClass = Integer.parseInt(request.getParameter("dogClass"));
 		String dogGender = request.getParameter("gender");
 		String birth = request.getParameter("birthdate");
-		String chipNo = request.getParameter("regNumber");
+		String chipNo = request.getParameter("chipNo");
 		double weight = Double.parseDouble(request.getParameter("weight"));
 		String notes = request.getParameter("notes");
 
 		// 현재 로그인한 회원 정보 가져오기 멤버디티오에서 가져오기
 		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
-//        int writerMemberCode = loginMember.getMemberCode();
-		int writerMemberCode = 1; // 예시로 1234를 임의의 회원 코드로 설정
+		int memberCode = loginMember.getMemberCode();
 
 		// 강아지 정보 DTO 생성
 		DogDTO dogDTO = new DogDTO();
@@ -55,12 +53,10 @@ public class DogInsertServlet extends HttpServlet {
 		dogDTO.setChipNo(chipNo);
 		dogDTO.setWeight(weight);
 		dogDTO.setNotes(notes);
-//        멤버디티오에서 가져온거 도그디티오와 연결
-		dogDTO.setMemberCode(writerMemberCode);
+		dogDTO.setMemberCode(memberCode);
 
 		// 강아지 서비스 호출하여 등록 처리
-		DogService DogService = new DogService();
-		int result = DogService.insertDog(dogDTO);
+		int result = new DogService().insertDog(dogDTO);
 
 		// 등록 결과에 따라 페이지 이동 처리
 		String path = "";
