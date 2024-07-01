@@ -21,7 +21,8 @@
 
 
 	<!-- 강아지 정보 등록 -->
-	<insert id="insertDog" parameterType="com.ddschool.project.dog.model.dto.DogDTO">
+	<insert id="insertDog"
+		parameterType="com.ddschool.project.dog.model.dto.DogDTO">
 		INSERT INTO TBL_DOG (
 		DOG_CODE
 		, MEMBER_CODE
@@ -66,39 +67,46 @@
 		, D.MEMBER_CODE
 		, D.CLASS_CODE
 		, D.DOG_NAME
-		, D.GENDER
+		,
+		D.GENDER
 		, D.BIRTH
 		, D.DOG_BREED
 		, D.WEIGHT
 		, D.CHIP_NO
 		, D.NOTES
-		FROM TBL_DOG D
+		FROM
+		TBL_DOG D
 		WHERE D.MEMBER_CODE= #{memberCode}
 	</select>
 
 	<!-- 강아지 정보 수정 -->
-	<update id="updateDog" parameterType="com.ddschool.project.dog.model.dto.DogDTO"> 
-		UPDATE dogs 
-			SET member_code = #{memberCode}
-				 , class_code = #{classCode}
-				 , dog_name = #{dogName}
-				 , gender = #{gender}
-			  	 , birth = #{birth}
-			  	 , dog_breed = #{dogBreed}
-			  	 , weight = #{weight}
-			  	 , chip_no = #{chipNo}
-			  	 , notes = #{notes} 
-				 , join_date = #{joinDate}
-				 , withdraw_date = #{withdrawDate}
-				 , status = #{status} 
+	<update id="updateDog"
+		parameterType="com.ddschool.project.dog.model.dto.DogDTO">
+		UPDATE dogs
+		SET member_code = #{memberCode}
+		, class_code =
+		#{classCode}
+		, dog_name = #{dogName}
+		, gender = #{gender}
+		, birth =
+		#{birth}
+		, dog_breed = #{dogBreed}
+		, weight = #{weight}
+		, chip_no =
+		#{chipNo}
+		, notes = #{notes}
+		, join_date = #{joinDate}
+		, withdraw_date =
+		#{withdrawDate}
+		, status = #{status}
 		WHERE dog_code = #{dogCode}
 	</update>
-	
+
 
 	<!-- 강아지 정보 삭제(가짜삭제) -->
 	<update id="deleteDog" parameterType="int">
-	UPDATE dogs 
-	SET status = 'N' 
+	UPDATE dogs
+	SET status = 'N'
 	WHERE dog_code = #{dogCode}
-	</update>
+</update>
 </mapper>

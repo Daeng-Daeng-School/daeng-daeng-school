@@ -140,6 +140,7 @@
 .text_1 {
 	text-align: left;
 	align-content: center;
+	margin-top: 8vh;
 }
 
 .btn_model {
@@ -235,7 +236,7 @@
 	box-sizing: border-box;
 }
 
-.dog_class {
+.dogClass {
 	width: 300px;
 	margin-left: 60px;
 	border: none;
@@ -248,17 +249,4 @@
 
 #profileForm {
 	margin-top: 20px;
-}
-
-.delete_info {
-	font-size: 14px;
-	line-height: 17px;
-	text-decoration: none;
-	color: #888;
-	display: flex;
-	/* flex-direction: row; */
-	justify-content: flex-end;
-	position: relative;
-	right: 13px;
-	margin-top: -158px;
 }
