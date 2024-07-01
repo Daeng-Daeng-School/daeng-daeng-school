@@ -144,7 +144,7 @@ window.onload = function() {
     const message = "<%= session.getAttribute("registTeacherSuccessMessage") != null ? session.getAttribute("registTeacherSuccessMessage") : "" %>";
     if (message) {
         alert(message);
-        session.removeAttribute("registTeacherSuccessMessage");
+        <% session.removeAttribute("registTeacherSuccessMessage"); %>
     } 
 }
 
@@ -250,10 +250,34 @@ function updateFilters() {
                 </table>
             </div>
             
+            <!-- 페이지네이션 -->
             <div class="pagination">
-                <c:forEach begin="1" end="${totalPages}" var="i">
-                    <a href="${pageContext.servletContext.contextPath}/master/management?page=${i}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+            	
+            	<!--  현재 페이지가 가운데 위치할 수 있도록 -->
+                <c:set var="startPage">
+                    <c:choose>
+                        <c:when test="${currentPage - 2 <= 1}">1</c:when>
+                        <c:otherwise>${currentPage - 2}</c:otherwise>
+                    </c:choose>
+                </c:set>
+                <c:set var="endPage">
+                    <c:choose>
+                        <c:when test="${startPage + 4 >= totalPages}">${totalPages}</c:when>
+                        <c:otherwise>${startPage + 4}</c:otherwise>
+                    </c:choose>
+                </c:set>
+                
+                <a href="${pageContext.servletContext.contextPath}/master/management?page=1&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}">&laquo;&laquo;</a>
+                <a href="${pageContext.servletContext.contextPath}/master/management?page=${currentPage > 1 ? currentPage - 1 : 1}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}">&laquo;</a>
+                
+                <c:forEach var="i" begin="${startPage}" end="${endPage}" varStatus="status">
+                    <c:if test="${i <= totalPages}">
+                        <a href="${pageContext.servletContext.contextPath}/master/management?page=${i}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                    </c:if>
                 </c:forEach>
+                
+                <a href="${pageContext.servletContext.contextPath}/master/management?page=${currentPage < totalPages ? currentPage + 1 : totalPages}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}">&raquo;</a>
+                <a href="${pageContext.servletContext.contextPath}/master/management?page=${totalPages}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}">&raquo;&raquo;</a>
             </div>
             
         </div>
