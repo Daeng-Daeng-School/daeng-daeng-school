@@ -8,8 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>나의 반려견 정보 등록</title>
-<link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath}/resources/css/dog.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/dog.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -22,7 +21,7 @@
 		<div class="container">
 			<div class="sidebar">
 				<ul>
-					<li><a href="#">회원정보 관리</a></li>
+					<li><a href="${pageContext.servletContext.contextPath}/member/mypage">회원정보 관리</a></li>
 					<li><a
 						href="${pageContext.servletContext.contextPath}/dog/select"
 						class="current">반려견정보 관리</a>
