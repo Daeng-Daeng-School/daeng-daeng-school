@@ -1,5 +1,6 @@
 package com.ddschool.project.member.model.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MemberDTO {
@@ -152,6 +153,12 @@ public class MemberDTO {
 				+ phone + ", address=" + address + ", status=" + status + ", joinDate=" + joinDate + ", withdrawDate="
 				+ withdrawDate + "]";
 	}
+	
+	// 포맷된 날짜를 반환하는 메서드
+    public String getFormattedDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(joinDate);
+    }
 
 }
 

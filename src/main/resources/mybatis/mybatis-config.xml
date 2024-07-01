@@ -23,7 +23,7 @@
 	<mapper resource="com/ddschool/project/notice/model/dao/CommentDAO.xml"/>
 	<mapper resource="com/ddschool/project/ddclass/model/dao/ClassDAO.xml"/>
 	<mapper resource="com/ddschool/project/classbook/model/dao/ClassbookDAO.xml" />
-		
+	<mapper resource="com/ddschool/project/sticker/model/dao/StickerDAO.xml" />
 	</mappers>
 	
 </configuration>

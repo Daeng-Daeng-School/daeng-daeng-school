@@ -19,7 +19,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+<<<<<<< HEAD
 @WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*"}) /*,"/dog/*"*/
+=======
+@WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*", "/class/*"})
+>>>>>>> refs/remotes/origin/master
 public class AuthenticationFilter implements Filter {
 	
 	Map<String, List<String>> permitURIList;

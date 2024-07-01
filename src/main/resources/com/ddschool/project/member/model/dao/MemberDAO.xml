@@ -102,12 +102,40 @@
 	WHERE MEMBER_CODE = #{ deleteMemberCode }
 	</update>
 	
-	<!-- 전체 선생님 목록 조회 -->
+	<!-- 전체 선생님 목록 조회 (페이지네이션 적용) -->
 	<select id="selectTeacherList" resultMap="memberResultMap">
 	SELECT *
 	FROM TBL_MEMBER
 	WHERE ROLE_CODE = 2
+	<if test="classFilter != ''">
+            AND CLASS_CODE = #{classFilter}
+    </if>
+    <if test="startDate != '' and endDate != ''">
+            AND JOIN_DATE BETWEEN #{startDate} AND #{endDate}
+    </if>
+	ORDER BY 
+	<choose>
+		<when test="sortOrder == 'status'">STATUS DESC, JOIN_DATE</when>
+		<when test="sortOrder == 'classCode'">CLASS_CODE, JOIN_DATE</when>
+		<otherwise>
+			JOIN_DATE
+		</otherwise>
+	</choose>
+	LIMIT #{limit} OFFSET #{offset}
 	</select>
+	
+	<!-- 총 선생님 데이터 수 조회 -->
+    <select id="getTeacherCount" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_MEMBER
+        WHERE ROLE_CODE = 2
+        <if test="classFilter != ''">
+            AND CLASS_CODE = #{classFilter}
+    	</if>
+    	<if test="startDate != '' and endDate != ''">
+            AND JOIN_DATE BETWEEN #{startDate} AND #{endDate}
+    	</if>
+    </select>
 	
 	<!-- 아이디 중복체크 -->
 	<select id="isMemberIdExists" parameterType="String" resultType="boolean">
