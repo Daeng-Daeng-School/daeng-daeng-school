@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Ajax를 이용해 검색 요청 전송
         $.ajax({
-            type: "POST",
-            url: contextPath + "/notice", // 검색 요청을 처리할 서버 경로
+            type: "GET",
+            url: contextPath + "/notice/search", // 검색 요청을 처리할 서버 경로
             data: { keyword: searchInput }, // 검색어 데이터 전송
             dataType: "json", // 응답 데이터 타입 설정
             success: function(data) { // 성공적으로 응답을 받았을 때 처리할 함수
