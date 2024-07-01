@@ -55,6 +55,18 @@ public class ClassbookService {
 		return dogClassbookList;
 	}
 
+	// dogCode 로 출석 조회
+	public List<ClassbookDTO> getAttendanceByDogCode(int dogCode, String yearMonth) {
+		
+		SqlSession session = getSqlSession();
+		classbookDAO = session.getMapper(ClassbookDAO.class);
+		
+		List<ClassbookDTO> attendanceList = classbookDAO.getAttendanceByDogCode(dogCode, yearMonth);
+		
+		session.close();
+		return attendanceList;
+	}
+
 	
 	/*
 	 * public List<ClassbookDTO> getDogClassbookList(Map<String, Object> params) {

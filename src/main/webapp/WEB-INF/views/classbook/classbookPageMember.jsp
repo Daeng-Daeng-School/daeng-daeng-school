@@ -1,155 +1,112 @@
-<%@page
-	import="com.ddschool.project.classbook.model.service.ClassbookService"
-	import="java.util.List"
-	import="com.ddschool.project.dog.model.dto.DogDTO"
-	import="java.util.Map" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>댕댕스쿨</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath}/resources/css/classbook.css">
-<script>
-	var contextPath = '${pageContext.servletContext.contextPath}';
-</script>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>댕댕 유치원 출석부</title>
+	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/classbook.css">
+    <link href='${pageContext.servletContext.contextPath}/resources/fullcalendar/main.css' rel='stylesheet' />
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='${pageContext.servletContext.contextPath}/resources/fullcalendar/main.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+    <style>
+    	/* 달력 위치 조정을 위한 CSS */
+	    #calendar {
+	  		width: 40%; 
+		    height: auto; 
+		    margin-left: auto; 
+		    margin-right: auto; 
+		}
+    </style>
+    <script>
 
-<script>
-    $(document).ready(function() {
-        // 오늘 날짜로 기본 설정
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = (today.getMonth() + 1).toString().padStart(2, '0');
-        var formattedDate = year + '-' + month;
-        $('#selectedMonth').val(formattedDate);
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'today'
+            },
+            initialView: 'dayGridMonth',
+            events: [], // 초기 빈 이벤트 배열
+            datesSet: function(dateInfo) {
+                var dogCode = $('#dogSelect').val();
+                if (dogCode) {
+                	var yearMonth = new Date(dateInfo.start);
+                    yearMonth.setMonth(yearMonth.getMonth() + 1); // 한 달 더하기
+                    var formattedYearMonth = yearMonth.toISOString().slice(0, 7); // 변동된 년월을 가져옴
+                    loadDogCalendar(dogCode, formattedYearMonth);
+                }
+            }
+        });
+        calendar.render();
+       
+     	// 강아지 선택 시 호출되는 함수
+        window.loadDogCalendar = function (dogCode, yearMonth) {
+        	
+            if (!dogCode) {
+                calendar.removeAllEvents(); // 강아지 선택 해제 시 이벤트 모두 제거
+                return;
+            }
+
+            $.ajax({
+                url: '${pageContext.servletContext.contextPath}/classbook/member',
+                type: 'GET',
+                data: { dogCode: dogCode, yearMonth: yearMonth },
+                success: function (data) {
+                    // 기존 이벤트 제거
+                    calendar.removeAllEvents();
+
+                    // 새로운 이벤트 추가
+                    data.forEach(function(event) {
+                    	var color = event.checkStatus === 'Y' ? 'green' : 'red';
+                        calendar.addEvent({
+                            title: event.checkStatus === 'Y' ? '출석' : '결석', // 출석 상태
+                            start: event.checkDate, // 날짜
+                            allDay: true,
+                            backgroundColor: color, // 배경 색상
+                            borderColor: color // 테두리 색상
+                        });
+                    });
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        };
+
+     	// 첫 번째 강아지를 자동으로 선택
+        var firstDogOption = $('#dogSelect option:eq(1)'); // 첫 번째 강아지 옵션
+        if (firstDogOption.length) {
+        	firstDogOption.prop('selected', true);
+            var yearMonth = new Date();
+            var formattedYearMonth = yearMonth.toISOString().slice(0, 7); // 변동된 년월을 가져옴
+            loadDogCalendar(firstDogOption.val(), formattedYearMonth); // 첫 번째 강아지의 달력 데이터를 로드
+        }
     });
-</script>
-
-</head>
-<body>
-	<jsp:include page="../common/menubar.jsp" />
-	<div class="text-area">
-		<b>댕댕 유치원 출석부</b>를<br>이용해볼까요?
-
-		<div class="select-bar">
-			<form>
-				<!-- 연도-월 선택 input -->
-				<input type="month" id="selectedMonth" data-placeholder="연도-월 선택"
-					required aria-required="true">
-
-				<!-- 반 선택 select (disabled) -->
-				<select disabled>
-					<option>반 선택</option>
-				</select>
-
-				<!-- 조회하기 버튼 -->
-				<button type="submit" class="btn-black" id="getDogMember">조회하기</button>
-			</form>
-		</div>
-
-
-		<%-- 테이블 영역 --%>
-		<div class="table-area-member">
-			<table align="center" id="listArea1" class="table-con">
-				<thead>
-				<tr class="head-tr">
-					<th>반려견/날짜</th>
-					<c:forEach begin="1" end="15" var="day">
-						<th>${day }일</th>
-					</c:forEach>
-				</tr>
-				</thead>
-				<tbody>
-				<c:forEach var="dog" items="${dogClassbookList}">
-					<tr class="body-tr">
-						<td>${dog.DOG_NAME }</td>
-						<c:forEach begin="1" end="15" var="day">
-							<td>${dog[day]}</td>
-						</c:forEach>
-					</tr>
-				</c:forEach>
-				</tbody>
-			</table>
-		</div>
-		
-		<div class="table-area-member">
-			<table align="center" id="listArea2" class="table-con">
-				<thead>
-				<tr class="head-tr">
-					<th>반려견/날짜</th>
-					<c:forEach begin="16" end="31" var="day">
-						<th>${day }일</th>
-					</c:forEach>
-				</tr>
-				</thead>
-				<tbody>
-				<c:forEach var="dog" items="${dogClassbookList}">
-					<tr class="body-tr">
-						<td>${dog.DOG_NAME }</td>
-						<c:forEach begin="16" end="31" var="day">
-							<td>${dog[day]}</td>
-						</c:forEach>
-					</tr>
-				</c:forEach>
-				</tbody>
-			</table>
-		</div>
-</table>
-</div> 
-
-
-		<div>
-
-			<%-- 모달 창 --%>
-			<div id="myModal" class="modal">
-				<div class="modal-content">
-					<span class="close">&times;</span>
-					<div id="modalTable">
-						<table align="center" id="listArea" class="table-con">
-							<tr>
-								<th>출결</th>
-								<%
-								// 강아지 반복
-								for (int i = 1; i <= 10; i++) {
-									out.println("<th>강아지" + i + "</th>");
-								}
-								%>
-							</tr>
-							<tr>
-								<th>출석</th>
-								<%
-								// 출석 여부 체크박스
-								for (int i = 1; i <= 10; i++) {
-									out.println("<td><input type='checkbox'></td>");
-								}
-								%>
-							</tr>
-							<tr>
-								<th>결석</th>
-								<%
-								// 결석 여부 체크박스
-								for (int i = 1; i <= 10; i++) {
-									out.println("<td><input type='checkbox'></td>");
-								}
-								%>
-							</tr>
-						</table>
-					</div>
-					<div align="center">
-						<button class="btn-black" id="submitClassbookBtn">등록하기</button>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<%-- 푸터 --%>
-	<jsp:include page="../common/footer.jsp" />
-</body>
+    </script>
+  </head>
+  <body>
+  <jsp:include page="../common/menubar.jsp"/>
+  
+  <div class="text-area">
+  <span><b>댕댕 유치원 출석부</b>를<br>이용해볼까요?</span>
+  <div class="select-bar">
+  	<form>
+        <!-- 강아지 선택 select -->
+        <select id="dogSelect" onchange="loadDogCalendar(this.value, new Date().toISOString().slice(0, 7))">
+          <option value="">강아지를 선택하세요</option>
+          <c:forEach var="dog" items="${myDogs}">
+            <option value="${dog.dogCode}">${dog.dogName}</option>
+          </c:forEach>
+        </select>
+     </form>
+  </div>
+  </div>
+  
+    <div id='calendar'></div>
+  </body>
 </html>
