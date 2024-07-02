@@ -28,7 +28,17 @@ public interface NoticeDAO {
 	 * @return 전체 알림장 수
 	 */
 	int selectTotalCount();
+	int getTotalNoticeCount(String keyword);
+	
+	int getTotalNoticeCount(int memberCode);
+	int getTotalNoticeCount(Map<String, Object> paramMap);
+	
+	int getTotalNoticeCountByClassCode(int classCode);
+	int getTotalNoticeCountByClassCode(Map<String, Object> paramMap);
 
+
+
+	
 	/**
 	 * 특정 페이지의 알림장 목록 조회
 	 * 
@@ -69,9 +79,6 @@ public interface NoticeDAO {
 	 * @return 검색된 알림장 목록
 	 */
 
-	int getSearchNoticeCount(String keyword);
-
-	List<NoticeDTO> searchNotices(Map<String, Object> params);
 
 	List<ClassDTO> selectClassList();
 
@@ -83,20 +90,10 @@ public interface NoticeDAO {
 
 	int getClassCodeByMemberCode(int memberCode);
 
-	int getSearchNoticeCountByClassCode(int classCode, String keyword);
-
-	List<NoticeDTO> searchNoticesByClassCode(int classCode, String keyword, int i, int limit);
-
-	int getTotalNoticeCountByClassCode(int classCode);
-
-	int getSearchNoticeCountByMemberCode(int memberCode, String keyword);
-
-	int getTotalNoticeCountByMemberCode(int memberCode);
-
-	List<NoticeDTO> searchNoticesByMemberCode(int memberCode, String keyword, int offset, int limit);
 
 	List<NoticeDTO> selectNoticeByMemberCode(Map<String, Object> paramMap);
 
 	List<NoticeDTO> selectNoticeByClassCode(Map<String, Object> paramMap);
+
 
 }
