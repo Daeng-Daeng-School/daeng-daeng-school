@@ -48,6 +48,9 @@
   	<insert id="insertAttendanceRecord">
     INSERT INTO TBL_CLASSBOOK (MEMBER_CODE, DOG_CODE, CHECK_DATE, CHECK_STATUS)
     VALUES (#{memberCode}, #{dogCode}, #{checkDate}, #{checkStatus})
+    ON DUPLICATE KEY UPDATE
+            CHECK_STATUS = #{checkStatus},
+            MODIFY_DATE = NOW()
 	</insert>
   
   </mapper>
