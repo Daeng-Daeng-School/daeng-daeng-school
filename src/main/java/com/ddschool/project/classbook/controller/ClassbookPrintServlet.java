@@ -16,8 +16,8 @@ import com.ddschool.project.classbook.model.dto.ClassbookDTO;
 import com.ddschool.project.classbook.model.service.ClassbookService;
 import com.google.gson.Gson;
 
-@WebServlet("/classbook/member")
-public class ClassbookSelectListMemberServlet extends HttpServlet {
+@WebServlet("/classbook/print")
+public class ClassbookPrintServlet extends HttpServlet {
 
 	// 강아지의 출석 정보를 달력에 제공
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

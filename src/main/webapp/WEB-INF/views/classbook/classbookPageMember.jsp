@@ -53,7 +53,7 @@
             }
 
             $.ajax({
-                url: '${pageContext.servletContext.contextPath}/classbook/member',
+                url: '${pageContext.servletContext.contextPath}/classbook/print',
                 type: 'GET',
                 data: { dogCode: dogCode, yearMonth: yearMonth },
                 success: function (data) {

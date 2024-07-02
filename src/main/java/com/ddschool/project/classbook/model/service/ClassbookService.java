@@ -17,21 +17,6 @@ public class ClassbookService {
 	
 	private ClassbookDAO classbookDAO;
 	
-	/*
-	 * public List<DogDTO> getDogNameList() {
-	 * 
-	 * SqlSession session = getSqlSession(); 
-	 * classbookDAO = session.getMapper(ClassbookDAO.class);
-	 * 
-	 * List<DogDTO> dogList = classbookDAO.getDogNameList();
-	 * 
-	 * session.close();
-	 * 
-	 * return dogList;
-	 * 
-	 * }
-	 */
-	
 	public int getClassName(){
 		
 		SqlSession session = getSqlSession();
@@ -67,21 +52,41 @@ public class ClassbookService {
 		return attendanceList;
 	}
 
-	
-	/*
-	 * public List<ClassbookDTO> getDogClassbookList(Map<String, Object> params) {
-	 * 
-	 * SqlSession session = getSqlSession(); classbookDAO =
-	 * session.getMapper(ClassbookDAO.class);
-	 * 
-	 * List<ClassbookDTO> resultList = classbookDAO.getDogClassbookList(params);
-	 * System.out.println(resultList); session.close(); return resultList; }
-	 */
+	// 출석 등록
+	public int insertAttendanceRecord(ClassbookDTO classbookDTO) {
+		
+		SqlSession session = getSqlSession();
+		classbookDAO = session.getMapper(ClassbookDAO.class);
+		
+		int result = classbookDAO.insertAttendanceRecord(classbookDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		return result;
+	}
 
-	/*
-	 * public List<Map<String, Object>> getDogClassbookList(int memberCode, String
-	 * month) { Map<String, Object> paramMap = new HashMap<>();
-	 * paramMap.put("memberCode", memberCode); paramMap.put("month", month); return
-	 * classbookDAO.getDogClassbookList(paramMap); }
-	 */
+	// 출석 삭제
+	public int deleteAttendanceRecord(ClassbookDTO classbookDTO) {
+		
+		SqlSession session = getSqlSession();
+		classbookDAO = session.getMapper(ClassbookDAO.class);
+		
+		int result = classbookDAO.deleteAttendanceRecord(classbookDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		return result;
+		
+	}
+	
 }

@@ -24,9 +24,6 @@
 
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-        
-        
-        
         var calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
                 left: 'prev,next',
@@ -43,20 +40,42 @@
                     var formattedYearMonth = yearMonth.toISOString().slice(0, 7); 
                     loadDogCalendar(dogCode, formattedYearMonth);
                 }
+            },
+            dateClick: function(info) {
+                var dogCode = $('#dogSelect').val();
+                if (dogCode) {
+                    $('#modal').show();
+                    $('#modal-date').val(info.dateStr);
+                    $('#modal-dog-code').val(dogCode);
+                    
+                 // 데이터가 있으면 저장/삭제 버튼 보이기, 없으면 저장 버튼만 보이기
+                    var status = getAttendanceStatus(dogCode, info.dateStr);
+                    if (status) {
+                        $('#modal-status').val(status);
+                        $('#modal-save').show();
+                        $('#modal-delete').show();
+                    } else {
+                        $('#modal-status').val('Y'); // 기본값은 출석으로 설정
+                        $('#modal-save').show();
+                        $('#modal-delete').hide();
+                    }
+                     
+                } else {
+                    alert("강아지를 선택해주세요.");
+                }
             }
         });
         calendar.render();
        
      	// 강아지 선택 시 호출되는 함수
         window.loadDogCalendar = function (dogCode, yearMonth) {
-        	
             if (!dogCode) {
                 calendar.removeAllEvents(); // 강아지 선택 해제 시 이벤트 모두 제거
                 return;
             }
 
             $.ajax({
-                url: '${pageContext.servletContext.contextPath}/classbook/member',
+                url: '${pageContext.servletContext.contextPath}/classbook/print',
                 type: 'GET',
                 data: { dogCode: dogCode, yearMonth: yearMonth },
                 success: function (data) {
@@ -80,7 +99,83 @@
                 }
             });
         };
+        
+        // 출석 기록 저장 모달창
+        $('#modal-save').on('click', function() {
+            var dogCode = $('#modal-dog-code').val();
+            var checkDate = $('#modal-date').val();
+            var checkStatus = $('#modal-status').val();
 
+            $.ajax({
+                url: '${pageContext.servletContext.contextPath}/classbook/regist',
+                type: 'POST',
+                data: { dogCode: dogCode, checkDate: checkDate, checkStatus: checkStatus },
+                success: function(response) {
+                    alert("출석 기록이 추가되었습니다.");
+                    $('#modal').hide();
+                    var yearMonth = checkDate.slice(0, 7);
+                    loadDogCalendar(dogCode, yearMonth);
+                },
+                error: function(error) {
+                    console.error('Error adding attendance record:', error);
+                    alert("출석 기록 추가 중 오류가 발생했습니다.");
+                }
+            });
+        });
+
+        //출석 기록 삭제 모달창
+        $('#modal-delete').on('click', function(){
+        	var dogCode = $('#modal-dog-code').val();
+            var checkDate = $('#modal-date').val();
+            var checkStatus = $('#modal-status').val();
+            
+            $.ajax({
+                url: '${pageContext.servletContext.contextPath}/classbook/delete',
+                type: 'POST',
+                data: { dogCode: dogCode, checkDate: checkDate, checkStatus: checkStatus },
+                success: function(response) {
+                    alert("출석 기록이 삭제되었습니다.");
+                    $('#modal').hide();
+                    var yearMonth = checkDate.slice(0, 7);
+                    loadDogCalendar(dogCode, yearMonth);
+                },
+                error: function(error) {
+                    console.error('Error deleting attendance record:', error);
+                    alert("출석 기록 삭제 중 오류가 발생했습니다.");
+                }
+            });
+		
+        })
+        
+        
+        $('.close').on('click', function() {
+            $('#modal').hide();
+        });
+
+        
+        
+     // 함수: 날짜와 강아지 코드로 출석 여부 조회
+        function getAttendanceStatus(dogCode, checkDate) {
+            var status = ''; // 출석 여부 초기값
+
+            // 여기서 서버로 해당 날짜와 강아지 코드를 기반으로 조회하여 출석 상태를 가져옴
+            $.ajax({
+                url: '${pageContext.servletContext.contextPath}/classbook/delete',
+                type: 'GET',
+                async: false,
+                data: { dogCode: dogCode, checkDate: checkDate },
+                success: function(response) {
+                    status = response;
+                },
+                error: function(error) {
+                    console.error('Error fetching attendance status:', error);
+                }
+            });
+
+            return status;
+        }
+        
+        
      	// 첫 번째 강아지를 자동으로 선택
         var firstDogOption = $('#dogSelect option:eq(1)'); // 첫 번째 강아지 옵션
         if (firstDogOption.length) {
@@ -141,5 +236,25 @@
   </div>
   
     <div id='calendar'></div>
+    
+    <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>출석 정보 등록/수정</h2>
+        <form id="attendanceForm">
+            <input type="hidden" id="modal-dog-code">
+            <label for="modal-date">날짜:</label>
+            <input type="text" id="modal-date" readonly><br><br>
+            <label for="modal-status">출석 여부:</label>
+            <select id="modal-status">
+                <option value="Y">출석</option>
+                <option value="N">결석</option>
+            </select><br><br>
+            <button type="button" id="modal-save">저장</button>
+            <button type="button" id="modal-delete">삭제</button>
+        </form>
+    </div>
+	</div>
+	
   </body>
 </html>

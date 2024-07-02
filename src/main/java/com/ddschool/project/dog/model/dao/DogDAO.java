@@ -26,5 +26,8 @@ public interface DogDAO {
 
 	/* 강아지 정보 삭제 */
 	int deleteDog(@Param("dogCode") int dogCode);
+	
+	// 강아지코드로 멤버코드 조회
+	int getMemberIdByDogCode(int dogCode);
 
 }

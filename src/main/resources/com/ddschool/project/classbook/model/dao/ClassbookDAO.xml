@@ -6,28 +6,13 @@
   
   <resultMap type="com.ddschool.project.classbook.model.dto.ClassbookDTO" id="classbookResultMap">
   <id property="classbookNo" column="CLASSBOOK_CODE" />
-  <result property="dog" column="DOG_CODE" />
+  <result property="memberCode" column="MEMBER_CODE" />
+  <result property="dogCode" column="DOG_CODE" />
   <result property="checkDate" column="CHECK_DATE"/>
   <result property="checkStatus" column="CHECK_STATUS"/>
   <result property="modifyDate" column="MODIFY_DATE"/>
-  <collection property="member" ofType="com.ddschool.project.member.model.dto.MemberDTO" resultMap="memberResultMap"/>
   </resultMap>
-  
-  <resultMap id="memberResultMap" type="com.ddschool.project.member.model.dto.MemberDTO">
-  	<id property="memberCode" column="MEMBER_CODE"/>
-		<result property="classCode" column="CLASS_CODE"/>
-		<result property="roleCode" column="ROLE_CODE"/>
-		<result property="memberId" column="MEMBER_ID"/>
-		<result property="memberPwd" column="MEMBER_PWD"/>
-		<result property="memberName" column="MEMBER_NAME"/>
-		<result property="phone" column="PHONE"/>
-		<result property="address" column="ADDRESS"/>
-		<result property="memberBirth" column="MEMBER_BIRTH"/>
-		<result property="status" column="STATUS"/>
-		<result property="joinDate" column="JOIN_DATE"/>
-		<result property="withdrawDate" column="WITHDRAW_DATE"/>
-  </resultMap>
-  
+    
   <resultMap type="com.ddschool.project.dog.model.dto.DogDTO" id="dogResultMap">
 		<id property="dogCode" column="dog_code" />
 	<result property="memberCode" column="member_code" />
@@ -59,5 +44,21 @@
   		FROM TBL_MEMBER
   		WHERE MEMBER_ID='teacher'
   	</select>
+  	
+  	<!-- 출석 등록 -->
+  	<insert id="insertAttendanceRecord">
+    INSERT INTO TBL_CLASSBOOK (MEMBER_CODE, DOG_CODE, CHECK_DATE, CHECK_STATUS)
+    VALUES (#{memberCode}, #{dogCode}, #{checkDate}, #{checkStatus})
+    ON DUPLICATE KEY UPDATE
+            CHECK_STATUS = #{checkStatus},
+            MODIFY_DATE = NOW()
+	</insert>
   
+  <!-- 출석 삭제 -->
+  <delete id="deleteAttendanceRecord">
+  DELETE FROM TBL_CLASSBOOK
+  WHERE
+  	DOG_CODE = #{dogCode} AND CHECK_DATE = #{checkDate},
+	CHECK_STATUS = #{checkStatus}  	
+  </delete>
   </mapper>
