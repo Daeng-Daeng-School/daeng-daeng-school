@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-main {
-	background: #FFFFFF;
-	min-height: 520px;
-	position: relative;
-	top: 175px;
-}
 
 table tr th {
 	text-align: center;
