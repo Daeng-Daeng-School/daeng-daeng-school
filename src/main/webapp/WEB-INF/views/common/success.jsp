@@ -39,6 +39,10 @@
 					successMessage = "사진게시판 등록에 성공하셨습니다!";
 					movePath = "${ pageContext.servletContext.contextPath }/thumbnail/list";
 					break;
+				case "insertDog" : 
+					successMessage = "강아지 등록에 성공하셨습니다!";
+					movePath = "${ pageContext.servletContext.contextPath }/dog/insert";
+					break;
 			}
 
 			alert(successMessage);

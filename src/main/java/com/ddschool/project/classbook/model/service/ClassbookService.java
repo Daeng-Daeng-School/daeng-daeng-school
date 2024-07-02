@@ -55,29 +55,16 @@ public class ClassbookService {
 		return dogClassbookList;
 	}
 
-	public List<Map<String, Object>> getClassbookList(String month, int classCode) {
-	
+	// dogCode 로 출석 조회
+	public List<ClassbookDTO> getAttendanceByDogCode(int dogCode, String yearMonth) {
+		
 		SqlSession session = getSqlSession();
 		classbookDAO = session.getMapper(ClassbookDAO.class);
 		
-		List<Map<String, Object>> classbookList = classbookDAO.getClassbookList(month, classCode);
-		System.out.println("여긴 서비스"+classbookList);
+		List<ClassbookDTO> attendanceList = classbookDAO.getAttendanceByDogCode(dogCode, yearMonth);
 		
 		session.close();
-		return classbookList;
-	}
-
-	public List<Map<String, Object>> getAdminClassbookList(String selectedDay, String[] status, String month, int classCode){
-
-			SqlSession session = getSqlSession();
-			classbookDAO = session.getMapper(ClassbookDAO.class);
-			
-			List<Map<String, Object>> adminClassbookList = classbookDAO.getAdminClassbookList(selectedDay, status, month, classCode);
-			System.out.println("여긴 서비스" + adminClassbookList);
-			
-			session.close();
-			return adminClassbookList;
-	
+		return attendanceList;
 	}
 
 	

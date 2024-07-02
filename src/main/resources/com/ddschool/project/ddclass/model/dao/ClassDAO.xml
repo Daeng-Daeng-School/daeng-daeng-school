@@ -23,6 +23,13 @@
 	SELECT *
 	FROM TBL_CLASS
 	</select>
+	
+	<!-- 반 활성상태 변경 -->
+	<update id="updateClassStatus">
+	UPDATE TBL_CLASS
+	SET STATUS = #{ status }
+	WHERE CLASS_CODE = #{ classCode }
+	</update>
 
 
 </mapper>

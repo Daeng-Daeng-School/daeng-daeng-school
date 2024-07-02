@@ -208,7 +208,7 @@ $(document).ready(function() {
         <div class="sidebar">
             <ul>
                 <li><a href="${pageContext.servletContext.contextPath}/member/mypage" class="current">회원정보 관리</a></li>
-                <li><a href="${pageContext.servletContext.contextPath}">반려견정보 관리</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/dog/select">반려견정보 관리</a></li>
             </ul>
         </div>
         <div class="main-content">

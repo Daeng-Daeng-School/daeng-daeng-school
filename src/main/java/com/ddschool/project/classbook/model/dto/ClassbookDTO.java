@@ -9,90 +9,97 @@ public class ClassbookDTO {
 	
 	private int classbookNo;
 	private List<MemberDTO> member;
-	private int dogCode;
-	private Date checkDate;
+	private int dog;
+	private String checkDate;
 	private String checkStatus;
 	private Date modifyDate;
-	private boolean status;
+	
 	
 	public ClassbookDTO() {
-		super();
+		
 	}
 
-	public ClassbookDTO(int classbookNo, List<MemberDTO> member, int dogCode, Date checkDate, String checkStatus,
-			Date modifyDate, boolean status) {
+
+	public ClassbookDTO(int classbookNo, List<MemberDTO> member, int dog, String checkDate, String checkStatus,
+			Date modifyDate) {
 		super();
 		this.classbookNo = classbookNo;
 		this.member = member;
-		this.dogCode = dogCode;
+		this.dog = dog;
 		this.checkDate = checkDate;
 		this.checkStatus = checkStatus;
 		this.modifyDate = modifyDate;
-		this.status = status;
 	}
+
 
 	public int getClassbookNo() {
 		return classbookNo;
 	}
 
+
 	public void setClassbookNo(int classbookNo) {
 		this.classbookNo = classbookNo;
 	}
+
 
 	public List<MemberDTO> getMember() {
 		return member;
 	}
 
+
 	public void setMember(List<MemberDTO> member) {
 		this.member = member;
 	}
 
-	public int getDogCode() {
-		return dogCode;
+
+	public int getDog() {
+		return dog;
 	}
 
-	public void setDogCode(int dogCode) {
-		this.dogCode = dogCode;
+
+	public void setDog(int dog) {
+		this.dog = dog;
 	}
 
-	public Date getCheckDate() {
+
+	public String getCheckDate() {
 		return checkDate;
 	}
 
-	public void setCheckDate(Date checkDate) {
+
+	public void setCheckDate(String checkDate) {
 		this.checkDate = checkDate;
 	}
+
 
 	public String getCheckStatus() {
 		return checkStatus;
 	}
 
+
 	public void setCheckStatus(String checkStatus) {
 		this.checkStatus = checkStatus;
 	}
+
 
 	public Date getModifyDate() {
 		return modifyDate;
 	}
 
+
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
 
 	@Override
 	public String toString() {
-		return "ClassbookDTO [classbookNo=" + classbookNo + ", member=" + member + ", dogCode=" + dogCode
-				+ ", checkDate=" + checkDate + ", checkStatus=" + checkStatus + ", modifyDate=" + modifyDate
-				+ ", status=" + status + "]";
+		return "ClassbookDTO [classbookNo=" + classbookNo + ", member=" + member + ", dog=" + dog + ", checkDate="
+				+ checkDate + ", checkStatus=" + checkStatus + ", modifyDate=" + modifyDate + "]";
 	}
 	
-}
 	
+	
+	
+
+}

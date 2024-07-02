@@ -142,7 +142,11 @@ INSERT INTO TBL_MEMBER_ROLE (ROLE_NAME) VALUES
 INSERT INTO TBL_CLASS (CLASS_NAME) VALUES
 ('오전반'),
 ('오후반'),
+<<<<<<< HEAD
 ('종일반');
 
 
 
+=======
+('종일반');
+>>>>>>> refs/remotes/origin/master

@@ -17,8 +17,6 @@ public interface ClassbookDAO {
 	
 	List<Map<String, Object>> getDogClassbookList(String month);
 
-	List<Map<String, Object>> getClassbookList(@Param("month") String month, @Param("classCode") int classCode);
-
-	List<Map<String, Object>> getAdminClassbookList(String selectedDay, String[] status, String month, int classCode);
+	List<ClassbookDTO> getAttendanceByDogCode(@Param("dogCode") int dogCode, @Param("yearMonth") String yearMonth);
 
 }

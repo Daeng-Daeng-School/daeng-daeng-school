@@ -35,9 +35,9 @@ public class MemberService {
 		return result;
 	}
 
+	// 로그인 비밀번호 체크
 	public MemberDTO loginCheck(MemberDTO requestMember) {
 
-		System.out.println("서비스에서 로그인체크 시작");
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
 		
@@ -50,26 +50,19 @@ public class MemberService {
 		// 복호화하기 위해 BCryptPasswordEncoder 생성
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		
-		// 로그인 요청한 비밀번호와 디비에 저장된 비밀번호가 같은지 확인
-		// 같으면 로그인한 memberDTO 가져오고, 다르면 null 전달
-		
-		System.out.println("[MemberService] 입력한 비밀번호: " + requestMember.getMemberPwd());
+		// 로그인 요청 비밀번호와 디비에 저장된 비밀번호가 같은지 확인
 		if(passwordEncoder.matches(requestMember.getMemberPwd(), encPwd)) {
-			System.out.println("일치하는 회원정보 발견!! dao 에서 해당 회원 정보 찾아오겠다!!");
-			
 			loginMember = memberDAO.selectLoginMember(requestMember);
-			System.out.println("과연 결과는?!!");
 			System.out.println(loginMember);
 		}
 		
 		session.close();
-		
-		return loginMember; // controller 에 결과 전달
+		return loginMember; 
 
 	}
 
+	// 회원정보 수정
 	public int updateMember(int requestMemberCode, String changePhone, String changeAddress) {
-		
 		System.out.println("서비스에서 회원정보 수정 시작!");
 		
 		SqlSession session = getSqlSession();
@@ -84,13 +77,12 @@ public class MemberService {
 		}
 		
 		session.close();
-		
 		return updateResult;
 		
 	}
 
+	// 회원탈퇴
 	public int deleteMember(int deleteMemberCode, boolean deleteMemberSatus) {
-		
 		System.out.println("서비스에서 회원탈퇴 시작!");
 		
 		SqlSession session = getSqlSession();
@@ -105,25 +97,45 @@ public class MemberService {
 		}
 		
 		session.close();
-		
 		return deleteResult;
 	}
 
-	public List<MemberDTO> selectTeacherList() {
-		
+	// 선생님목록 조회
+	public List<MemberDTO> selectTeacherList(int page, int pageSize, String sortOrder, String classFilter, String startDate, String endDate) {
 		System.out.println("서비스에서 선생님 목록조회 시작!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
 		
-		List<MemberDTO> teacherList = memberDAO.selectTeacherList();
-		System.out.println("서비스에서 선생님 목록 출력: "+teacherList);
+		// 불러올 데이터의 시작점 정하기 (몇 개를 건너뛸지 결정)
+		int offset = (page - 1) * pageSize; 
 		
+		/*
+		 * 페이지네이션 offset 의 역할 정리
+		 * page = 1, offset = 0 => 첫 페이지는 건너뛸 데이터가 없음
+		 * page = 2, offset = 10 => 앞 10개의 데이터는 건너뛰로 11번째 데이터부터 시작
+		 * */
+		
+		List<MemberDTO> teacherList = memberDAO.selectTeacherList(pageSize, offset, sortOrder, classFilter, startDate, endDate);
+		
+		session.close();
 		return teacherList;
 	}
-
-	public boolean isMemberIdExists(String memberId) {
+	
+	// 전체 선생님 수 조회
+	public int getTeacherCount(String classFilter, String startDate, String endDate) {
 		
+		SqlSession session = getSqlSession();
+		memberDAO = session.getMapper(MemberDAO.class);
+		
+		int count = memberDAO.getTeacherCount(classFilter, startDate, endDate);
+		
+		session.close();
+		return count;
+	}
+
+	// 아이디 중복체크
+	public boolean isMemberIdExists(String memberId) {
 		System.out.println("서비스에서 아이디 중복체크 조회!");
 		
 		SqlSession session = getSqlSession();
@@ -132,12 +144,11 @@ public class MemberService {
 		boolean exists = memberDAO.isMemberIdExists(memberId);
 		
 		session.close();
-		
 		return exists;
 	}
 
+	// 선생님 1명 정보 조회
 	public MemberDTO selectTeacherInfo(String memberId) {
-		
 		System.out.println("서비스에서 선생님 정보 조회!");
 		
 		SqlSession session = getSqlSession();
@@ -147,11 +158,10 @@ public class MemberService {
 		System.out.println(teacherInfo);
 		
 		session.close();
-		
-		
 		return teacherInfo;
 	}
 
+	// 선생님 1명 정보 수정
 	public int updateTeacher(int requestMemberCode, String changePhone, String changeAddress, Integer changeClassCode) {
 		System.out.println("서비스에서 선생님 정보 수정 시작!");
 		
@@ -167,12 +177,11 @@ public class MemberService {
 		}
 		
 		session.close();
-		
 		return updateResult;
 	}
 
+	// 선생님 활성화
 	public int rejoinMember(String memberId) {
-		
 		System.out.println("서비스에서 선생님 활성화 시작!");
 		
 		SqlSession session = getSqlSession();
@@ -187,7 +196,6 @@ public class MemberService {
 		}
 		
 		session.close();
-		
 		return rejoinResult;
 	}
 

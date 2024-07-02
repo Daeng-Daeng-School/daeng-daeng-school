@@ -114,6 +114,27 @@
     	border: none;
         border-bottom: 2px solid #ddd; /* 하단 테두리선만 추가 */
     }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .pagination a {
+        margin: 0 5px;
+        padding: 10px 15px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+        color: #000;
+        border-radius: 5px;
+    }
+    
+    .pagination a.active {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+    }
 </style>
 </head>
 <body>
@@ -123,8 +144,12 @@ window.onload = function() {
     const message = "<%= session.getAttribute("registTeacherSuccessMessage") != null ? session.getAttribute("registTeacherSuccessMessage") : "" %>";
     if (message) {
         alert(message);
-        session.removeAttribute("registTeacherSuccessMessage");
+        <% session.removeAttribute("registTeacherSuccessMessage"); %>
     } 
+}
+
+function updateFilters() { 
+	document.getElementById("filterForm").submit();
 }
 </script>
 
@@ -146,25 +171,60 @@ window.onload = function() {
                     <button type="submit" class="teacher-regist-btn">신규 선생님 등록하기</button>
                 </form>
             </div>
+            <div class="sort-options">
+                <form id="filterForm" action="${pageContext.servletContext.contextPath}/master/management" method="get">
+                    <label for="sortOrder">정렬 기준:</label>
+                    <select id="sortOrder" name="sortOrder" onchange="updateFilters()">
+                        <option value="joinDate" ${sortOrder == 'joinDate' ? 'selected' : ''}>등록일 기준</option>
+                        <option value="status" ${sortOrder == 'status' ? 'selected' : ''}>활성 상태 기준</option>
+                        <option value="classCode" ${sortOrder == 'classCode' ? 'selected' : ''}>담당 반 기준</option>
+                    </select>
+                    <label for="classFilter">반 선택:</label>
+                    <select id="classFilter" name="classFilter" onchange="updateFilters()">
+                        <option value="" ${classFilter == '' ? 'selected' : ''}>전체</option>
+                        <option value="1" ${classFilter == '1' ? 'selected' : ''}>오전반</option>
+                        <option value="2" ${classFilter == '2' ? 'selected' : ''}>오후반</option>
+                        <option value="3" ${classFilter == '3' ? 'selected' : ''}>종일반</option>
+                    </select>
+                    
+                    <label for="startDate">시작 날짜:</label>
+                    <input type="date" id="startDate" name="startDate" value="${startDate}" onchange="updateFilters()">
+
+                    <label for="endDate">종료 날짜:</label>
+                    <input type="date" id="endDate" name="endDate" value="${endDate}" onchange="updateFilters()">
+
+                </form>
+            </div>
             <div class="teacher-list">
                 <table>
                     <thead>
                         <tr>
+                        	<th>순서</th>
                             <th>이름</th>
                             <th>담당 반</th>
                             <th>연락처</th>
                             <th>활성 상태</th>
+                            <th>최초 등록일</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${requestScope.teacherList}" var="teacher">
+                        <c:forEach items="${requestScope.teacherList}" var="teacher" varStatus="status">
                             <tr>
+                            	<td><c:out value="${status.index + 1}"/></td>
                             	<td>
                             		<a href="${pageContext.servletContext.contextPath}/master/teacherInfo?memberId=${teacher.memberId}">
                                 	<c:out value="${teacher.memberName}" />
                                 	</a>
                                 </td>
-                                <td><c:out value="${teacher.classCode}" /></td>
+                                <td>
+					                <c:set var="className" value="미정"/>
+                                    <c:forEach items="${requestScope.classList}" var="ddclass">
+                                        <c:if test="${ddclass.classCode == teacher.classCode}">
+                                            <c:set var="className" value="${ddclass.className}"/>
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:out value="${className}" />
+						        </td>
                                 <td><c:out value="${teacher.phone}" /></td>
                                 <td>
 	                                <c:choose>
@@ -176,11 +236,43 @@ window.onload = function() {
 		                                </c:otherwise>
 	                                </c:choose>
                                 </td>
+                                <td><c:out value="${teacher.formattedDate}" /></td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
             </div>
+            
+            <!-- 페이지네이션 -->
+            <div class="pagination">
+            	
+            	<!--  현재 페이지가 가운데 위치할 수 있도록 -->
+                <c:set var="startPage">
+                    <c:choose>
+                        <c:when test="${currentPage - 2 <= 1}">1</c:when>
+                        <c:otherwise>${currentPage - 2}</c:otherwise>
+                    </c:choose>
+                </c:set>
+                <c:set var="endPage">
+                    <c:choose>
+                        <c:when test="${startPage + 4 >= totalPages}">${totalPages}</c:when>
+                        <c:otherwise>${startPage + 4}</c:otherwise>
+                    </c:choose>
+                </c:set>
+                
+                <a href="${pageContext.servletContext.contextPath}/master/management?page=1&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}">&laquo;&laquo;</a>
+                <a href="${pageContext.servletContext.contextPath}/master/management?page=${currentPage > 1 ? currentPage - 1 : 1}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}">&laquo;</a>
+                
+                <c:forEach var="i" begin="${startPage}" end="${endPage}" varStatus="status">
+                    <c:if test="${i <= totalPages}">
+                        <a href="${pageContext.servletContext.contextPath}/master/management?page=${i}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                    </c:if>
+                </c:forEach>
+                
+                <a href="${pageContext.servletContext.contextPath}/master/management?page=${currentPage < totalPages ? currentPage + 1 : totalPages}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}">&raquo;</a>
+                <a href="${pageContext.servletContext.contextPath}/master/management?page=${totalPages}&sortOrder=${sortOrder}&classFilter=${classFilter}&startDate=${startDate}&endDate=${endDate}">&raquo;&raquo;</a>
+            </div>
+            
         </div>
 	</div>
 </div>
