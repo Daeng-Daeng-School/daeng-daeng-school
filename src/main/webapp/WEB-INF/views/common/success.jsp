@@ -40,8 +40,16 @@
 					movePath = "${ pageContext.servletContext.contextPath }/thumbnail/list";
 					break;
 				case "insertDog" : 
-					successMessage = "강아지 등록에 성공하셨습니다!";
+					successMessage = "강아지 정보 등록에 성공하셨습니다!";
 					movePath = "${ pageContext.servletContext.contextPath }/dog/insert";
+					break;
+				case "updateDog" : 
+					successMessage = "강아지 정보 수정에 성공하셨습니다!";
+					movePath = "${ pageContext.servletContext.contextPath }/dog/select";
+					break;
+				case "deleteDog" : 
+					successMessage = "강아지 정보 삭제 하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/dog/select";
 					break;
 			}
 

@@ -56,6 +56,50 @@ update {
 	color: #fff;
 	font-weight: bold;
 }
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+.modal-content p {
+	margin-bottom: 20px;
+}
+
+.modal-content button {
+	background-color: #333;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin-top: 10px;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+}
+
+.modal-content button:hover {
+	background-color: #555;
+}
 </style>
 </head>
 
@@ -76,19 +120,17 @@ update {
 						<ul>
 							<li><a
 								href="${pageContext.servletContext.contextPath}/dog/insert">등록하기</a></li>
-							<li><a
-								href="${pageContext.servletContext.contextPath}/dog/update">수정하기</a></li>
 						</ul></li>
 				</ul>
 			</div>
 			<div class="main_contents">
-				<div class="regist-box">
+				<div class="select-box">
 					<div class="text_1">
 						<h1>나의 반려견 정보</h1>
 					</div>
 					<table class="form">
 						<thead>
-							<tr class="tr">
+							<tr class="tr" style="font-weight: 700; text-align: center;">
 								<th>이름</th>
 								<th>품종</th>
 								<th>성별</th>
@@ -97,6 +139,7 @@ update {
 								<th>몸무게</th>
 								<th>특이사항</th>
 								<th>수정</th>
+								<th>삭제</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -110,7 +153,9 @@ update {
 									<td>${dog.weight}</td>
 									<td>${dog.notes}</td>
 									<td><a
-										href="${pageContext.servletContext.contextPath}/dog/update?dogCode=${dog.dogCode}">수정하기</a></td>
+										href="${pageContext.servletContext.contextPath}/dog/update?dogCode=${dog.dogCode}">수정</a></td>
+									<td><a href="#" class="delete-btn"
+										data-dog-code="${dog.dogCode}">삭제</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -119,11 +164,18 @@ update {
 			</div>
 		</div>
 	</div>
-
+	<!-- 삭제 모달 -->
+	<div id="delete-modal" class="modal">
+		<div class="modal-content">
+			<p>정말로 삭제하시겠습니까?</p>
+			<button id="cancel-delete">취소</button>
+			<button id="confirm-delete">확인</button>
+		</div>
+	</div>
 	<script>
         // 강아지 데이터를 테이블에 추가
         function populateDogTable() {
-            var dogTableBody = document.getElementById('dogTableBody');
+            var dogTableBody = document.querySelector('.form tbody');
             dogTableBody.innerHTML = ''; // 기존 내용 초기화
 
             dogs.forEach(function(dog) {
@@ -137,6 +189,7 @@ update {
                         <td>${dog.weight}</td>
                         <td>${dog.notes}</td>
                         <td><a href="${pageContext.servletContext.contextPath}/dog/update?dogCode=${dog.dogCode}" class="update" >수정하기</a></td>
+                        <td><a href="#" class="delete-btn" data-dog-code="${dog.dogCode}">삭제</a></td>
                     </tr>
                 `;
                 dogTableBody.innerHTML += row;
@@ -147,6 +200,96 @@ update {
         window.onload = function() {
             populateDogTable();
         };
+        
+		// 삭제 모달 띄우기
+		document.addEventListener('DOMContentLoaded', function() {
+			var deleteButton = document.getElementById('delete-button');
+			var deleteModal = document.getElementById('delete-modal');
+			var cancelDeleteButton = document.getElementById('cancel-delete');
+			var confirmDeleteButton = document.getElementById('confirm-delete');
+		
+			// 각 삭제 버튼에 클릭 이벤트 추가
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                	var dogCode = this.getAttribute('data-dog-code');
+                    var modalMessage = deleteModal.querySelector('p');
+                    modalMessage.innerHTML = "정말로 삭제하시겠습니까?";
+            }
+                // 모달 열기
+                deleteModal.style.display = 'block';
+                
+                // 확인 버튼 클릭 시
+                confirmDeleteButton.addEventListener('click', function() {
+                    // Ajax를 통해 서버로 삭제 요청 전송
+                    $.ajax({
+                        url: '${pageContext.servletContext.contextPath}/dog/delete',
+                        type: 'POST',
+                        data: { dogCode: dogCode },
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                alert("강아지 정보가 성공적으로 삭제되었습니다.");
+
+                                // 모달 닫기
+                                deleteModal.style.display = 'none';
+
+                                // 페이지 새로고침 없이 테이블에서 삭제된 항목 제거
+                                var rowToDelete = button.parentElement.parentElement;
+                                rowToDelete.remove();
+                            } else {
+                                alert("강아지 정보 삭제에 실패했습니다.");
+                            }
+                        },
+                        error: function() {
+                            alert("서버 오류가 발생했습니다. 다시 시도해 주세요.");
+                        }
+                    });
+                });
+
+                // 취소 버튼 클릭 시
+                cancelDeleteButton.addEventListener('click', function() {
+                    deleteModal.style.display = 'none'; // 모달 닫기
+                });
+            });
+        });
+
+
+    });
+                
+                
+			
+			  // 확인 버튼 클릭 시 Ajax 요청
+	        confirmDeleteButton.addEventListener('click', function() {
+	            var dogCode = "${requestDog.dogCode}";
+	            $.ajax({
+	                url: '${pageContext.servletContext.contextPath}/dog/delete',
+	                type: 'POST',
+	                data: { dogCode: dogCode },
+	                success: function(response) {
+	                    if (response.status === 'success') {
+	                        alert("강아지 정보가 성공적으로 삭제되었습니다.");
+
+	                        // 데이터 비활성화 처리
+	                        $("#dogName").val('');
+	                        $("#dogClass").val('');
+	                        $('input[name="gender"]').prop('checked', false); // 모든 라디오 버튼 체크 해제
+	                        $("#dogBreed").val('');
+	                        $("#birthdate").val('');
+	                        $("#chipNo").val('');
+	                        $("#weight").val('');
+	                        $("#notes").val('');
+
+	                        // 모달 닫기
+	                        deleteModal.style.display = 'none';
+	                    } else {
+	                        alert("강아지 정보 삭제에 실패했습니다.");
+	                    }
+	                },
+	                error: function() {
+	                    alert("서버 오류가 발생했습니다. 다시 시도해 주세요.");
+	                }
+	            });
+	        });
+		});
     </script>
 
 	<%@ include file="../common/footer.jsp"%>
