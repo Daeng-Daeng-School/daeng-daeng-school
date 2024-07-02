@@ -24,6 +24,7 @@ public class SelectClassDogServlet extends HttpServlet {
 		if (classCodeStr == null || classCodeStr.isEmpty()) {
 			// Fetch all classes
 			List<ClassDTO> classList = NoticeService.selectClassList();
+			System.out.println("classList"+classList);
 			sendJsonResponse(response, classList);
 		} else {
 			// Fetch dogs by class code

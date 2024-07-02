@@ -50,8 +50,7 @@
 
 							// 반 리스트 가져오기
 							function fetchClasses() {
-								$
-										.ajax({
+								$.ajax({
 											url : "${pageContext.servletContext.contextPath}/notice/selectClassDog",
 											method : "GET",
 											success : function(data) {

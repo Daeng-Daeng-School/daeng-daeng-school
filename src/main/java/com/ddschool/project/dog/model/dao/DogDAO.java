@@ -16,19 +16,15 @@ public interface DogDAO {
     List<DogDTO> selectDogsByMemberCode(int memberCode);
     
     // 클래스반 등록된 강아지 조회
- 	List<DogDTO> selectDogsByClassCode(int classCode);
- 	
- 	// 모든 강아지 조회
- 	List<DogDTO> selectDogsAllList();
- 	
+  	List<DogDTO> selectDogsByClassCode(int classCode);
+  	
+  	// 모든 강아지 조회
+  	List<DogDTO> selectDogsAllList();
+
 	/* 강아지 정보 수정 */
 	int updateDog(DogDTO dog);
 
 	/* 강아지 정보 삭제 */
 	int deleteDog(@Param("dogCode") int dogCode);
-
-	
-
-	
 
 }

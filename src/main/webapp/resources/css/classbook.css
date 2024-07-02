@@ -17,9 +17,9 @@ body {
 }
 
 .select-bar{
-	display:flex;
-	margin-top:40px;
-	gap:53px;
+    align-content: flex-end;
+    margin-top:40px;
+
 }
 
 input[type='month']{
@@ -43,26 +43,17 @@ input[type='month']:valid::before{
 	display: none;
 }
 
-/* input[type='month']::-webkit-datetime-edit-month-field{
-    -webkit-appearance: none;
-    display: none;
-}
-
-input[type='month']::-webkit-datetime-edit-year-field {
-    -webkit-appearance: none;
-    display: none;
-} */
-
 
 select{
-	font-size:16px;
-	font-weight: 600;
-	border:1px solid #DADADA;
-	border-radius: 8px;
-	width:245px;
-	height:48px;
-	text-align: center;
-	cursor:pointer;
+    margin-top: 16px;
+    font-size:16px;
+    font-weight: 600;
+    border:1px solid #DADADA;
+    border-radius: 8px;
+    width:245px;
+    height:48px;
+    text-align: center;
+    cursor:pointer;
 }
 
 button{
@@ -115,27 +106,11 @@ table {
 	padding-bottom:18px;
 }
 
-/* hr{
-	border: none;
-	height: 1px;
-	background-color: #F2F2F2;
-	margin-top:0;
-	margin-bottom:0;
-} */
 
 /* .list-td{
 	height:50px;
 } */
 
-/* .hr-td{
-	border: none;
-	height: 1px;
-	background-color: #F2F2F2;
-	margin-top:0;
-	margin-bottom:0;
-	margin-left:15px;
-	margin-right:15px;
-} */
 
 .head-tr {
   position: relative; /* 상대적 위치 지정 */
@@ -164,10 +139,6 @@ table {
   width: 100%;
   border-bottom: 1px solid #F2F2F2; /* 구분선 스타일 지정 */
 }
-
-
-
-
 
 /* 모달 스타일 */
 .modal {

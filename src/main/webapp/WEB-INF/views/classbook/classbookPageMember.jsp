@@ -64,11 +64,11 @@
                     data.forEach(function(event) {
                     	var color = event.checkStatus === 'Y' ? 'green' : 'red';
                         calendar.addEvent({
-                            title: event.checkStatus === 'Y' ? '출석' : '결석', // 출석 상태
-                            start: event.checkDate, // 날짜
+                            title: event.checkStatus === 'Y' ? '출석' : '결석', 
+                            start: event.checkDate, 
                             allDay: true,
-                            backgroundColor: color, // 배경 색상
-                            borderColor: color // 테두리 색상
+                            backgroundColor: color, 
+                            borderColor: color 
                         });
                     });
                 },

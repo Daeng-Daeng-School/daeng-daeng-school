@@ -39,8 +39,8 @@
                 var dogCode = $('#dogSelect').val();
                 if (dogCode) {
                 	var yearMonth = new Date(dateInfo.start);
-                    yearMonth.setMonth(yearMonth.getMonth() + 1); // 한 달 더하기
-                    var formattedYearMonth = yearMonth.toISOString().slice(0, 7); // 변동된 년월을 가져옴
+                    yearMonth.setMonth(yearMonth.getMonth() + 1); 
+                    var formattedYearMonth = yearMonth.toISOString().slice(0, 7); 
                     loadDogCalendar(dogCode, formattedYearMonth);
                 }
             }
@@ -67,11 +67,11 @@
                     data.forEach(function(event) {
                     	var color = event.checkStatus === 'Y' ? 'green' : 'red';
                         calendar.addEvent({
-                            title: event.checkStatus === 'Y' ? '출석' : '결석', // 출석 상태
-                            start: event.checkDate, // 날짜
+                            title: event.checkStatus === 'Y' ? '출석' : '결석', 
+                            start: event.checkDate, 
                             allDay: true,
-                            backgroundColor: color, // 배경 색상
-                            borderColor: color // 테두리 색상
+                            backgroundColor: color, 
+                            borderColor: color 
                         });
                     });
                 },
@@ -90,38 +90,18 @@
             loadDogCalendar(firstDogOption.val(), formattedYearMonth); // 첫 번째 강아지의 달력 데이터를 로드
         }
         
-        
-     /* // 페이지 로드 시 초기화 및 첫 번째 클래스와 강아지 정보 로드
-        var firstClassOption = $('#classSelect option:eq(1)'); // 첫 번째 클래스 옵션
-        if (firstClassOption.length) {
-            firstClassOption.prop('selected', true); // 첫 번째 클래스를 선택 상태로 설정
-            var classCode = firstClassOption.val(); // 선택된 클래스 코드
-            $.ajax({
-                url: '${pageContext.servletContext.contextPath}/classbook/member', // 서블릿 경로
-                type: 'GET',
-                data: { classCode: classCode }, // 클래스 코드를 파라미터로 전달하여 강아지 데이터 가져오기
-                success: function(data) {
-                    // 기존 옵션 초기화
-                    $('#dogSelect').html('<option value="">강아지를 선택하세요</option>');
-                    // 강아지 옵션 추가
-                    data.forEach(function(dog) {
-                        $('#dogSelect').append('<option value="' + dog.dogCode + '">' + dog.dogName + '</option>');
-                    });
-                    // 첫 번째 강아지 선택 및 캘린더 로드
-                    var firstDogOption = $('#dogSelect option:eq(1)'); // 첫 번째 강아지 옵션
-                    if (firstDogOption.length) {
-                        firstDogOption.prop('selected', true); // 첫 번째 강아지를 선택 상태로 설정
-                        loadDogCalendar(firstDogOption.val(), new Date().toISOString().slice(0, 7)); // 첫 번째 강아지의 달력 데이터 로드
-                    }
-                },
-                error: function(error) {
-                    console.error('Error fetching dog data:', error);
-                }
-            });
-        } */
-        
-        
-        
+     	// 반 선택 시 서블릿으로 요청 보내기
+        $('#classSelect').change(function() {
+            var classCode = $(this).val();
+            window.location.href = '${pageContext.servletContext.contextPath}/classbook?classCode=' + classCode;
+        });
+     	
+     	// 페이지 로드 시 반 선택 상태 유지
+        var urlParams = new URLSearchParams(window.location.search);
+        var selectedClassCode = urlParams.get('classCode');
+        if (selectedClassCode) {
+            $('#classSelect').val(selectedClassCode);
+        }
         
     });
     </script>
@@ -133,17 +113,18 @@
   <div class="text-area">
   <span><b>댕댕 유치원 출석부</b>를<br>이용해볼까요?</span>
   <div class="select-bar">
-  <%-- 	<form>
- 
-  				<!-- 반 선택 select -->
-				<select id="classSelect">
-				 	<c:forEach items="${requestScope.classList }" var="ddclass">
-				 	<c:if test="${ddclass.status ==true} ">
-				 		<option value="${ddclass.classCode }">${ddclass.className }</option>
-				 		</c:if>
-				 	</c:forEach>
-				</select>
-  		</form> --%>
+  
+  		<form>
+			<!-- 반 선택 select -->
+			<select id="classSelect">
+			 	<c:forEach var="ddclass" items="${classList}">
+	
+			 		<option value="${ddclass.classCode}">${ddclass.className}</option>
+		
+			 	</c:forEach>
+			</select>
+  		</form>
+  		
   		<form>
         <!-- 강아지 선택 select -->
         <select id="dogSelect" onchange="loadDogCalendar(this.value, new Date().toISOString().slice(0, 7))">
@@ -153,6 +134,7 @@
           </c:forEach>
         </select>
      </form>
+     
   </div>
 
  
