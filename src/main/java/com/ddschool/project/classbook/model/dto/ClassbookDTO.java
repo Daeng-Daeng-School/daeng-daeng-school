@@ -10,7 +10,7 @@ public class ClassbookDTO {
 	private int classbookNo;
 	private List<MemberDTO> member;
 	private int dog;
-	private Date checkDate;
+	private String checkDate;
 	private String checkStatus;
 	private Date modifyDate;
 	
@@ -20,7 +20,7 @@ public class ClassbookDTO {
 	}
 
 
-	public ClassbookDTO(int classbookNo, List<MemberDTO> member, int dog, Date checkDate, String checkStatus,
+	public ClassbookDTO(int classbookNo, List<MemberDTO> member, int dog, String checkDate, String checkStatus,
 			Date modifyDate) {
 		super();
 		this.classbookNo = classbookNo;
@@ -62,12 +62,12 @@ public class ClassbookDTO {
 	}
 
 
-	public Date getCheckDate() {
+	public String getCheckDate() {
 		return checkDate;
 	}
 
 
-	public void setCheckDate(Date checkDate) {
+	public void setCheckDate(String checkDate) {
 		this.checkDate = checkDate;
 	}
 

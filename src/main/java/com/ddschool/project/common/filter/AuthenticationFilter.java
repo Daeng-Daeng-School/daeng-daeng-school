@@ -19,11 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-<<<<<<< HEAD
-@WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*"}) /*,"/dog/*"*/
-=======
-@WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*", "/class/*"})
->>>>>>> refs/remotes/origin/master
+@WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*", "/class/*", "/dog/*"})
 public class AuthenticationFilter implements Filter {
 	
 	Map<String, List<String>> permitURIList;
@@ -47,15 +43,16 @@ public class AuthenticationFilter implements Filter {
 		masterPermitList.add("/master/teacherInfo");
 		masterPermitList.add("/member/rejoin");
 		masterPermitList.add("/class/management");
+		masterPermitList.add("/class/regist");
 		
 		memberPermitList.add("/member/mypage");
 		memberPermitList.add("/member/delete");
 		memberPermitList.add("/member/update");
 		memberPermitList.add("/member/getMemberInfo");
-		/*
-		 * memberPermitList.add("/dog/insert"); memberPermitList.add("/dog/update");
-		 * memberPermitList.add("/dog/select");
-		 */
+		memberPermitList.add("/dog/insert"); 
+		memberPermitList.add("/dog/update");
+		memberPermitList.add("/dog/select");
+		 
 		teacherPermitList.add("/teacher/mypage");
 		teacherPermitList.add("/member/delete");
 		teacherPermitList.add("/member/update");
@@ -89,8 +86,6 @@ public class AuthenticationFilter implements Filter {
 			boolean isPermitTeacher = permitURIList.get("teacherPermitList").contains(intent);
 			boolean isPermitAll = permitURIList.get("allPermitList").contains(intent);
 			
-			System.out.println("isPermitMember 승인됐어? : " + isPermitMember);
-			System.out.println("isPermitAll 승인됐어? : " + isPermitAll);
 			System.out.println("roleCode 가 뭐야? : "+loginMember.getRoleCode());
 			
             if (isPermitAll) {

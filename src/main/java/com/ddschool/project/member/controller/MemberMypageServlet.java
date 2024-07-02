@@ -17,6 +17,7 @@ public class MemberMypageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		System.out.println("여기왔어????????????");
 		request.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp").forward(request, response);
 	}
 

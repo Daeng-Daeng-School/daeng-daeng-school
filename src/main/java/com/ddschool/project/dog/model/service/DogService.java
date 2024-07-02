@@ -35,9 +35,12 @@ public class DogService {
 
 	// 회원아이디와 연결된 강아지 정보 조회
 	public List<DogDTO> selectDogsByMemberCode(int memberCode) {
-		SqlSession session = Template.getSqlSession();
+		
+		SqlSession session = getSqlSession();
 		dogDAO = session.getMapper(DogDAO.class);
+		
 		List<DogDTO> dogs = dogDAO.selectDogsByMemberCode(memberCode);
+		
 		session.close();
 		return dogs;
 	}
