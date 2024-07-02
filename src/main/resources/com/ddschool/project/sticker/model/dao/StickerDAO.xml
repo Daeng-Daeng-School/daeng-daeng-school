@@ -86,8 +86,13 @@
       			, A.REGIST_DATE
 		FROM TBL_STICKER A
 		JOIN TBL_DOG B ON (A.DOG_CODE = B.DOG_CODE)
-		JOIN TBL_MEMBER C ON (A.MEMBER_CODE = C.MEMBER_CODE)
-		WHERE DATE_FORMAT(A.REGIST_DATE, '%Y%m')=#{registDate};
+		JOIN TBL_MEMBER C ON (B.MEMBER_CODE = C.MEMBER_CODE)
+		WHERE DATE_FORMAT(A.REGIST_DATE, '%Y%m') = #{registDate}
+
+		<if test="roleCode == 3">
+             AND C.ROLE_CODE = 3
+             AND C.MEMBER_CODE = #{memberCode};		 
+		</if>		
                                  
          
    </select>
@@ -118,7 +123,7 @@
          SELECT MEMBER_CODE, MEMBER_NAME
          FROM 
             TBL_MEMBER 
-         WHERE ROLE_CODE = 201
+         WHERE ROLE_CODE = 2
          ORDER BY MEMBER_NAME ASC;                                 
    </select>
    
