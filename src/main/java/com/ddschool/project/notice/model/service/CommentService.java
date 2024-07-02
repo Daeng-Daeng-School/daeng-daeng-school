@@ -26,6 +26,7 @@ public class CommentService {
 	public int addComment(CommentDTO comment) {
 		SqlSession session = getSqlSession();
 		commentDAO = session.getMapper(CommentDAO.class);
+		System.out.println("Adding comment: " + comment);
 		int result = commentDAO.insertComment(comment);
 		if (result > 0) {
 			session.commit();
@@ -63,10 +64,10 @@ public class CommentService {
 	 * @param comment 수정할 댓글 객체
 	 * @return 수정 결과
 	 */
-	public int modifyComment(CommentDTO comment) {
+	public int modifyComment(CommentDTO modifyComment) {
 		SqlSession session = getSqlSession();
 		commentDAO = session.getMapper(CommentDAO.class);
-		int result = commentDAO.updateComment(comment);
+		int result = commentDAO.updateComment(modifyComment);
 		if (result > 0) {
 			session.commit();
 		} else {
@@ -82,10 +83,10 @@ public class CommentService {
 	 * @param commentCode 삭제할 댓글 코드
 	 * @return 삭제 결과
 	 */
-	public int markCommentAsDeleted(int commentCode) {
+	public int markCommentAsDeleted(CommentDTO deleteComment) {
 		SqlSession session = getSqlSession();
 		commentDAO = session.getMapper(CommentDAO.class);
-		int result = commentDAO.updateCommentStatusToDeleted(commentCode);
+		int result = commentDAO.updateCommentStatusToDeleted(deleteComment);
 		if (result > 0) {
 			session.commit();
 		} else {

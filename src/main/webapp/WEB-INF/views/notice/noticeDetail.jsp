@@ -12,6 +12,28 @@
 	src="${pageContext.servletContext.contextPath}/resources/js/notice.js"></script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/comment.js"></script>
+<script>
+function checkPermission(loggedInMemberId, noticeWriterId) {
+    if (loggedInMemberId === noticeWriterId) {
+        document.getElementById('deleteBtn').style.display = 'block';
+        document.getElementById('modifyBtn').style.display = 'block';
+    } else {
+        document.getElementById('deleteBtn').style.display = 'none';
+        document.getElementById('modifyBtn').style.display = 'none';
+    }
+}
+
+// 페이지 로드 시 실행할 초기화 함수
+window.onload = function() {
+    var loggedInMemberId = '${sessionScope.loginMember.memberCode}'; // 세션에서 현재 로그인한 멤버코드
+    console.log("loggedInMemberId:", loggedInMemberId);
+
+    var noticeWriterId = '${notice.noticeWriter.memberCode}'; // 공지사항 작성자 멤버코드
+    console.log("noticeWriterId:", noticeWriterId);
+    
+    checkPermission(loggedInMemberId, noticeWriterId); // 권한 체크 함수 호출
+};
+</script>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp" />
