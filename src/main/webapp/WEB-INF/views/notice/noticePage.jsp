@@ -24,8 +24,8 @@
 	<jsp:include page="../common/menubar.jsp" />
 
 	<!-- 선택된 반과 반려견 코드를 위한 숨겨진 입력 필드 -->
-	<input type="hidden" name="classCode" id="selectedClassCode" value="">
-	<input type="hidden" name="dogCode" id="selectedDogCode" value="">
+	<!-- <input type="hidden" name="classCode" id="selectedClassCode" value="">
+	<input type="hidden" name="dogCode" id="selectedDogCode" value=""> -->
 
 	<main class="main-content">
 		<div class="container">
@@ -42,7 +42,7 @@
 						<button class="write-post-button" onclick="writeNotice()">작성하기</button>
 					</div>
 				</div>
-				<jsp:include page="../notice/selectDog.jsp" />
+				<%-- <jsp:include page="../notice/selectDog.jsp" /> --%>
 			</div>
 			<div class="posts">
 				<%-- DB에서 게시글 불러와 반복 출력 --%>

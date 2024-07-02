@@ -79,7 +79,7 @@
 	<!-- 페이징 처리가 적용된 알림장 목록 조회 쿼리 (MySQL) -->
 	<select id="selectNotice" resultMap="generalNoticeResultMap"
 		parameterType="java.util.Map">
-		SELECT N.BOARD_CODE, M.MEMBER_NAME, N.REGIST_DATE,
+		SELECT N.BOARD_CODE, M.MEMBER_NAME, N.MEMBER_CODE, N.REGIST_DATE,
 		N.TITLE, N.CONTENT
 		FROM TBL_NOTICE N
 		JOIN TBL_MEMBER M ON N.MEMBER_CODE
@@ -159,7 +159,7 @@
 		parameterType="java.util.Map" resultMap="generalNoticeResultMap">
 		SELECT
 		N.BOARD_CODE,
-		M.MEMBER_NAME,
+		M.MEMBER_NAME, N.MEMBER_CODE,
 		N.REGIST_DATE,
 		N.TITLE,
 		N.CONTENT
@@ -186,7 +186,7 @@
 	<select id="selectNoticeByClassCode" parameterType="map"
 		resultMap="generalNoticeResultMap">
 		SELECT N.BOARD_CODE,
-		M.MEMBER_NAME,
+		M.MEMBER_NAME, N.MEMBER_CODE,
 		N.REGIST_DATE,
 		N.TITLE,
 		N.CONTENT
@@ -204,7 +204,7 @@
 	<select id="selectNoticeByMemberCode" parameterType="int"
 		resultMap="generalNoticeResultMap">
 		SELECT N.BOARD_CODE,
-		M.MEMBER_NAME, N.REGIST_DATE, N.TITLE,
+		M.MEMBER_NAME, N.REGIST_DATE, N.TITLE, N.MEMBER_CODE,
 		N.CONTENT
 		FROM tbl_notice N
 		JOIN tbl_dog D ON N.DOG_CODE = D.DOG_CODE
@@ -220,7 +220,7 @@
 	<select id="searchNoticesByMemberCode" parameterType="int"
 		resultMap="generalNoticeResultMap">
 		SELECT N.BOARD_CODE,
-		M.MEMBER_NAME, N.REGIST_DATE, N.TITLE,
+		M.MEMBER_NAME, N.REGIST_DATE, N.TITLE, N.MEMBER_CODE,
 		N.CONTENT
 		FROM tbl_notice N
 		JOIN tbl_dog D ON N.DOG_CODE = D.DOG_CODE
@@ -241,7 +241,7 @@
 	<!-- 검색 조건에 따른 알림장 조회 쿼리 -->
 	<select id="searchNotices" parameterType="map"
 		resultMap="generalNoticeResultMap">
-		SELECT N.BOARD_CODE, M.MEMBER_NAME, N.REGIST_DATE,
+		SELECT N.BOARD_CODE, M.MEMBER_NAME, N.REGIST_DATE, N.MEMBER_CODE,
 		N.TITLE,
 		N.CONTENT
 		FROM TBL_NOTICE N
@@ -267,7 +267,7 @@
 	<!-- 알림장 상세내용 조회 쿼리 -->
 	<select id="selectNoticeDetail" parameterType="int"
 		resultMap="generalNoticeResultMap">
-		SELECT N.BOARD_CODE, M.MEMBER_NAME, N.REGIST_DATE, N.TITLE,
+		SELECT N.BOARD_CODE, M.MEMBER_NAME, N.REGIST_DATE, N.TITLE, N.MEMBER_CODE,
 		N.CONTENT
 		FROM TBL_NOTICE N
 		JOIN TBL_MEMBER M ON N.MEMBER_CODE =

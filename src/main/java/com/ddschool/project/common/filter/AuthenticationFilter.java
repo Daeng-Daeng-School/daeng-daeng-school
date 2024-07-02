@@ -16,10 +16,9 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*"})
+@WebFilter(urlPatterns = {"/member/*", "/master/*", "/teacher/*", "/class/*", "/dog/*", "/notice/*"})
 public class AuthenticationFilter implements Filter {
 	
 	Map<String, List<String>> permitURIList;
@@ -43,16 +42,46 @@ public class AuthenticationFilter implements Filter {
 		masterPermitList.add("/master/teacherInfo");
 		masterPermitList.add("/member/rejoin");
 		masterPermitList.add("/class/management");
+		masterPermitList.add("/class/regist");
+		masterPermitList.add("/notice");
+		masterPermitList.add("/notice/insert");
+		masterPermitList.add("/notice/detail");
+		masterPermitList.add("/notice/modify");
+		masterPermitList.add("/notice/delete");
+		masterPermitList.add("/notice/selectClassDog");
+		masterPermitList.add("/notice/search");
+		masterPermitList.add("/notice/comment");
 		
 		memberPermitList.add("/member/mypage");
 		memberPermitList.add("/member/delete");
 		memberPermitList.add("/member/update");
 		memberPermitList.add("/member/getMemberInfo");
+		memberPermitList.add("/dog/insert"); 
+		memberPermitList.add("/dog/update");
+		memberPermitList.add("/dog/select");
+		memberPermitList.add("/notice");
+		memberPermitList.add("/notice/insert");
+		memberPermitList.add("/notice/detail");
+		memberPermitList.add("/notice/modify");
+		memberPermitList.add("/notice/delete");
+		memberPermitList.add("/notice/selectClassDog");
+		memberPermitList.add("/notice/search");
+		memberPermitList.add("/notice/comment");
 		
+		 
 		teacherPermitList.add("/teacher/mypage");
 		teacherPermitList.add("/member/delete");
 		teacherPermitList.add("/member/update");
 		teacherPermitList.add("/member/getMemberInfo");
+		teacherPermitList.add("/notice");
+		teacherPermitList.add("/notice/insert");
+		teacherPermitList.add("/notice/detail");
+		teacherPermitList.add("/notice/modify");
+		teacherPermitList.add("/notice/delete");
+		teacherPermitList.add("/notice/selectClassDog");
+		teacherPermitList.add("/notice/search");
+		teacherPermitList.add("/notice/comment");
+		
 		
 		allPermitList.add("/member/regist");
 		allPermitList.add("/member/login");
@@ -82,8 +111,6 @@ public class AuthenticationFilter implements Filter {
 			boolean isPermitTeacher = permitURIList.get("teacherPermitList").contains(intent);
 			boolean isPermitAll = permitURIList.get("allPermitList").contains(intent);
 			
-			System.out.println("isPermitMember 승인됐어? : " + isPermitMember);
-			System.out.println("isPermitAll 승인됐어? : " + isPermitAll);
 			System.out.println("roleCode 가 뭐야? : "+loginMember.getRoleCode());
 			
             if (isPermitAll) {
