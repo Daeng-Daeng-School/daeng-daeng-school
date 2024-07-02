@@ -127,10 +127,15 @@
 		FROM
 		TBL_DOG D
 		WHERE D.CLASS_CODE = #{classCode} 
-	
 	</select>
 
 	<select id="selectDogsAllList" resultMap="DogResultMap">
 		SELECT * FROM TBL_DOG
+	</select>
+	
+	<select id="getMemberIdByDogCode" parameterType="int" resultType="int">
+	SELECT MEMBER_CODE
+    FROM TBL_DOG
+    WHERE DOG_CODE = #{dogCode}
 	</select>
 </mapper>
