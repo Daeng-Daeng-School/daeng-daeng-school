@@ -40,10 +40,11 @@
 				<button class="submit-button" type="submit">조회하기</button>
 			</form>
 			
-			
-			<form action="${ pageContext.servletContext.contextPath }/sticker/insert" method="get">
-				<button class="submit-button" type="submit">등록하기</button>
-			</form>
+			<c:if test="${roleCode == '2'}">
+				<form action="${ pageContext.servletContext.contextPath }/sticker/insert" method="get">
+					<button class="submit-button" type="submit">등록하기</button>
+				</form>
+			</c:if>
 			
 			<%--수정하기 버튼test임(추후 삭제) --%>
 		     <%-- 
@@ -93,9 +94,10 @@
 							<td align="center"><c:out value="${ sticker.comment }"/></td>
 							<td>							
 							<input type="hidden" class="stickerCode" value="${sticker.stickerCode}">
-							
+							<c:if test="${roleCode == '2'}">
 								<button class="submit-mini-button" id="updateButton" onClick="updatePost(${ sticker.stickerCode })">수정</button>
-								<button class="submit-mini-button" id="deleteButton" onClick="deletePost(${ sticker.stickerCode })">삭제</button> 	
+								<button class="submit-mini-button" id="deleteButton" onClick="deletePost(${ sticker.stickerCode })">삭제</button>
+							</c:if>	 	
 							</td>						
 									
 						</tr>
