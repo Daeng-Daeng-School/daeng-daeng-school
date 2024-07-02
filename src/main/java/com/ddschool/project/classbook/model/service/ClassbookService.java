@@ -88,5 +88,19 @@ public class ClassbookService {
 		return result;
 		
 	}
+
+	// 날짜와 강아지코드로 출석 여부 조회 후 모달창 초기값설정
+	public String getAttendanceStatus(ClassbookDTO classbookDTO) {
+		
+		SqlSession session = getSqlSession();
+		classbookDAO = session.getMapper(ClassbookDAO.class);
+		
+		String status = classbookDAO.getAttendanceStatus(classbookDTO);
+		
+		System.out.println(status);
+		
+		session.close();
+		return status;
+	}
 	
 }

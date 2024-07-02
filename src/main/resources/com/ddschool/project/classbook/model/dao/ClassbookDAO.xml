@@ -45,6 +45,16 @@
   		WHERE MEMBER_ID='teacher'
   	</select>
   	
+  	<!-- 날짜와 강아지 코드로 출석여부 조회 후 모달창 초기값 설정 -->
+  	<select id="getAttendanceStatus" resultMap="classbookResultMap">
+  	SELECT
+  		CHECK_STATUS
+  	FROM TBL_CLASSBOOK
+  	WHERE 
+  		DOG_CODE = #{dogCode} AND CHECK_DATE = #{checkDate}
+  	
+  	</select>
+  	
   	<!-- 출석 등록 -->
   	<insert id="insertAttendanceRecord">
     INSERT INTO TBL_CLASSBOOK (MEMBER_CODE, DOG_CODE, CHECK_DATE, CHECK_STATUS)
@@ -58,7 +68,6 @@
   <delete id="deleteAttendanceRecord">
   DELETE FROM TBL_CLASSBOOK
   WHERE
-  	DOG_CODE = #{dogCode} AND CHECK_DATE = #{checkDate},
-	CHECK_STATUS = #{checkStatus}  	
+  	DOG_CODE = #{dogCode} AND CHECK_DATE = #{checkDate} AND CHECK_STATUS = #{checkStatus}  	
   </delete>
   </mapper>

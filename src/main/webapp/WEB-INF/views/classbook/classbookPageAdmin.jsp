@@ -48,17 +48,21 @@
                     $('#modal-date').val(info.dateStr);
                     $('#modal-dog-code').val(dogCode);
                     
-                 // 데이터가 있으면 저장/삭제 버튼 보이기, 없으면 저장 버튼만 보이기
-                    var status = getAttendanceStatus(dogCode, info.dateStr);
-                    if (status) {
-                        $('#modal-status').val(status);
-                        $('#modal-save').show();
-                        $('#modal-delete').show();
-                    } else {
-                        $('#modal-status').val('Y'); // 기본값은 출석으로 설정
-                        $('#modal-save').show();
-                        $('#modal-delete').hide();
-                    }
+                 
+                 // 해당 날짜의 출석 정보를 가져오는 비동기 호출
+                    $.ajax({
+                        url: '${pageContext.servletContext.contextPath}/classbook/regist',
+                        type: 'GET',
+                        data: { dogCode: dogCode, checkDate: info.dateStr },
+                        success: function (data) {
+                            // 출석 여부 설정
+                            $('#modal-status').val(data.checkStatus || 'Y');
+                        },
+                        error: function (error) {
+                            console.error('Error fetching attendance data:', error);
+                        }
+                    });
+                 
                      
                 } else {
                     alert("강아지를 선택해주세요.");
@@ -153,27 +157,7 @@
         });
 
         
-        
-     // 함수: 날짜와 강아지 코드로 출석 여부 조회
-        function getAttendanceStatus(dogCode, checkDate) {
-            var status = ''; // 출석 여부 초기값
-
-            // 여기서 서버로 해당 날짜와 강아지 코드를 기반으로 조회하여 출석 상태를 가져옴
-            $.ajax({
-                url: '${pageContext.servletContext.contextPath}/classbook/delete',
-                type: 'GET',
-                async: false,
-                data: { dogCode: dogCode, checkDate: checkDate },
-                success: function(response) {
-                    status = response;
-                },
-                error: function(error) {
-                    console.error('Error fetching attendance status:', error);
-                }
-            });
-
-            return status;
-        }
+      
         
         
      	// 첫 번째 강아지를 자동으로 선택

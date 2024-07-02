@@ -23,4 +23,6 @@ public interface ClassbookDAO {
 
 	int deleteAttendanceRecord(ClassbookDTO classbookDTO);
 
+	String getAttendanceStatus(ClassbookDTO classbookDTO);
+
 }

@@ -14,6 +14,29 @@ import com.ddschool.project.dog.model.service.DogService;
 @WebServlet("/classbook/regist")
 public class ClassbookInsertServlet extends HttpServlet {
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int dogCode = Integer.parseInt(request.getParameter("dogCode"));
+		String checkDate = request.getParameter("checkDate");
+		
+		
+		System.out.println(dogCode);
+		System.out.println(checkDate);
+		
+		ClassbookDTO classbookDTO = new ClassbookDTO();
+		classbookDTO.setDogCode(dogCode);
+		classbookDTO.setCheckDate(checkDate);
+		
+		String status = new ClassbookService().getAttendanceStatus(classbookDTO);
+		
+		System.out.println(status);
+		
+		response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(status);
+	}
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		int dogCode = Integer.parseInt(request.getParameter("dogCode"));
