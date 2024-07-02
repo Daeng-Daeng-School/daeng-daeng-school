@@ -24,6 +24,9 @@
 
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
+        
+        
+        
         var calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
                 left: 'prev,next',
@@ -36,8 +39,8 @@
                 var dogCode = $('#dogSelect').val();
                 if (dogCode) {
                 	var yearMonth = new Date(dateInfo.start);
-                    yearMonth.setMonth(yearMonth.getMonth() + 1); // 한 달 더하기
-                    var formattedYearMonth = yearMonth.toISOString().slice(0, 7); // 변동된 년월을 가져옴
+                    yearMonth.setMonth(yearMonth.getMonth() + 1); 
+                    var formattedYearMonth = yearMonth.toISOString().slice(0, 7); 
                     loadDogCalendar(dogCode, formattedYearMonth);
                 }
             }
@@ -86,8 +89,23 @@
             var formattedYearMonth = yearMonth.toISOString().slice(0, 7); // 변동된 년월을 가져옴
             loadDogCalendar(firstDogOption.val(), formattedYearMonth); // 첫 번째 강아지의 달력 데이터를 로드
         }
+        
+     	// 반 선택 시 서블릿으로 요청 보내기
+        $('#classSelect').change(function() {
+            var classCode = $(this).val();
+            window.location.href = '${pageContext.servletContext.contextPath}/classbook?classCode=' + classCode;
+        });
+     	
+     	// 페이지 로드 시 반 선택 상태 유지
+        var urlParams = new URLSearchParams(window.location.search);
+        var selectedClassCode = urlParams.get('classCode');
+        if (selectedClassCode) {
+            $('#classSelect').val(selectedClassCode);
+        }
+        
     });
     </script>
+   
   </head>
   <body>
   <jsp:include page="../common/menubar.jsp"/>
@@ -95,16 +113,31 @@
   <div class="text-area">
   <span><b>댕댕 유치원 출석부</b>를<br>이용해볼까요?</span>
   <div class="select-bar">
-  	<form>
+  
+  		<form>
+			<!-- 반 선택 select -->
+			<select id="classSelect">
+			 	<c:forEach var="ddclass" items="${classList}">
+	
+			 		<option value="${ddclass.classCode}">${ddclass.className}</option>
+		
+			 	</c:forEach>
+			</select>
+  		</form>
+  		
+  		<form>
         <!-- 강아지 선택 select -->
         <select id="dogSelect" onchange="loadDogCalendar(this.value, new Date().toISOString().slice(0, 7))">
           <option value="">강아지를 선택하세요</option>
-          <c:forEach var="dog" items="${myDogs}">
+          <c:forEach var="dog" items="${dogs}">
             <option value="${dog.dogCode}">${dog.dogName}</option>
           </c:forEach>
         </select>
      </form>
+     
   </div>
+
+ 
   </div>
   
     <div id='calendar'></div>

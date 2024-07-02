@@ -12,6 +12,8 @@ import java.util.List;
 
 import com.ddschool.project.classbook.model.dto.ClassbookDTO;
 import com.ddschool.project.classbook.model.service.ClassbookService;
+import com.ddschool.project.ddclass.model.dto.ClassDTO;
+import com.ddschool.project.ddclass.model.service.ClassService;
 import com.ddschool.project.dog.model.dto.DogDTO;
 import com.ddschool.project.dog.model.service.DogService;
 import com.ddschool.project.member.model.dto.MemberDTO;
@@ -25,14 +27,45 @@ public class ClassbookServlet extends HttpServlet {
 	    HttpSession session = request.getSession();
 	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 	    
-	    int loginMemberCode = loginMember.getMemberCode();
+	    // 쿼리파라미터로 받은 classCode 로 강아지목록 조회
+	    String classCodeParam = request.getParameter("classCode");
+        List<DogDTO> dogs = null;
+
+        if (classCodeParam != null) {
+            int classCode = Integer.parseInt(classCodeParam);
+            dogs = new DogService().selectDogsByClassCode(classCode);
+        } else {
+            dogs = new DogService().selectDogsAllList();
+        }
 	    
-	    List<DogDTO> myDogs = new DogService().selectDogsByMemberCode(loginMemberCode);
-	    System.out.println(myDogs);
-	    
-	    request.setAttribute("myDogs", myDogs);
-		
-		request.getRequestDispatcher("/WEB-INF/views/classbook/classbookPageMember.jsp").forward(request, response);
+	    if(loginMember.getRoleCode() == 1){
+	    	
+	    	List<ClassDTO> classList = new ClassService().getClassList();
+	    	
+	    	request.setAttribute("dogs", dogs);
+	    	request.setAttribute("classList", classList);
+	    	request.getRequestDispatcher("/WEB-INF/views/classbook/classbookPageAdmin.jsp").forward(request, response);
+	    	
+	    } else if(loginMember.getRoleCode() == 2) {
+	    	
+	    	Integer classCode = loginMember.getClassCode();
+	    	System.out.println(classCode);
+	    	
+	    	List<DogDTO> myDogs = new DogService().selectDogsByClassCode(classCode);
+	    	
+	    	request.setAttribute("myDogs", myDogs);
+	    	request.getRequestDispatcher("/WEB-INF/views/classbook/classbookPageMember.jsp").forward(request, response);
+	    	
+	    } else {
+	    	int loginMemberCode = loginMember.getMemberCode();
+		    
+		    List<DogDTO> myDogs = new DogService().selectDogsByMemberCode(loginMemberCode);
+		    System.out.println(myDogs);
+		    
+		    request.setAttribute("myDogs", myDogs);
+			
+			request.getRequestDispatcher("/WEB-INF/views/classbook/classbookPageMember.jsp").forward(request, response);
+	    }
 	}
 
 }
