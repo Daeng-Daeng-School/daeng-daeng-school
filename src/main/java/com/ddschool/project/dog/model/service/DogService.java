@@ -45,6 +45,30 @@ public class DogService {
 		return dogs;
 	}
 
+	// 클래스코드와 연결된 강아지 정보 조회
+	public List<DogDTO> selectDogsByClassCode(int classCode) {
+		
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
+		
+		List<DogDTO> dogs = dogDAO.selectDogsByClassCode(classCode);
+		
+		session.close();
+		return dogs;
+	}
+	
+	// 모든 강아지 정보 조회
+	public List<DogDTO> selectDogsAllList() {
+	
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
+		
+		List<DogDTO> dogs = dogDAO.selectDogsAllList();
+		
+		session.close();
+		return dogs;
+	}
+	
 	// 수정하기
 	public int updateDog(DogDTO dogDTO) {
 		SqlSession session = getSqlSession();
@@ -87,4 +111,6 @@ public class DogService {
 
 		return result;
 	}
+
+
 }
