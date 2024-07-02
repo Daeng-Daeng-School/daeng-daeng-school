@@ -5,8 +5,7 @@
 @font-face {
 	font-family: 'KimjungchulGothic-Bold';
 	src:
-		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2')
-		format('woff2');
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2') format('woff2');
 	font-weight: 700;
 	font-style: normal;
 }
@@ -15,8 +14,7 @@
 @font-face {
 	font-family: 'SUIT-Regular';
 	src:
-		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
-		format('woff2');
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -27,9 +25,22 @@ body {
 	font-family: Arial, sans-serif;
 	background-color: #fff;
 	color: #000;
-	position:relative;
-	min-height: 103vh;
+	position: relative;
+	min-height: auto;
 }
+
+.main-content {
+	padding: 200px 50px 20px;
+	/* 위, 좌우, 아래 여백 설정 */
+	max-width: 1920px;
+	/* 최대 너비 설정 */
+	margin: 0 auto;
+	/* 가운데 정렬 */
+	box-sizing: border-box;
+	/* 박스 크기를 내부 크기(box-sizing)로 설정 */
+	min-height: 680px;
+}
+
 
 /* 링크 기본 스타일 설정 */
 a,
@@ -47,21 +58,21 @@ a:active {
 
 /* 컨테이너의 최대 너비와 여백 설정 */
 .container {
-    margin: 0 auto;
-    padding: 0px 80px;
+	margin: 0 auto;
+	padding: 0px 80px;
 }
 
 /* 헤더 스타일 설정 */
 .header {
-    width: 100%;
-    background-color: #fff;
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    min-width:1683px;
+	width: 100%;
+	background-color: #fff;
+	box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	min-width: 1683px;
 }
 
 
@@ -115,19 +126,19 @@ a:active {
 
 /* 공지바 스타일 설정 */
 .announcement-bar {
-    width: 100%;
-    height: 50px;
-    background-color: #000;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    box-sizing: border-box;
-    position: fixed;
-    top: 125px;
-    z-index: 999;
-    min-width:1683px;
+	width: 100%;
+	height: 50px;
+	background-color: #000;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	box-sizing: border-box;
+	position: fixed;
+	top: 125px;
+	z-index: 999;
+	min-width: 1683px;
 }
 
 /* 로그인 영역 스타일 설정 */
@@ -173,114 +184,119 @@ a:active {
 
 /* Pagination Styles */
 #pagination {
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 50px;
+	padding: 10px;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 50px;
 }
 
 #pagination button {
-    border-radius: 5px;
-    border: 1px solid black;
-    background-color: white;
-    color: black;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+	border-radius: 5px;
+	border: 1px solid black;
+	background-color: white;
+	color: black;
+	padding: 5px 10px;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
 }
 
 #pagination button[disabled] {
-    background-color: rgb(255, 255, 255);
-    color: rgb(192, 192, 192);
-    cursor: default;
+	background-color: rgb(255, 255, 255);
+	color: rgb(192, 192, 192);
+	cursor: default;
 }
 
 #pagination button.active {
-    background-color: #333;
-    color: white;
+	background-color: #333;
+	color: white;
 }
 
 #pagination button:hover:not([disabled]) {
-    background-color: #333;
-    color: white;
+	background-color: #333;
+	color: white;
 }
 
 /* Styling for Arrow Icons */
 #pagination .arrow-icon {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 #pagination .arrow-icon.disabled {
-    color: rgb(0, 0, 0);
+	color: rgb(0, 0, 0);
 }
 
 
 
 /* 푸터 스타일 설정 */
 .footer {
-   background-color: #f9f9f9;
-   padding: 50px 130px;
-   display: flex;
-   justify-content: space-between;
-   align-items: flex-start; /* Align items at the top */
-   font-family: Arial, sans-serif;
-   font-size: 14px;
-   color: grey;
-   min-width: 1683px;
-   position:absolute;
-   bottom:0;
+	width: 80%;
+	background-color: #f9f9f9;
+	padding: 50px 130px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	/* Align items at the top */
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	color: grey;
+	min-width: 1683px;
+	position: relative;
+	bottom: 1;
 }
 
-.footer-left, .footer-right {
-   flex: 1;
+.footer-left,
+.footer-right {
+	flex: 1;
 }
 
 .footer-left {
-   text-align: left;
+	text-align: left;
 }
 
 .footer-right {
-   text-align: right;
-   display: flex;
-   flex-direction: column;
-   align-items: flex-end;
+	text-align: right;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 }
 
 .footer-logo {
-   font-size: 1.5rem;
-   font-weight: bold;
-   margin-bottom: 10px;
-   color: #333;
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #333;
 }
 
-.footer-left p, .footer-right p {
-   margin: 5px 0;
+.footer-left p,
+.footer-right p {
+	margin: 5px 0;
 }
 
-.footer-left .links, .footer-right .links {
-   display: flex;
-   gap: 15px;
-   margin-top: 10px;
+.footer-left .links,
+.footer-right .links {
+	display: flex;
+	gap: 15px;
+	margin-top: 10px;
 }
 
 .footer-right .icons {
-   display: flex;
-   gap: 10px;
-   margin-bottom: 10px;
-   justify-content: flex-end;
-   margin-right: 0;
+	display: flex;
+	gap: 10px;
+	margin-bottom: 10px;
+	justify-content: flex-end;
+	margin-right: 0;
 }
 
 .footer-right .icons img {
-   width: 24px;
-   height: 24px;
+	width: 24px;
+	height: 24px;
 }
 
 .footer-right .customer-service {
-   font-weight: bold;
+	font-weight: bold;
 }
 
 .footer-right .contact {
-   color: #555;
+	color: #555;
 }

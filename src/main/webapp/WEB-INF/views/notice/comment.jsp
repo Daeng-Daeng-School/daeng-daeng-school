@@ -5,19 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>댓글 페이지</title>
-
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/notice.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	var contextPath = "${pageContext.request.contextPath}";
+    var contextPath = "${pageContext.request.contextPath}";
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/comment.js"></script>
 <script>
-	// 페이지 로드 시 실행될 함수
-	$(document).ready(function() {
-		fetchComments(${param.noticeNo}); // 댓글 데이터를 가져오는 함수 호출
-	});
+    // 페이지 로드 시 실행될 함수
+    $(document).ready(function() {
+        fetchComments(${param.noticeNo}); // 댓글 데이터를 가져오는 함수 호출
+    });
 </script>
 </head>
 <body>
@@ -29,8 +28,10 @@
 			</h3>
 
 			<form id="commentForm" method="post">
-				<input type="hidden" name="noticeNo" value="${param.noticeNo}">
-				<input type="hidden" name="memberCode" value="1">
+				<input type="hidden" name="noticeNo" id="noticeNo"
+					value="${param.noticeNo}"> <input type="hidden"
+					name="memberCode" id="memberCode"
+					value="${sessionScope.loginMember.memberCode}">
 				<textarea name="content" id="content" required></textarea>
 				<button type="button" class="comment-btn" onclick="addComment()">등록</button>
 			</form>
@@ -44,6 +45,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

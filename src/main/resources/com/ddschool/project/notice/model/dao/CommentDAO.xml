@@ -3,41 +3,61 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ddschool.project.notice.model.dao.CommentDAO">
+<mapper
+	namespace="com.ddschool.project.notice.model.dao.CommentDAO">
 
-	<resultMap type="com.ddschool.project.notice.model.dto.CommentDTO" id="commentResultMap">
+	<resultMap
+		type="com.ddschool.project.notice.model.dto.CommentDTO"
+		id="commentResultMap">
 		<id property="commentCode" column="COMMENT_CODE" />
 		<result property="noticeNo" column="BOARD_CODE" />
-		<result property="memberCode" column="MEMBER_CODE" />
 		<result property="content" column="CONTENT" />
 		<result property="createdDate" column="REGIST_DATE" />
 		<result property="modifyDate" column="MODIFY_DATE" />
 		<result property="status" column="STATUS" />
+		<association property="commentWriter"
+			javaType="com.ddschool.project.member.model.dto.MemberDTO">
+			<id property="memberCode" column="MEMBER_CODE" />
+			<result property="memberName" column="MEMBER_NAME" />
+		</association>
 	</resultMap>
-	
-	<select id="selectCommentsByNoticeNo" parameterType="_int" resultMap="commentResultMap">
-		SELECT COMMENT_CODE, BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE, MODIFY_DATE, STATUS
-		FROM TBL_COMMENT
-		WHERE BOARD_CODE = #{noticeNo}
-		AND STATUS = 1
-		ORDER BY COMMENT_CODE DESC
+
+	<select id="selectCommentsByNoticeNo" parameterType="_int"
+		resultMap="commentResultMap">
+		SELECT C.COMMENT_CODE, C.BOARD_CODE, M.MEMBER_NAME,
+		C.CONTENT,
+		C.REGIST_DATE, C.MODIFY_DATE, C.STATUS
+		FROM TBL_COMMENT C
+		JOIN TBL_MEMBER M ON M.MEMBER_CODE = C.MEMBER_CODE
+		WHERE C.BOARD_CODE =
+		#{noticeNo}
+		AND C.STATUS = 1
+		ORDER BY C.COMMENT_CODE DESC
 	</select>
 
-	<insert id="insertComment">
-		INSERT INTO TBL_COMMENT (BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE, STATUS)
-		VALUES (#{noticeNo}, #{memberCode}, #{content}, current_date, 1)
+	<insert id="insertComment"
+		parameterType="com.ddschool.project.notice.model.dto.CommentDTO">
+		INSERT INTO TBL_COMMENT (BOARD_CODE, MEMBER_CODE, CONTENT, REGIST_DATE,
+		STATUS)
+		VALUES (#{noticeNo}, #{commentWriter.memberCode}, #{content},
+		current_timestamp, 1)
 	</insert>
 
-	<update id="updateComment" parameterType="com.ddschool.project.notice.model.dto.CommentDTO">
+	<update id="updateComment"
+		parameterType="com.ddschool.project.notice.model.dto.CommentDTO">
 		UPDATE TBL_COMMENT
-		SET CONTENT = #{content}, MODIFY_DATE = current_date
+		SET CONTENT = #{content}, MODIFY_DATE
+		= current_date
 		WHERE COMMENT_CODE = #{commentCode}
+		AND MEMBER_CODE = #{commentWriter.memberCode}
 	</update>
 
-	<update id="updateCommentStatusToDeleted" parameterType="_int">
-		UPDATE TBL_COMMENT
+	<update id="updateCommentStatusToDeleted" parameterType="com.ddschool.project.notice.model.dto.CommentDTO">
+		UPDATE
+		TBL_COMMENT
 		SET STATUS = 0
 		WHERE COMMENT_CODE = #{commentCode}
+		AND MEMBER_CODE = #{commentWriter.memberCode}
 	</update>
 
 </mapper>
