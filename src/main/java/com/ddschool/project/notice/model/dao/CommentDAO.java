@@ -8,5 +8,5 @@ public interface CommentDAO {
 	List<CommentDTO> selectCommentsByNoticeNo(int noticeNo);
     int insertComment(CommentDTO comment);
     int updateComment(CommentDTO comment);
-    int updateCommentStatusToDeleted(int commentCode);
+    int updateCommentStatusToDeleted(CommentDTO deleteComment);
 }

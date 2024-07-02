@@ -49,13 +49,15 @@
 		SET CONTENT = #{content}, MODIFY_DATE
 		= current_date
 		WHERE COMMENT_CODE = #{commentCode}
+		AND MEMBER_CODE = #{commentWriter.memberCode}
 	</update>
 
-	<update id="updateCommentStatusToDeleted" parameterType="_int">
+	<update id="updateCommentStatusToDeleted" parameterType="com.ddschool.project.notice.model.dto.CommentDTO">
 		UPDATE
 		TBL_COMMENT
 		SET STATUS = 0
 		WHERE COMMENT_CODE = #{commentCode}
+		AND MEMBER_CODE = #{commentWriter.memberCode}
 	</update>
 
 </mapper>

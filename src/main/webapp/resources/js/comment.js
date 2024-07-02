@@ -48,13 +48,9 @@ function displayComments(comments) {
 
 // 댓글 등록을 처리하는 함수
 function addComment() {
-	var memberCode = $("#memberCode").val();
+	var commentWriter = $("#commentWriter").val();
 	var noticeNo = $("#noticeNo").val();
 	var content = $("#content").val();
-
-	console.log("memberCode:", memberCode);
-	console.log("noticeNo:", noticeNo);
-	console.log("content:", content);
 
 	if (content.trim() === "") {
 		alert("댓글 내용을 입력해주세요.");
@@ -66,7 +62,7 @@ function addComment() {
 		url: contextPath + "/notice/comment",
 		data: {
 			noticeNo: noticeNo,
-			memberCode: memberCode,
+			commentWriter: commentWriter,
 			content: content
 		},
 		success: function(response) {

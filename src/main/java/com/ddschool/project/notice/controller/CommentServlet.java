@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/notice/comment")
 public class CommentServlet extends HttpServlet {
@@ -82,18 +83,28 @@ public class CommentServlet extends HttpServlet {
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		System.out.println("loginMember = " + loginMember);
+
+		int memberCode = loginMember.getMemberCode();
+		System.out.println("memberCode = " + memberCode);
+
+		
 		// 요청 파라미터에서 댓글 코드와 컨텐츠를 가져옴
 		request.setCharacterEncoding("UTF-8");
 		int commentCode = Integer.parseInt(request.getParameter("commentCode"));
 		String content = request.getParameter("content");
 
 		// 새로운 댓글 객체 생성
-		CommentDTO newComment = new CommentDTO();
-		newComment.setCommentCode(commentCode);
-		newComment.setContent(content);
+		CommentDTO modifyComment = new CommentDTO();
+		modifyComment.setCommentCode(commentCode);
+		modifyComment.setContent(content);
+		modifyComment.setCommentWriter(new MemberDTO());
+		modifyComment.getCommentWriter().setMemberCode(memberCode);
 
 		// 서비스에서 댓글 등록
-		int result = commentService.modifyComment(newComment);
+		int result = commentService.modifyComment(modifyComment);
 		// 성공 메시지 전송
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
@@ -105,13 +116,26 @@ public class CommentServlet extends HttpServlet {
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		System.out.println("loginMember = " + loginMember);
+
+		int memberCode = loginMember.getMemberCode();
+		System.out.println("memberCode = " + memberCode);
+		
 		// 요청 파라미터에서 댓글 코드를 가져옴
 		request.setCharacterEncoding("UTF-8");
 		int commentCode = Integer.parseInt(request.getParameter("commentCode"));
 		System.out.println("삭제 commentCode : " + commentCode);
 
+		CommentDTO deleteComment = new CommentDTO();
+		deleteComment.setCommentCode(commentCode);
+		deleteComment.setCommentWriter(new MemberDTO());
+		deleteComment.getCommentWriter().setMemberCode(memberCode);
+		
+		
 		// 논리적 삭제를 위해 댓글의 상태를 '0'으로 업데이트
-		int result = commentService.markCommentAsDeleted(commentCode);
+		int result = commentService.markCommentAsDeleted(deleteComment);
 		System.out.println("삭제result : " + result);
 
 		// 결과를 JSON 형식으로 반환
