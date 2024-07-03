@@ -3,6 +3,7 @@ package com.ddschool.project.sticker.model.dao;
 import java.util.List;
 import java.util.Map;
 
+
 import com.ddschool.project.sticker.model.dto.StickerDTO;
 
 public interface StickerDAO {
@@ -14,6 +15,9 @@ public interface StickerDAO {
 	int deleteSticker(StickerDTO requestSticker);
 
 	List<StickerDTO> selectListSticker(StickerDTO requestSticker);
+	
+	//List<StickerDTO> selectListSticker(@Param("stickerDTO") StickerDTO stickerDTO,
+	//		                           @Param("roleCode") int roleCode);
 
 	List<Map<String, String>> selectRankSticker(StickerDTO requestSticker);
 	

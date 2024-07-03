@@ -33,7 +33,7 @@ public class DogService {
 		return result;
 	}
 
-	// 회원아이디와 연결된 강아지 정보 조회
+	// 회원아이디와 연결된 강아지 정보 조회 - classBook 에서 쓰는 메서드
 	public List<DogDTO> selectDogsByMemberCode(int memberCode) {
 
 		SqlSession session = getSqlSession();
@@ -41,6 +41,37 @@ public class DogService {
 
 		List<DogDTO> dogs = dogDAO.selectDogsByMemberCode(memberCode);
 
+
+		
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
+		
+		List<DogDTO> dogs = dogDAO.selectDogsByMemberCode(memberCode);
+		
+		session.close();
+		return dogs;
+	}
+	
+	// 클래스코드와 연결된 강아지 정보 조회
+	public List<DogDTO> selectDogsByClassCode(int classCode) {
+			
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
+		
+		List<DogDTO> dogs = dogDAO.selectDogsByClassCode(classCode);
+		
+		session.close();
+		return dogs;
+	}
+		
+	// 모든 강아지 정보 조회
+	public List<DogDTO> selectDogsAllList() {
+	
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
+		
+		List<DogDTO> dogs = dogDAO.selectDogsAllList();
+		
 		session.close();
 		return dogs;
 	}
@@ -80,8 +111,8 @@ public class DogService {
 		return result;
 	}
 
-// 삭제하기
 
+	// 삭제하기
 	public int deleteDog(int dogCode) {
 		SqlSession session = getSqlSession();
 		DogDAO dogDAO = session.getMapper(DogDAO.class);

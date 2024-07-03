@@ -43,15 +43,14 @@
 	<result property="withdrawDate" column="withdraw_date" />
 	<result property="status" column="status" />
 	</resultMap>
-
-	<!-- 회원 출석부 반려견 리스트 -->
-	<!-- <select id="getDogNameList" resultMap="dogResultMap">
-		SELECT
-			d.DOG_NAME
-		FROM TBL_DOG d
-		JOIN TBL_MEMBER m ON d.MEMBER_CODE=m.MEMBER_CODE
-		WHERE m.MEMBER_CODE=1
-	</select> -->
+	
+	<!-- 강아지 한마리의 해당 년월 출석 기록 조회 -->
+	<select id="getAttendanceByDogCode" resultMap="classbookResultMap">
+	SELECT CLASSBOOK_CODE DOG_CODE, DATE_FORMAT(CHECK_DATE, '%Y-%m-%d') AS CHECK_DATE, CHECK_STATUS, MODIFY_DATE, MEMBER_CODE
+	FROM TBL_CLASSBOOK
+	WHERE DOG_CODE = #{dogCode}
+	AND DATE_FORMAT(CHECK_DATE, '%Y-%m') = #{yearMonth}
+	</select>
   
   	<!-- 마스터 출석부 반명 리스트 -->
   	<select id="getClassName" resultType="java.lang.Integer">
@@ -60,74 +59,5 @@
   		FROM TBL_MEMBER
   		WHERE MEMBER_ID='teacher'
   	</select>
-  
-  	<!-- 회원 출석부 조회 리스트 -->
-  	<!-- <select id="getDogClassbookList" parameterType="hashMap" resultMap="classbookResultMap">
-  		SELECT
-			d.DOG_NAME,
-		<foreach collection="dayList" item="day" separator=",">
-              MAX(CASE WHEN DAY(CHECK_DATE) = #{day} THEN c.CHECK_STATUS ELSE ' ' END) AS '${day}'
-        </foreach>
-		FROM TBL_CLASSBOOK c
-		JOIN TBL_DOG d ON d.DOG_CODE=c.DOG_CODE
-		JOIN TBL_MEMBER m ON c.MEMBER_CODE=m.MEMBER_CODE
-		WHERE m.MEMBER_CODE=1 AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m')=#{month}
-		GROUP BY d.DOG_NAME
-  	</select> -->
-  <select id="getDogClassbookList" parameterType="map" resultType="java.util.LinkedHashMap">
-			SELECT
-			d.DOG_NAME,
-	MAX(CASE WHEN DAY(CHECK_DATE) = 1 THEN c.CHECK_STATUS ELSE ' ' END) AS '1',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 2 THEN c.CHECK_STATUS ELSE ' ' END) AS '2',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 3 THEN c.CHECK_STATUS ELSE ' ' END) AS '3',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 4 THEN c.CHECK_STATUS ELSE ' ' END) AS '4',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 5 THEN c.CHECK_STATUS ELSE ' ' END) AS '5',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 6 THEN c.CHECK_STATUS ELSE ' ' END) AS '6',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 7 THEN c.CHECK_STATUS ELSE ' ' END) AS '7',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 8 THEN c.CHECK_STATUS ELSE ' ' END) AS '8',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 9 THEN c.CHECK_STATUS ELSE ' ' END) AS '9',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 10 THEN c.CHECK_STATUS ELSE ' ' END) AS '10',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 11 THEN c.CHECK_STATUS ELSE ' ' END) AS '11',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 12 THEN c.CHECK_STATUS ELSE ' ' END) AS '12',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 13 THEN c.CHECK_STATUS ELSE ' ' END) AS '13',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 14 THEN c.CHECK_STATUS ELSE ' ' END) AS '14',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 15 THEN c.CHECK_STATUS ELSE ' ' END) AS '15',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 16 THEN c.CHECK_STATUS ELSE ' ' END) AS '16',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 17 THEN c.CHECK_STATUS ELSE ' ' END) AS '17',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 18 THEN c.CHECK_STATUS ELSE ' ' END) AS '18',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 19 THEN c.CHECK_STATUS ELSE ' ' END) AS '19',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 20 THEN c.CHECK_STATUS ELSE ' ' END) AS '20',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 21 THEN c.CHECK_STATUS ELSE ' ' END) AS '21',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 22 THEN c.CHECK_STATUS ELSE ' ' END) AS '22',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 23 THEN c.CHECK_STATUS ELSE ' ' END) AS '23',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 24 THEN c.CHECK_STATUS ELSE ' ' END) AS '24',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 25 THEN c.CHECK_STATUS ELSE ' ' END) AS '25',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 26 THEN c.CHECK_STATUS ELSE ' ' END) AS '26',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 27 THEN c.CHECK_STATUS ELSE ' ' END) AS '27',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 28 THEN c.CHECK_STATUS ELSE ' ' END) AS '28',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 29 THEN c.CHECK_STATUS ELSE ' ' END) AS '29',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 30 THEN c.CHECK_STATUS ELSE ' ' END) AS '30',
-    MAX(CASE WHEN DAY(CHECK_DATE) = 31 THEN c.CHECK_STATUS ELSE ' ' END) AS '31'
-		FROM TBL_CLASSBOOK c
-    JOIN TBL_DOG d ON d.DOG_CODE = c.DOG_CODE
-    JOIN TBL_MEMBER m ON m.MEMBER_CODE = c.MEMBER_CODE
-    WHERE m.MEMBER_CODE = 1
-        AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m') = #{month}
-    GROUP BY d.DOG_NAME
-    ORDER BY d.DOG_NAME
-  </select>
-
-<!-- <select id="getDogClassbookList" parameterType="map" resultType="java.util.LinkedHashMap">
-    SELECT
-        d.DOG_NAME,
-        GROUP_CONCAT(CASE WHEN DAY(c.CHECK_DATE) = #{day} THEN c.CHECK_STATUS ELSE NULL END ORDER BY c.CHECK_DATE SEPARATOR ',') AS attendance
-    FROM TBL_CLASSBOOK c
-    JOIN TBL_DOG d ON d.DOG_CODE = c.DOG_CODE
-    JOIN TBL_MEMBER m ON m.MEMBER_CODE = c.MEMBER_CODE
-    WHERE m.MEMBER_CODE = 1
-        AND DATE_FORMAT(c.CHECK_DATE, '%Y-%m') = #{month}
-    GROUP BY d.DOG_NAME
-</select> -->
-
   
   </mapper>

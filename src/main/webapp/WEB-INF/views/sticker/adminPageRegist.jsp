@@ -61,7 +61,7 @@
 	      선생님 말씀  <input class="input_style" type="text" name="comment"><br>
 	      등록 년월일  <input class="input_style" type="text" name="registDate" value="<%= todayStr %>" readonly><br>
 	    
-	      <input class="submit-input-button" type="submit" value="등록하기">
+	      <input class="submit-input-button" type="submit" value="스티커등록">
 	      
 	     </form> 
 	    </div>

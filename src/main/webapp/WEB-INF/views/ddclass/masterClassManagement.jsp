@@ -215,6 +215,7 @@ $(document).ready(function() {
 
     btnSubmitClass.click(function() {
         const className = $('#className').val();
+        console.log("Submitting className: " + className);
 
         $.ajax({
             type: 'POST',

@@ -131,7 +131,8 @@ h1 {
 							우리 반려견의 출석률을<br> 확인해볼까요?
 						</p>
 					</div>
-				</a> </a> <a class="slide href="${pageContext.servletContext.contextPath}/sticker/list">
+				</a> <a class="slide"
+					href="${pageContext.servletContext.contextPath}/sticker/list">
 					<img
 					src="${pageContext.servletContext.contextPath}/resources/image/sticker.png"
 					alt="Image 2">

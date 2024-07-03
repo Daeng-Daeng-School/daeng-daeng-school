@@ -18,6 +18,12 @@ public interface DogDAO {
     /* 도그코드로 강아지조회*/
     DogDTO selectDogByDogCode(int dogCode);
 
+    // 클래스반 등록된 강아지 조회
+  	List<DogDTO> selectDogsByClassCode(int classCode);
+  	
+  	// 모든 강아지 조회
+  	List<DogDTO> selectDogsAllList();
+
 	/* 강아지 정보 수정 */
 	int updateDog(DogDTO dogDTO);
 
