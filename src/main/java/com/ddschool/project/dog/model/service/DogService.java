@@ -35,6 +35,13 @@ public class DogService {
 
 	// 회원아이디와 연결된 강아지 정보 조회 - classBook 에서 쓰는 메서드
 	public List<DogDTO> selectDogsByMemberCode(int memberCode) {
+
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
+
+		List<DogDTO> dogs = dogDAO.selectDogsByMemberCode(memberCode);
+
+
 		
 		SqlSession session = getSqlSession();
 		dogDAO = session.getMapper(DogDAO.class);
@@ -69,6 +76,18 @@ public class DogService {
 		return dogs;
 	}
 
+	// 강아지 코드로 조회
+	public DogDTO selectDogByDogCode(int dogCode) {
+
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
+
+		DogDTO dog = dogDAO.selectDogByDogCode(dogCode);
+
+		session.close();
+		return dog;
+	}
+
 	// 수정하기
 	public int updateDog(DogDTO dogDTO) {
 		SqlSession session = getSqlSession();
@@ -87,18 +106,20 @@ public class DogService {
 			session.close();
 		}
 
+		System.out.println("service result: " + result);
+
 		return result;
 	}
+
 
 	// 삭제하기
 	public int deleteDog(int dogCode) {
 		SqlSession session = getSqlSession();
-		dogDAO = session.getMapper(DogDAO.class);
+		DogDAO dogDAO = session.getMapper(DogDAO.class);
 
 		int result = 0;
 
 		try {
-			// 'N'으로 업데이트하는 예시
 			result = dogDAO.deleteDog(dogCode); // DogDAO를 통해 데이터베이스에 삭제 상태 업데이트
 			if (result > 0) {
 				session.commit();
@@ -111,4 +132,5 @@ public class DogService {
 
 		return result;
 	}
+
 }

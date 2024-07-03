@@ -62,10 +62,10 @@ public class DogInsertServlet extends HttpServlet {
 		String path = "";
 		if (result > 0) {
 			path = "/WEB-INF/views/common/success.jsp";
-			request.setAttribute("successMessage", "강아지 등록에 성공했습니다!");
+			request.setAttribute("successCode", "insertDog");
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("errorMessage", "강아지 등록에 실패했습니다!");
+			request.setAttribute("errorMessage", "강아지 등록에 실패했습니다! 다시 등록해주세요!");
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);
