@@ -21,11 +21,8 @@ public class ClassManagementServlet extends HttpServlet {
 	
 		List<ClassDTO> classList = new ClassService().getClassList();
 		request.setAttribute("classList", classList);
-		System.out.println("서블릿에서 확인한 classList : " + classList);
-		
 		
 		request.getRequestDispatcher("/WEB-INF/views/ddclass/masterClassManagement.jsp").forward(request, response);
-		
 	}
 
 	// 반 조회 페이지에서 활성상태 변경
@@ -34,13 +31,11 @@ public class ClassManagementServlet extends HttpServlet {
 		int classCode = Integer.parseInt(request.getParameter("classCode"));
 		boolean status = Boolean.parseBoolean(request.getParameter("status"));
 		
-		System.out.println("여기는 ClassMenagerServlet classCode 는? : " + classCode);
-		System.out.println("여기는 ClassMenagerServlet status 는? : " + status);
-	
 		int result = new ClassService().updateClassStatus(classCode, status);
 		
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
+		
 		if (result > 0) {
 			System.out.println("변경 성공!");
             out.print("{\"status\":\"success\"}");
@@ -48,8 +43,7 @@ public class ClassManagementServlet extends HttpServlet {
         	System.out.println("변경 실패!");
             out.print("{\"status\":\"error\"}");
         }
-        out.flush();
 		
+        out.flush();
 	}
-
 }

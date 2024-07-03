@@ -98,7 +98,6 @@ public class AuthenticationFilter implements Filter {
 		HttpServletRequest hrequest = (HttpServletRequest) request;
 		String uri = hrequest.getRequestURI();
 		String intent = uri.replace(hrequest.getContextPath(), "");
-		System.out.println("intent : " + intent);
 		
 		HttpSession requestSession = hrequest.getSession();
 		MemberDTO loginMember = (MemberDTO) requestSession.getAttribute("loginMember");
@@ -110,8 +109,6 @@ public class AuthenticationFilter implements Filter {
 			boolean isPermitMember = permitURIList.get("memberPermitList").contains(intent);
 			boolean isPermitTeacher = permitURIList.get("teacherPermitList").contains(intent);
 			boolean isPermitAll = permitURIList.get("allPermitList").contains(intent);
-			
-			System.out.println("roleCode 가 뭐야? : "+loginMember.getRoleCode());
 			
             if (isPermitAll) {
                 isAuthorized = true;
