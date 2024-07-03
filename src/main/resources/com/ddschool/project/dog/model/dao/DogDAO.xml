@@ -76,8 +76,8 @@
 		, D.NOTES
 		FROM
 		TBL_DOG D
-		WHERE D.MEMBER_CODE= #{memberCode}
-	</select>
+		WHERE D.MEMBER_CODE= #{memberCode} AND status = 0
+		</select>
 	
 		<select id="selectDogByDogCode" parameterType="int"
 		resultMap="DogResultMap">
@@ -125,7 +125,7 @@
 	<!-- 강아지 정보 삭제(가짜삭제) -->
 	<update id="deleteDog" parameterType="int">
 		UPDATE tbl_dog
-		SET status = 'N'
+		SET status = TRUE
 		WHERE dog_code = #{dogCode}
 	</update>
 </mapper>

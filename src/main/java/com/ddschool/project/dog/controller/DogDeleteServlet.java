@@ -5,23 +5,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
-
-import com.ddschool.project.member.model.dto.MemberDTO;
+import com.ddschool.project.dog.model.service.DogService;
 
 @WebServlet("/dog/delete")
 public class DogDeleteServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int dogCode = Integer.parseInt(request.getParameter("dogCode"));
 
-		HttpSession session = request.getSession();
-		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+        DogService dogService = new DogService();
+        boolean isDeleted = dogService.deleteDog(dogCode) > 0;
 
-		int dogCode = Integer.parseInt(request.getParameter("dogCode"));
-
-	}
-
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        if (isDeleted) {
+            response.getWriter().write("{\"status\":\"success\"}");
+        } else {
+            response.getWriter().write("{\"status\":\"failure\"}");
+        }
+    }
 }

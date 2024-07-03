@@ -15,6 +15,7 @@ public interface DogDAO {
     // 회원에 등록된 강아지 조회
     List<DogDTO> selectDogsByMemberCode(int memberCode);
     
+    /* 도그코드로 강아지조회*/
     DogDTO selectDogByDogCode(int dogCode);
 
 	/* 강아지 정보 수정 */

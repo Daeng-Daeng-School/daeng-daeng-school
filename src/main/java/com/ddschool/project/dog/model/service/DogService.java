@@ -84,11 +84,11 @@ public class DogService {
 
 	public int deleteDog(int dogCode) {
 		SqlSession session = getSqlSession();
-		dogDAO = session.getMapper(DogDAO.class);
+		DogDAO dogDAO = session.getMapper(DogDAO.class);
 
 		int result = 0;
 
-		try { // 'N'으로 업데이트하는 예시
+		try {
 			result = dogDAO.deleteDog(dogCode); // DogDAO를 통해 데이터베이스에 삭제 상태 업데이트
 			if (result > 0) {
 				session.commit();
