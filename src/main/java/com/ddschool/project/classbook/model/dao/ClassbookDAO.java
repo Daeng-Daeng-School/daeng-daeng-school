@@ -21,4 +21,6 @@ public interface ClassbookDAO {
 
 	int insertAttendanceRecord(ClassbookDTO classbookDTO);
 
+	int deleteAttendanceRecord(@Param("dogCode") int dogCode, @Param("checkDate") String checkDate);
+
 }

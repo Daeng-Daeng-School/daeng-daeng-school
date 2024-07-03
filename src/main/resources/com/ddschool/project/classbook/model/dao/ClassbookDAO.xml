@@ -52,5 +52,11 @@
             CHECK_STATUS = #{checkStatus},
             MODIFY_DATE = NOW()
 	</insert>
+	
+	<!-- 출석 기록 삭제 -->
+    <delete id="deleteAttendanceRecord">
+        DELETE FROM TBL_CLASSBOOK
+        WHERE DOG_CODE = #{dogCode} AND CHECK_DATE = #{checkDate}
+    </delete>
   
   </mapper>

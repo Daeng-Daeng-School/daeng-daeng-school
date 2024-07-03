@@ -20,6 +20,11 @@ public class ClassbookInsertServlet extends HttpServlet {
         String checkDate = request.getParameter("checkDate");
         String checkStatus = request.getParameter("checkStatus");
         int memberCode = new DogService().getMemberIdByDogCode(dogCode);
+        
+        // 빈 문자열을 null로 변환
+        if (checkStatus != null && checkStatus.isEmpty()) {
+            checkStatus = null;
+        }
 
         ClassbookDTO classbookDTO = new ClassbookDTO();
         classbookDTO.setMemberCode(memberCode);

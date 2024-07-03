@@ -69,5 +69,17 @@ public class ClassbookService {
 		session.close();
 		return result;
 	}
+
+	public boolean deleteAttendanceRecord(int dogCode, String checkDate) {
+		
+		SqlSession session = getSqlSession();
+		classbookDAO = session.getMapper(ClassbookDAO.class);
+		
+		int result = classbookDAO.deleteAttendanceRecord(dogCode, checkDate);
+        session.commit();
+        session.close();
+        return result > 0;
+		
+	}
 	
 }

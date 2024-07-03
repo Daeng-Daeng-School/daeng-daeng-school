@@ -113,6 +113,28 @@
         $('.close').on('click', function() {
             $('#modal').hide();
         });
+        
+    	 // 출석 기록 모달창_저장
+        $('#modal-reset').on('click', function() {
+            var dogCode = $('#modal-dog-code').val();
+            var checkDate = $('#modal-date').val();
+
+            $.ajax({
+                url: '${pageContext.servletContext.contextPath}/classbook/delete',
+                type: 'POST',
+                data: { dogCode: dogCode, checkDate: checkDate},
+                success: function(response) {
+                    alert("출석 기록이 삭제되었습니다.");
+                    $('#modal').hide();
+                    var yearMonth = checkDate.slice(0, 7);
+                    loadDogCalendar(dogCode, yearMonth);
+                },
+                error: function(error) {
+                    console.error('Error adding attendance record:', error);
+                    alert("출석 기록 삭제 중 오류가 발생했습니다.");
+                }
+            });
+        });
 
      	// 첫 번째 강아지를 자동으로 선택
         var firstDogOption = $('#dogSelect option:eq(1)'); // 첫 번째 강아지 옵션
@@ -189,6 +211,7 @@
                 <option value="N">결석</option>
             </select><br><br>
             <button type="button" id="modal-save">저장</button>
+            <button type="button" id="modal-reset">초기화</button>
         </form>
     </div>
 	</div>
