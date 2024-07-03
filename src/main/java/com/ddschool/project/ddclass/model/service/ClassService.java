@@ -17,24 +17,21 @@ public class ClassService {
 	private ClassDAO classDAO;
 	private Template template;
 
+	// 반 목록 조회
 	public List<ClassDTO> getClassList() {
-		
-		System.out.println("서비스에서 전체 반 목록조회 시작!");
 		
 		SqlSession session = getSqlSession();
 	    classDAO = session.getMapper(ClassDAO.class);
 		
-		
 		List<ClassDTO> classList = classDAO.getClassList();
 		
-		System.out.println("서비스에서 전체반 목록 출력: " + classList);
-		
+		session.close();
 		return classList;
 
 	}
 
+	// 신규 반 등록
 	public int insertClass(String className) {
-		System.out.println("서비스에서 신규 반 등록 시작!");
 		
 		SqlSession session = getSqlSession();
 	    classDAO = session.getMapper(ClassDAO.class);
@@ -50,7 +47,26 @@ public class ClassService {
 		}
 		
 		session.close();
+		return result;
+	}
+
+	// 반 활성상태 수정
+	public int updateClassStatus(int classCode, boolean status) {
 		
+		SqlSession session = getSqlSession();
+	    classDAO = session.getMapper(ClassDAO.class);
+	    
+		int result=0;
+		
+		result = classDAO.updateClassStatus(classCode, status);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
 		return result;
 	}
 
