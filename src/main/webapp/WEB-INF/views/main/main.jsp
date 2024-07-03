@@ -162,7 +162,7 @@ h1 {
 							우리 반려견은 <br>어떻게 관리가 될까요?
 						</p>
 					</div>
-				</a> <a class="slide" href="${pageContext.servletContext.contextPath}/#">
+				</a> <%-- <a class="slide" href="${pageContext.servletContext.contextPath}/#">
 					<img
 					src="${pageContext.servletContext.contextPath}/resources/image/kinder.png"
 					alt="Image 5">
@@ -171,7 +171,7 @@ h1 {
 
 					</div>
 				</a>
-			</div>
+			</div> --%>
 			<div class="slider-controls">
 				<div class="slider-control left" id="prevButton">&lt;</div>
 				<div class="slider-control right" id="nextButton">&gt;</div>

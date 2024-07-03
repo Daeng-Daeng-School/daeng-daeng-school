@@ -36,9 +36,13 @@
 					</p>
 					<div class="search-section">
 						<!-- 검색어 입력 필드 -->
-						<input type="text" id="searchInput" class="searchAllInput"
-							placeholder="검색어를 입력하세요..." onkeypress="handleKeyPress(event)">
-						<button class="searchIcon" onclick="search()">🔎</button>
+						<form id="searchForm"
+							action="${pageContext.servletContext.contextPath}/notice"
+							method="GET">
+							<input type="text" id="searchInput" name="keyword"
+								class="searchAllInput" placeholder="검색어를 입력하세요...">
+							<button type="submit" class="searchIcon">🔎</button>
+						</form>
 						<button class="write-post-button" onclick="writeNotice()">작성하기</button>
 					</div>
 				</div>

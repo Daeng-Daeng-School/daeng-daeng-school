@@ -24,7 +24,7 @@
 					<a href="${pageContext.servletContext.contextPath}/classbook">출석부</a>
 					<a href="${pageContext.servletContext.contextPath}/dog/select">반려견관리</a>
 					<a href="${pageContext.servletContext.contextPath}/sticker/list">이달의 반려견</a> 
-					<a href="#">유치원관리</a>
+					<!-- <a href="#">유치원관리</a> -->
 				</nav>
 			</div>
 
@@ -81,8 +81,7 @@
 	</header>
 	<div class="announcement-bar">
 		<div class="container">
-			<span>🔔 2024년 07월 15일 제 1회 댕댕 체육대회를 진행할 예정입니다. 공지사항 체크하고 희망하는
-				운동종목 댓글로 남겨주시길 바랍니다.</span>
+			<span>🔔 댕댕스쿨에 오신 여러분을 환영합니다. 오늘도 즐겁고 신나는 시간 함께해요~!</span>
 		</div>
 	</div>
 

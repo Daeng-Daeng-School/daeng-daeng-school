@@ -76,13 +76,95 @@ public class NoticeService {
 	 *
 	 * @return 전체 알림장 수
 	 */
-	public int getTotalNoticeCount() {
+	public int selectTotalCount() {
 		try (SqlSession session = getSqlSession()) {
 			noticeDAO = session.getMapper(NoticeDAO.class);
 
 			int totalCount = noticeDAO.selectTotalCount();
 
 			return totalCount;
+		}
+	}
+
+	/**
+	 * 특정 반 클래스 내의 전체 알림장 수 조회
+	 *
+	 * @param classCode 반 클래스 코드
+	 * @return 전체 알림장 수
+	 */
+	public int getTotalNoticeCountByClassCode(int classCode) {
+		try (SqlSession session = getSqlSession()) {
+			noticeDAO = session.getMapper(NoticeDAO.class);
+
+			int totalNotices = noticeDAO.getTotalNoticeCount(classCode);
+
+			return totalNotices;
+		}
+	}
+
+	/**
+	 * 특정 멤버 코드 내의 전체 알림장 수 조회
+	 *
+	 * @param memberCode 멤버 코드
+	 * @return 전체 알림장 수
+	 */
+	public int getTotalNoticeCount(int memberCode) {
+		try (SqlSession session = getSqlSession()) {
+			noticeDAO = session.getMapper(NoticeDAO.class);
+
+			int totalNotices = noticeDAO.getTotalNoticeCount(memberCode);
+
+			return totalNotices;
+		}
+	}
+
+	public int getTotalNoticeCount(String keyword) {
+		try (SqlSession session = getSqlSession()) {
+			noticeDAO = session.getMapper(NoticeDAO.class);
+
+			int notice = noticeDAO.getTotalNoticeCount(keyword);
+			System.out.println("sdasdasd" + notice);
+
+			return notice;
+		}
+	}
+
+	/**
+	 * 특정 멤버 코드 내에서 키워드를 이용한 알림장 검색 결과의 개수 조회
+	 *
+	 * @param memberCode 멤버 코드
+	 * @param keyword    검색 키워드
+	 * @return 검색된 알림장 수
+	 */
+	public int getSearchNoticeCountByMemberCode(Map<String, Object> paramMap) {
+		try (SqlSession session = getSqlSession()) {
+			noticeDAO = session.getMapper(NoticeDAO.class);
+
+			int totalNotices = noticeDAO.getTotalNoticeCount(paramMap);
+
+			return totalNotices;
+		}
+	}
+
+	public int getTotalNoticeCountByClassCode(Map<String, Object> paramMap) {
+		try (SqlSession session = getSqlSession()) {
+			noticeDAO = session.getMapper(NoticeDAO.class);
+
+			int notice = noticeDAO.getTotalNoticeCountByClassCode(paramMap);
+			System.out.println("sdasdasd" + notice);
+
+			return notice;
+		}
+	}
+
+	public int getTotalNoticeCount(Map<String, Object> paramMap) {
+		try (SqlSession session = getSqlSession()) {
+			noticeDAO = session.getMapper(NoticeDAO.class);
+
+			int notice = noticeDAO.getTotalNoticeCountByClassCode(paramMap);
+			System.out.println("sdasdasd" + notice);
+
+			return notice;
 		}
 	}
 
@@ -146,44 +228,6 @@ public class NoticeService {
 		}
 	}
 
-	/**
-	 * 키워드를 이용한 알림장 검색
-	 *
-	 * @param keyword 검색 키워드
-	 * @param offset  시작 위치
-	 * @param limit   가져올 개수
-	 * @return 검색된 알림장 목록
-	 */
-	public List<NoticeDTO> searchNotices(String keyword, int offset, int limit) {
-		try (SqlSession session = getSqlSession()) {
-			noticeDAO = session.getMapper(NoticeDAO.class);
-
-			Map<String, Object> params = new HashMap<>();
-			params.put("keyword", keyword);
-			params.put("offset", offset);
-			params.put("limit", limit);
-
-			List<NoticeDTO> searchList = noticeDAO.searchNotices(params);
-
-			return searchList;
-		}
-	}
-
-	/**
-	 * 키워드를 이용한 알림장 검색 결과의 개수 조회
-	 *
-	 * @param keyword 검색 키워드
-	 * @return 검색된 알림장 수
-	 */
-	public int getSearchNoticeCount(String keyword) {
-		try (SqlSession session = getSqlSession()) {
-			noticeDAO = session.getMapper(NoticeDAO.class);
-
-			int count = noticeDAO.getSearchNoticeCount(keyword);
-
-			return count;
-		}
-	}
 
 	/**
 	 * 모든 반 클래스 목록 조회
@@ -227,6 +271,7 @@ public class NoticeService {
 			noticeDAO = session.getMapper(NoticeDAO.class);
 
 			int roleCode = noticeDAO.getRoleCodeByMemberCode(memberCode);
+			System.out.println("search를 위한 sercive roleCode = " + roleCode);
 
 			return roleCode;
 		}
@@ -247,109 +292,6 @@ public class NoticeService {
 		}
 	}
 
-	/**
-	 * 특정 반 클래스 내에서 키워드를 이용한 알림장 검색 결과의 개수 조회
-	 *
-	 * @param classCode 반 클래스 코드
-	 * @param keyword   검색 키워드
-	 * @return 검색된 알림장 수
-	 */
-	public int getSearchNoticeCountByClassCode(int classCode, String keyword) {
-		try (SqlSession session = getSqlSession()) {
-			noticeDAO = session.getMapper(NoticeDAO.class);
-
-			int totalNotices = noticeDAO.getSearchNoticeCountByClassCode(classCode, keyword);
-
-			return totalNotices;
-		}
-	}
-
-	/**
-	 * 특정 반 클래스 내에서 키워드를 이용한 알림장 검색
-	 *
-	 * @param classCode 반 클래스 코드
-	 * @param keyword   검색 키워드
-	 * @param offset    시작 위치
-	 * @param limit     가져올 개수
-	 * @return 검색된 알림장 목록
-	 */
-	public List<NoticeDTO> searchNoticesByClassCode(int classCode, String keyword, int offset, int limit) {
-		try (SqlSession session = getSqlSession()) {
-			noticeDAO = session.getMapper(NoticeDAO.class);
-
-			List<NoticeDTO> notice = noticeDAO.searchNoticesByClassCode(classCode, keyword, offset, limit);
-
-			return notice;
-		}
-	}
-
-	/**
-	 * 특정 반 클래스 내의 전체 알림장 수 조회
-	 *
-	 * @param classCode 반 클래스 코드
-	 * @return 전체 알림장 수
-	 */
-	public int getTotalNoticeCountByClassCode(int classCode) {
-		try (SqlSession session = getSqlSession()) {
-			noticeDAO = session.getMapper(NoticeDAO.class);
-
-			int totalNotices = noticeDAO.getTotalNoticeCountByClassCode(classCode);
-
-			return totalNotices;
-		}
-	}
-
-	/**
-	 * 특정 멤버 코드 내에서 키워드를 이용한 알림장 검색 결과의 개수 조회
-	 *
-	 * @param memberCode 멤버 코드
-	 * @param keyword    검색 키워드
-	 * @return 검색된 알림장 수
-	 */
-	public int getSearchNoticeCountByMemberCode(int memberCode, String keyword) {
-		try (SqlSession session = getSqlSession()) {
-			noticeDAO = session.getMapper(NoticeDAO.class);
-
-			int totalNotices = noticeDAO.getSearchNoticeCountByMemberCode(memberCode, keyword);
-
-			return totalNotices;
-		}
-	}
-
-	/**
-	 * 특정 멤버 코드 내에서 키워드를 이용한 알림장 검색
-	 *
-	 * @param memberCode 멤버 코드
-	 * @param keyword    검색 키워드
-	 * @param offset     시작 위치
-	 * @param limit      가져올 개수
-	 * @return 검색된 알림장 목록
-	 */
-	public List<NoticeDTO> searchNoticesByMemberCode(int memberCode, String keyword, int offset, int limit) {
-		try (SqlSession session = getSqlSession()) {
-			noticeDAO = session.getMapper(NoticeDAO.class);
-
-			List<NoticeDTO> notice = noticeDAO.searchNoticesByMemberCode(memberCode, keyword, offset, limit);
-
-			return notice;
-		}
-	}
-
-	/**
-	 * 특정 멤버 코드 내의 전체 알림장 수 조회
-	 *
-	 * @param memberCode 멤버 코드
-	 * @return 전체 알림장 수
-	 */
-	public int getTotalNoticeCountByMemberCode(int memberCode) {
-		try (SqlSession session = getSqlSession()) {
-			noticeDAO = session.getMapper(NoticeDAO.class);
-
-			int totalNotices = noticeDAO.getTotalNoticeCountByMemberCode(memberCode);
-
-			return totalNotices;
-		}
-	}
 
 	/**
 	 * 특정 멤버 코드 내의 알림장 목록 조회
@@ -370,7 +312,6 @@ public class NoticeService {
 		}
 	}
 
-	
 	/**
 	 * 특정 반 클래스 코드 내의 알림장 목록 조회
 	 *
@@ -384,7 +325,7 @@ public class NoticeService {
 			noticeDAO = session.getMapper(NoticeDAO.class);
 
 			List<NoticeDTO> notice = noticeDAO.selectNoticeByClassCode(paramMap);
-			System.out.println("sdasdasd"+notice);
+			System.out.println("sdasdasd" + notice);
 
 			return notice;
 		}

@@ -58,7 +58,7 @@
 						</div>
 						<h2 class="title">
 							제목 :<input type="text" name="title" placeholder="제목을 입력하세요."
-								required oninvalid="this.setCustomValidity('제목은 필수항목입니다.')">
+								required oninvalid="this.setCustomValidity('제목은 필수항목입니다.')" />
 						</h2>
 						<div class="content-box">
 							<textarea name="body" id="editor" cols="60" rows="15"
