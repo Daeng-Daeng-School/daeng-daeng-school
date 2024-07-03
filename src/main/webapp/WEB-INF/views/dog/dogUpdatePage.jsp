@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>반려견 정보 수정</title>
+
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/dog.css">
 <style>
@@ -45,6 +46,16 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+
+.delete-btn {
+	position: absolute;
+	border: none;
+	background-color: #fff;
+	color: #b6b6b6;
+	bottom: 300px;
+	font-weight: 600;
+	right: 590px;
+}
 </style>
 </head>
 <body>
@@ -64,39 +75,74 @@
 						<ul>
 							<li><a
 								href="${pageContext.servletContext.contextPath}/dog/insert">등록하기</a></li>
-							<li><a
-								href="${pageContext.servletContext.contextPath}/dog/update"
-								class="current">수정하기</a></li>
 						</ul></li>
 				</ul>
 			</div>
 			<div class="main_contents">
 				<div class="regist-box">
 					<div class="text_1">
-						<h1>반려견 정보 수정</h1>
+						<h1>
+							나의 반려견 정보를 <br> 수정하세요
+						</h1>
 					</div>
-					<form id="update-dog-form"
-						action="${pageContext.servletContext.contextPath}/dog/processUpdate"
+					<form id="UpdateDogForm" class="UpdateDogForm"
+						action="${pageContext.servletContext.contextPath}/dog/update"
 						method="post">
-						<input type="hidden" name="dogCode" value="${dog.dogCode}">
+						<input type="hidden" name="dogCode" value="${dogDTO.dogCode}"
+							placeholder="이름">
 						<!-- 수정할 강아지 코드를 숨은 필드로 전달 -->
-						<label for="dogName">이름:</label> <input type="text" id="dogName"
-							name="dogName" value="${dog.dogName}" required> <label
-							for="dogBreed">품종:</label> <input type="text" id="dogBreed"
-							name="dogBreed" value="${dog.dogBreed}" required> <label
-							for="dogGender">성별:</label> <select id="dogGender"
-							name="dogGender" required>
-							<option value="수컷" ${dog.gender == '수컷' ? 'selected' : ''}>수컷</option>
-							<option value="암컷" ${dog.gender == '암컷' ? 'selected' : ''}>암컷</option>
-						</select> <label for="birthdate">생년월일:</label> <input type="date"
-							id="birthdate" name="birthdate" value="${dog.birth}"> <label
-							for="chipNo">인식번호:</label> <input type="text" id="chipNo"
-							name="chipNo" value="${dog.chipNo}"> <label for="weight">체중
-							(kg):</label> <input type="number" id="weight" name="weight"
-							value="${dog.weight}"> <label for="notes">특이사항:</label> <input
-							id="notes" name="notes" value="${dog.notes}">
-						<button type="submit">수정완료</button>
-						<button type="button" id="delete-button">삭제하기</button>
+						<div class="input_box">
+							<label for="dogName"><input type="text" id="dogName"
+								name="dogName" class="input_box_radius"
+								value="${dogDTO.dogName}"></label>
+						</div>
+						<div class="selectBox">
+							<label for="dogClass" style="margin-left: 20px;">강아지반</label> <select
+								id="dogClass" name="dogClass" class="dogClass">
+								<option value="1" ${dogDTO.classCode == 1 ? 'selected' : ''}>오전반</option>
+								<option value="2" ${dogDTO.classCode == 2 ? 'selected' : ''}>오후반</option>
+								<option value="3" ${dogDTO.classCode == 3 ? 'selected' : ''}>종일반</option>
+							</select>
+						</div>
+						<div class="checkBox">
+							<label for="gender" style="margin-left: 10px;">성별</label> <input
+								id="male" type="radio" name="gender" value="M"
+								style="margin-left: 85px;"
+								${dogDTO.gender == 'M' ? 'checked' : ''}> <label
+								for="male">수컷</label> <input id="female" type="radio"
+								name="gender" value="F" style="margin-left: 85px;"
+								${dogDTO.gender == 'F' ? 'checked' : ''}> <label
+								for="female">암컷</label>
+						</div>
+						<div class="input_box">
+							<label for="dogBreed"></label> <input type="text" id="dogBreed"
+								name="dogBreed" class="dogBreed" value="${dogDTO.dogBreed}"
+								placeholder="품종">
+						</div>
+						<div class="input_box">
+							<label for="birthdate"></label> <input type="date" id="birthdate"
+								name="birthdate" class="birthdate"
+								value="${dogDTO.birth}">
+						</div>
+						<div class="input_box">
+							<label for="chipNo"></label> <input type="text" id="chipNo"
+								name="chipNo" class="input_box" value="${dogDTO.chipNo}"
+								placeholder="동물인식번호">
+						</div>
+						<div class="input_box">
+							<label for="weight"></label> <input type="number" id="weight"
+								name="weight" step="0.01" class="input_box"
+								value="${dogDTO.weight}" placeholder="몸무게(kg)">
+						</div>
+						<div class="input_box">
+							<label for="notes"></label> <input type="text" id="notes"
+								name="notes" class="input_box_radius2"
+								value="${dogDTO.notes}" placeholder="특이사항">
+						</div>
+						<div class="input_box">
+							<button type="submit" id="submitBtn" class="Update-btn">수정
+								완료</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -112,26 +158,64 @@
 			<button id="cancel-delete">취소</button>
 		</div>
 	</div>
-
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</script>
 	<script>
-		// 삭제 모달 띄우기
+		// 수정하기 버튼 클릭시 
+		/* $("#submitBtn").click(function(){
+			var dogName = $("#dogName");
+	        var dogClass = $("#dogClass");
+	        var gender = $('input[name="gender"]:checked');
+	        var dogBreed = $("#dogBreed");
+	        var birthdate = $("#birthdate");
+	        var chipNo = $("#hipNo");
+	        var weight = $("weight");
+	        var notes = $("notes");
+	        
+	        var updatedDate ={
+	                dogCode: "${requestDog.dogCode}",
+	        		dogName: $("#dogName").val(),
+	        		dogClass: $("#dogClass").val(),
+	        		gender: $('input[name="gender"]:checked').val(),
+	        		dogBreed: $("#dogBreed").val(),
+	        		birthdate: $("#birthdate").val(),
+	        		chipNo: $("#chipNo").val(),
+	        		weight: $("#weight").val(),
+	        		notes: $("#notes").val()
+	        };
+			
+	        $.ajax({
+	        	url: '${pageContext.servletContext.contextPath}/dog/update',
+	        	type: 'POST',
+	        	data: updatedDate,
+	        	success: function(response) {
+					if(response.status === 'success'){
+						alert("강아지 정보가 성공적으로 수정되었습니다.");
+						
+						//Dom 업데이트 
+						 $("#dogName").val(updatedDate.dogName);
+		                 $("#dogClass").val(updatedDate.dogClass);
+	                     $('input[name="gender"][value="' + updatedDate.gender + '"]').prop('checked', true);
+		                 $("#dogBreed").val(updatedDate.dogBreed);
+		                 $("#birthdate").val(updatedDate.birthdate);
+		                 $("#chipNo").val(updatedDate.chipNo);
+		                 $("#weight").val(updatedDate.weight);
+		                 $("#notes").val(updatedDate.notes);
+						
+					}else{
+						alert("강아지 정보 수정에 실패했습니다.");
+					}
+				},
+				error: function() {
+					alert("서버 오류가 발생했습니다. 다시 시동해주세요.")
+				}
+	        })
+	        
+						
+		}); */
 		
-		var deleteButton = document.getElementById('delete-button');
-		var deleteModal = document.getElementById('delete-modal');
-		var closeModal = document.getElementById('close-modal');
-		var cancelDeleteButton = document.getElementById('cancel-delete');
 
-		deleteButton.addEventListener('click', function() {
-			deleteModal.style.display = 'block';
-		});
-
-		closeModal.addEventListener('click', function() {
-			deleteModal.style.display = 'none';
-		});
-
-		cancelDeleteButton.addEventListener('click', function() {
-			deleteModal.style.display = 'none';
-		});
 	</script>
 
 	<%@ include file="../common/footer.jsp"%>

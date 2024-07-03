@@ -76,13 +76,32 @@
 		, D.NOTES
 		FROM
 		TBL_DOG D
-		WHERE D.MEMBER_CODE= #{memberCode}
+		WHERE D.MEMBER_CODE= #{memberCode} AND status = 0
+		</select>
+	
+		<select id="selectDogByDogCode" parameterType="int"
+		resultMap="DogResultMap">
+		SELECT
+		D.DOG_CODE
+		, D.MEMBER_CODE
+		, D.CLASS_CODE
+		, D.DOG_NAME
+		,
+		D.GENDER
+		, D.BIRTH
+		, D.DOG_BREED
+		, D.WEIGHT
+		, D.CHIP_NO
+		, D.NOTES
+		FROM
+		TBL_DOG D
+		WHERE D.DOG_CODE= #{dogCode}
 	</select>
 
 	<!-- 강아지 정보 수정 -->
 	<update id="updateDog"
 		parameterType="com.ddschool.project.dog.model.dto.DogDTO">
-		UPDATE dogs
+		UPDATE tbl_dog
 		SET member_code = #{memberCode}
 		, class_code =
 		#{classCode}
@@ -105,10 +124,11 @@
 
 	<!-- 강아지 정보 삭제(가짜삭제) -->
 	<update id="deleteDog" parameterType="int">
-	UPDATE dogs
-	SET status = 'N'
-	WHERE dog_code = #{dogCode}
+		UPDATE tbl_dog
+		SET status = TRUE  
+		WHERE dog_code = #{dogCode}
 	</update>
+
 	
 	<!-- 클래스코드에 따라 강아지 조회 -->
 	<select id="selectDogsByClassCode" parameterType="int" resultMap="DogResultMap">
@@ -133,4 +153,5 @@
 	<select id="selectDogsAllList" resultMap="DogResultMap">
 		SELECT * FROM TBL_DOG
 	</select>
+  
 </mapper>
