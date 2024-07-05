@@ -28,8 +28,6 @@
 						<ul>
 							<li><a
 								href="${pageContext.servletContext.contextPath}/dog/insert">등록하기</a></li>
-							<li><a
-								href="${pageContext.servletContext.contextPath}/dog/update">수정하기</a></li>
 						</ul></li>
 				</ul>
 			</div>
