@@ -40,13 +40,6 @@ public class DogService {
 		dogDAO = session.getMapper(DogDAO.class);
 
 		List<DogDTO> dogs = dogDAO.selectDogsByMemberCode(memberCode);
-
-
-		
-		SqlSession session = getSqlSession();
-		dogDAO = session.getMapper(DogDAO.class);
-		
-		List<DogDTO> dogs = dogDAO.selectDogsByMemberCode(memberCode);
 		
 		session.close();
 		return dogs;
@@ -133,4 +126,16 @@ public class DogService {
 		return result;
 	}
 
+	// dogId 로 memberId 찾기
+	public int getMemberIdByDogCode(int dogCode) {
+		
+		SqlSession session = getSqlSession();
+		dogDAO = session.getMapper(DogDAO.class);
+		
+		int memberId = dogDAO.getMemberIdByDogCode(dogCode);
+		
+		session.close();
+		return memberId;
+	}
 }
+

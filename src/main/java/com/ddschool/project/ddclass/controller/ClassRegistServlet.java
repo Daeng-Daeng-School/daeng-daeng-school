@@ -16,13 +16,9 @@ public class ClassRegistServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		System.out.println("반 등록하러 서블릿 도착!");
-	
 		String className = request.getParameter("className");
-		System.out.println("서블릿에서 신규반명 확인 : " + className);
 		
 		int result = new ClassService().insertClass(className);
-		System.out.println("서블릿에서 신규반 등록 성공여부 확인! : " + result);
 		
 		response.setContentType("application/json");
         PrintWriter out = response.getWriter();

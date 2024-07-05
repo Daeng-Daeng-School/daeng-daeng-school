@@ -18,7 +18,6 @@ public class MemberCheckIdServlet extends HttpServlet {
 		// 있는 아이디인지 확인 로직
 		String memberId = request.getParameter("memberId");
 		boolean exists = new MemberService().isMemberIdExists(memberId);
-		System.out.println("아이디 존재 여부 : " + exists);
 		
 		// ajax 로 보내줄 응답 구성
 		response.setContentType("application/json");

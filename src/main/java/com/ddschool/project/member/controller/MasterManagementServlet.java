@@ -60,12 +60,9 @@ public class MasterManagementServlet extends HttpServlet {
 		
 		// 이곳에서 선생님 목록을 조회하여 화면으로 전달
 		List<MemberDTO> teacherList = new MemberService().selectTeacherList(page, pageSize, sortOrder, classFilter, startDate, endDate);
-		System.out.println("서블릿에서 선생님 목록 출력: " + teacherList);
 		
 		int totalTeachers = new MemberService().getTeacherCount(classFilter, startDate, endDate); // 전체 항목 수
-		System.out.println(totalTeachers);
 		int totalPages = (int) Math.ceil(totalTeachers / pageSize) + 1; // 총 몇 페이지가 필요한지 계산 (ceil : 소수점 -> 정수)
-		System.out.println(totalPages);
 		
 		// request 에 선생님 리스트 담기
 		request.setAttribute("teacherList", teacherList);

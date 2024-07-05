@@ -24,9 +24,6 @@
 
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-        
-        
-        
         var calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
                 left: 'prev,next',
@@ -43,13 +40,22 @@
                     var formattedYearMonth = yearMonth.toISOString().slice(0, 7); 
                     loadDogCalendar(dogCode, formattedYearMonth);
                 }
+            },
+            dateClick: function(info) {
+                var dogCode = $('#dogSelect').val();
+                if (dogCode) {
+                    $('#modal').show();
+                    $('#modal-date').val(info.dateStr);
+                    $('#modal-dog-code').val(dogCode);
+                } else {
+                    alert("강아지를 선택해주세요.");
+                }
             }
         });
         calendar.render();
        
      	// 강아지 선택 시 호출되는 함수
         window.loadDogCalendar = function (dogCode, yearMonth) {
-        	
             if (!dogCode) {
                 calendar.removeAllEvents(); // 강아지 선택 해제 시 이벤트 모두 제거
                 return;
@@ -80,6 +86,55 @@
                 }
             });
         };
+        
+        // 출석 기록 모달창
+        $('#modal-save').on('click', function() {
+            var dogCode = $('#modal-dog-code').val();
+            var checkDate = $('#modal-date').val();
+            var checkStatus = $('#modal-status').val();
+
+            $.ajax({
+                url: '${pageContext.servletContext.contextPath}/classbook/regist',
+                type: 'POST',
+                data: { dogCode: dogCode, checkDate: checkDate, checkStatus: checkStatus },
+                success: function(response) {
+                    alert("출석 기록이 추가되었습니다.");
+                    $('#modal').hide();
+                    var yearMonth = checkDate.slice(0, 7);
+                    loadDogCalendar(dogCode, yearMonth);
+                },
+                error: function(error) {
+                    console.error('Error adding attendance record:', error);
+                    alert("출석 기록 추가 중 오류가 발생했습니다.");
+                }
+            });
+        });
+
+        $('.close').on('click', function() {
+            $('#modal').hide();
+        });
+        
+    	 // 출석 기록 모달창_저장
+        $('#modal-reset').on('click', function() {
+            var dogCode = $('#modal-dog-code').val();
+            var checkDate = $('#modal-date').val();
+
+            $.ajax({
+                url: '${pageContext.servletContext.contextPath}/classbook/delete',
+                type: 'POST',
+                data: { dogCode: dogCode, checkDate: checkDate},
+                success: function(response) {
+                    alert("출석 기록이 삭제되었습니다.");
+                    $('#modal').hide();
+                    var yearMonth = checkDate.slice(0, 7);
+                    loadDogCalendar(dogCode, yearMonth);
+                },
+                error: function(error) {
+                    console.error('Error adding attendance record:', error);
+                    alert("출석 기록 삭제 중 오류가 발생했습니다.");
+                }
+            });
+        });
 
      	// 첫 번째 강아지를 자동으로 선택
         var firstDogOption = $('#dogSelect option:eq(1)'); // 첫 번째 강아지 옵션
@@ -141,5 +196,25 @@
   </div>
   
     <div id='calendar'></div>
+    
+    <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>출석 정보 등록/수정</h2>
+        <form id="attendanceForm">
+            <input type="hidden" id="modal-dog-code">
+            <label for="modal-date">날짜:</label>
+            <input type="text" id="modal-date" readonly><br><br>
+            <label for="modal-status">출석 여부:</label>
+            <select id="modal-status">
+                <option value="Y">출석</option>
+                <option value="N">결석</option>
+            </select><br><br>
+            <button type="button" id="modal-save">저장</button>
+            <button type="button" id="modal-reset">초기화</button>
+        </form>
+    </div>
+	</div>
+	
   </body>
 </html>

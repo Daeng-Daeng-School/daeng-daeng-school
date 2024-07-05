@@ -19,4 +19,8 @@ public interface ClassbookDAO {
 
 	List<ClassbookDTO> getAttendanceByDogCode(@Param("dogCode") int dogCode, @Param("yearMonth") String yearMonth);
 
+	int insertAttendanceRecord(ClassbookDTO classbookDTO);
+
+	int deleteAttendanceRecord(@Param("dogCode") int dogCode, @Param("checkDate") String checkDate);
+
 }

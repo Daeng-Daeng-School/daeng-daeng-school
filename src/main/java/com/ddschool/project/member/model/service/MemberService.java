@@ -45,7 +45,6 @@ public class MemberService {
 		
 		// db 에 request 정보 전달해서 비밀번호 얻어오기
 		String encPwd = memberDAO.selectEncryptedPwd(requestMember.getMemberId());
-		System.out.println("[memberService] 디비에 저장된 암호화 encPwd : " + encPwd);
 		
 		// 복호화하기 위해 BCryptPasswordEncoder 생성
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -53,7 +52,6 @@ public class MemberService {
 		// 로그인 요청 비밀번호와 디비에 저장된 비밀번호가 같은지 확인
 		if(passwordEncoder.matches(requestMember.getMemberPwd(), encPwd)) {
 			loginMember = memberDAO.selectLoginMember(requestMember);
-			System.out.println(loginMember);
 		}
 		
 		session.close();
@@ -63,7 +61,6 @@ public class MemberService {
 
 	// 회원정보 수정
 	public int updateMember(int requestMemberCode, String changePhone, String changeAddress) {
-		System.out.println("서비스에서 회원정보 수정 시작!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
@@ -83,7 +80,6 @@ public class MemberService {
 
 	// 회원탈퇴
 	public int deleteMember(int deleteMemberCode, boolean deleteMemberSatus) {
-		System.out.println("서비스에서 회원탈퇴 시작!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
@@ -102,7 +98,6 @@ public class MemberService {
 
 	// 선생님목록 조회
 	public List<MemberDTO> selectTeacherList(int page, int pageSize, String sortOrder, String classFilter, String startDate, String endDate) {
-		System.out.println("서비스에서 선생님 목록조회 시작!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
@@ -136,7 +131,6 @@ public class MemberService {
 
 	// 아이디 중복체크
 	public boolean isMemberIdExists(String memberId) {
-		System.out.println("서비스에서 아이디 중복체크 조회!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
@@ -149,7 +143,6 @@ public class MemberService {
 
 	// 선생님 1명 정보 조회
 	public MemberDTO selectTeacherInfo(String memberId) {
-		System.out.println("서비스에서 선생님 정보 조회!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
@@ -163,7 +156,6 @@ public class MemberService {
 
 	// 선생님 1명 정보 수정
 	public int updateTeacher(int requestMemberCode, String changePhone, String changeAddress, Integer changeClassCode) {
-		System.out.println("서비스에서 선생님 정보 수정 시작!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);
@@ -182,7 +174,6 @@ public class MemberService {
 
 	// 선생님 활성화
 	public int rejoinMember(String memberId) {
-		System.out.println("서비스에서 선생님 활성화 시작!");
 		
 		SqlSession session = getSqlSession();
 		memberDAO = session.getMapper(MemberDAO.class);

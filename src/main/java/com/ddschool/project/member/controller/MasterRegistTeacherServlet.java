@@ -21,10 +21,8 @@ public class MasterRegistTeacherServlet extends HttpServlet {
 		// class 정보를 가져와서 함께 넘겨준다
 		List<ClassDTO> classList = new ClassService().getClassList();
 		request.setAttribute("classList", classList);
-		System.out.println(classList);
 		
 		request.getRequestDispatcher("/WEB-INF/views/member/masterRegistTeacher.jsp").forward(request, response);
-	
 	}
 
 	// 선생님 등록
@@ -49,7 +47,6 @@ public class MasterRegistTeacherServlet extends HttpServlet {
 		registMember.setAddress(address);
 		registMember.setClassCode(classCode);
 		registMember.setRoleCode(2);
-		System.out.println(registMember);
 				
 		// MemberService 호출해 db 저장하여 가입 처리 후 성공여부 반환
 		int result = new MemberService().registMember(registMember);

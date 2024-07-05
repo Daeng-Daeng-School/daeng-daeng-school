@@ -18,13 +18,11 @@ public class MemberDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		String memberId = request.getParameter("memberId");
-		System.out.println("서블릿에서 확인한 memberId 쿼리스트링은 : " + memberId);
 		MemberDTO deleteMember = null;
 		
 		// 만약 memberId 가 넘어온게 있다면 그아이디의 선생님 탈퇴진행
 		if (memberId != null && !memberId.isEmpty()) {
 			deleteMember = new MemberService().selectTeacherInfo(memberId);
-			System.out.println("선생님 탈퇴 진행할게!");
 			
 		// 아니라면 세션 정보의 로그인 회원을 탈퇴진행	
         } else {
